@@ -1,0 +1,27 @@
+[{
+    "companyName": "Reliance Industries",
+    "ticker": "RELIANCE",
+    "logoUrl": "/logo/RELIANCE.png",
+    "buyDate": "10/10/2024",
+    "quantity": 2,
+    "buyPrice": "₹ 1,000.00",
+    "holdingPeriod": "462 Days",
+    "absReturns": "+24.5%",
+    "cagr": "18.2%",
+    "broker": "Zerodha",
+    "mcapRank": "#1"
+},
+{
+        "companyName": "HDFC Bank",
+        "ticker": "HDFCBANK",
+        "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HDFC_Bank_Logo.svg/2560px-HDFC_Bank_Logo.svg.png",
+        "buyDate": "12/11/2024",
+        "quantity": 5,
+        "buyPrice": "₹ 1,500.00",
+        "holdingPeriod": "430 Days",
+        "absReturns": "-5.2%",
+        "cagr": "N/A",
+        "broker": "Upstox",
+        "mcapRank": "#3"
+}
+]
