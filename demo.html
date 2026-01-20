@@ -26,7 +26,7 @@
         /* Container for Card + Sidebar */
         .page-wrapper {
             display: flex;
-            align-items: center;
+            align-items: center; /* Vertically center on desktop */
             justify-content: center;
             gap: 20px;
             width: 100%;
@@ -108,7 +108,7 @@
         .item {
             flex: 1;
             padding: 16px 8px;
-            min-width: 0; /* Prevents flex items from overflowing */
+            min-width: 0;
         }
 
         .item label {
@@ -132,7 +132,7 @@
             object-fit: contain;
         }
 
-        /* Navigation Buttons (Desktop) */
+        /* Navigation Buttons */
         .nav-sidebar {
             display: flex;
             flex-direction: column;
@@ -176,32 +176,34 @@
         /* --- MOBILE STYLES --- */
         @media (max-width: 600px) {
             .page-wrapper {
-                padding: 15px;
+                padding: 40px 15px; /* Added more top padding */
                 flex-direction: column;
+                align-items: center;
+                justify-content: flex-start; /* Push content to top */
             }
 
             .card {
-                padding: 20px;
-                margin-bottom: 80px; /* Space so card isn't hidden by buttons */
+                padding: 24px 20px;
+                /* No bottom margin needed as we use flex-start */
             }
 
             .nav-sidebar {
                 position: fixed;
-                bottom: 25px;
-                right: 25px;
+                bottom: 30px; /* Distance from bottom */
+                right: 25px;  /* Distance from right */
                 flex-direction: column;
                 gap: 12px;
                 z-index: 9999;
             }
 
             .nav-btn {
-                width: 55px; /* Slightly larger for thumb-tapping */
-                height: 55px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                width: 52px;
+                height: 52px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             }
 
             .item .value {
-                font-size: 13px;
+                font-size: 14px;
             }
         }
     </style>
@@ -246,11 +248,9 @@
                     return;
                 }
 
-                // Color Logic
                 const pnlClass = stock.profitLoss.includes('-') ? 'class="value negative"' : 'class="value positive"';
                 const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
                 
-                // Broker Image Path
                 const sanitizedBroker = stock.broker.toLowerCase().replace(/\s+/g, '-');
                 const brokerLogoPath = `logos/broker/${sanitizedBroker}.png`;
                 const basePath = stock.logoUrl;
