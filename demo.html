@@ -327,13 +327,20 @@
         }
 
         function handleImageError(image, basePath) {
-            if (image.src.endsWith('.png')) {
-                image.src = basePath + '.jpg';
-            } else {
-                image.src = 'https://via.placeholder.com/150?text=No+Logo';
-                image.onerror = null; 
-            }
+        // Check what the current source ends with to determine the next fallback
+        if (image.src.endsWith('.png')) {
+            image.src = basePath + '.jpg';
+        } else if (image.src.endsWith('.jpg')) {
+            image.src = basePath + '.gif';
+        } else if (image.src.endsWith('.gif')) {
+            // Final fallback: generic placeholder
+            image.src = 'https://via.placeholder.com/150?text=No+Logo';
+            image.onerror = null; // Prevent infinite loops if placeholder fails
+        } else {
+            image.src = 'https://via.placeholder.com/150?text=No+Logo';
+            image.onerror = null;
         }
+    }
 
         async function navigate(direction) {
             try {
