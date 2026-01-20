@@ -17128,12 +17128,12 @@
     "buyDate": "06/08/2025",
     "quantity": 1,
     "buyPrice": "₹ 800.00",
-    "holdingPeriod": 0.250625,
-    "profitLoss": "₹ 200.50",
-    "absReturns": 1.250625,
+    "holdingPeriod": 0.25,
+    "profitLoss": "₹ 200.00",
+    "absReturns": 1.25,
     "cagr": "0 years 5 months",
     "broker": "Paytm Money",
-    "mcapRank": "#0.6303610619993372"
+    "mcapRank": "#0.6285807979555709"
   },
   {
     "companyName": "TATA GOLD",
@@ -17436,12 +17436,12 @@
     "buyDate": "10/10/2024",
     "quantity": 1,
     "buyPrice": "₹ 135.92",
-    "holdingPeriod": -0.19842554443790456,
-    "profitLoss": "₹ -26.97",
-    "absReturns": 0.8015744555620955,
+    "holdingPeriod": -0.2201294879340788,
+    "profitLoss": "₹ -29.92",
+    "absReturns": 0.7798705120659212,
     "cagr": "1 years 3 months",
     "broker": "Paytm Money",
-    "mcapRank": "#-0.15875206971263023"
+    "mcapRank": "#-0.17660836559923943"
   },
   {
     "companyName": "ABSL Nifty Healthcare",
@@ -17464,12 +17464,12 @@
     "buyDate": "06/12/2024",
     "quantity": 1,
     "buyPrice": "₹ 143.03",
-    "holdingPeriod": -0.18408725442214918,
-    "profitLoss": "₹ -26.33",
-    "absReturns": 0.8159127455778508,
+    "holdingPeriod": -0.1896804866112004,
+    "profitLoss": "₹ -27.13",
+    "absReturns": 0.8103195133887996,
     "cagr": "1 years 1 months",
     "broker": "Paytm Money",
-    "mcapRank": "#-0.16566327916276558"
+    "mcapRank": "#-0.17075697798937706"
   },
   {
     "companyName": "Future Consumer",
@@ -17534,12 +17534,12 @@
     "buyDate": "10/10/2024",
     "quantity": 10,
     "buyPrice": "₹ 392.58",
-    "holdingPeriod": -0.5450608793112232,
-    "profitLoss": "₹ -213.98",
-    "absReturns": 0.4549391206887768,
+    "holdingPeriod": -0.5478628559783993,
+    "profitLoss": "₹ -215.08",
+    "absReturns": 0.4521371440216007,
     "cagr": "1 years 3 months",
     "broker": "Paytm Money",
-    "mcapRank": "#-0.4596669154125437"
+    "mcapRank": "#-0.4622697197441993"
   },
   {
     "companyName": "KSH International",
