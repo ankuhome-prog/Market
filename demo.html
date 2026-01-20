@@ -1,126 +1,214 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <style>
-            :root {
-                --primary-gold: #c1a35f;
-                --text-main: #2d3436;
-                --text-light: #636e72;
-                --bg-card: #ffffff;
-                --bg-soft: #f8f9fa;
-                --border-color: #edf2f7;
-            }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Portfolio Card</title>
+    <style>
+        :root {
+            --primary-gold: #c1a35f;
+            --text-main: #2d3436;
+            --text-light: #636e72;
+            --bg-card: #ffffff;
+            --bg-soft: #f8f9fa;
+            --border-color: #edf2f7;
+        }
 
-            body {
-                background-color: #f0f2f5;
-                font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-                display: flex;
-                justify-content: center;
-                padding-top: 30px;
-                padding-bottom: 30px;
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Container for Card + Sidebar */
+        .page-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-box img {
+            max-height: 120px;
+            max-width: 100%;
+            margin-bottom: 12px;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: var(--text-main);
+            font-size: clamp(22px, 5vw, 28px);
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .ticker-badge {
+            display: inline-block;
+            background: var(--bg-soft);
+            color: var(--text-light);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Information Grid */
+        .info-table {
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .table-caption {
+            background: var(--bg-soft);
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .grid-row {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-row {
+            border-bottom: none;
+            background-color: #fafbfc;
+            align-items: center; 
+        }
+
+        .item {
+            flex: 1;
+            padding: 16px 8px;
+            min-width: 0; /* Prevents flex items from overflowing */
+        }
+
+        .item label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .broker-banner {
+            max-height: 22px;
+            max-width: 100%;
+            display: block;
+            margin-top: 2px;
+            object-fit: contain;
+        }
+
+        /* Navigation Buttons (Desktop) */
+        .nav-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-soft);
+            transform: scale(1.1);
+        }
+
+        .nav-btn img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        /* Utility Classes */
+        .center { text-align: center; }
+        .right { text-align: right; }
+        .positive { color: #27ae60 !important; }
+        .negative { color: #e74c3c !important; }
+        .highlight { color: var(--primary-gold); }
+
+        /* --- MOBILE STYLES --- */
+        @media (max-width: 600px) {
+            .page-wrapper {
+                padding: 15px;
+                flex-direction: column;
             }
 
             .card {
-                background: var(--bg-card);
-                width: 500px;
-                border-radius: 24px;
-                padding: 32px;
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+                padding: 20px;
+                margin-bottom: 80px; /* Space so card isn't hidden by buttons */
             }
 
-            .card-header {
-                text-align: center;
-                margin-bottom: 30px;
+            .nav-sidebar {
+                position: fixed;
+                bottom: 25px;
+                right: 25px;
+                flex-direction: column;
+                gap: 12px;
+                z-index: 9999;
             }
 
-            .logo-box img {
-                max-height: 150px;
-                max-width: 400px;               
-                margin-bottom: 12px;
-            }
-
-            h1 {
-                color: var(--text-main);
-                font-size: 28px;
-                margin: 0;
-                letter-spacing: -0.5px;
-            }
-
-            .ticker-badge {
-                display: inline-block;
-                background: var(--bg-soft);
-                color: var(--text-light);
-                padding: 4px 12px;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: 600;
-                margin-top: 8px;
-            }
-
-            .info-table {
-                border: 1px solid var(--border-color);
-                border-radius: 16px;
-                overflow: hidden;
-            }
-
-            .table-caption {
-                background: var(--bg-soft);
-                padding: 12px;
-                text-align: center;
-                font-size: 13px;
-                font-weight: 700;
-                color: var(--text-light);
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .grid-row {
-                display: flex;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .footer-row {
-                border-bottom: none;
-                background-color: #fafbfc;
-                align-items: center; 
-            }
-
-            .item {
-                flex: 1;
-                padding: 16px;
-            }
-
-            .item label {
-                display: block;
-                font-size: 12px;
-                color: var(--text-light);
-                margin-bottom: 4px;
+            .nav-btn {
+                width: 55px; /* Slightly larger for thumb-tapping */
+                height: 55px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             }
 
             .item .value {
-                font-size: 15px;
-                font-weight: 600;
-                color: var(--text-main);
+                font-size: 13px;
             }
+        }
+    </style>
+</head>
+<body>
 
-            .broker-banner {
-                max-height: 25px;
-                max-width: 100%;
-                display: block;
-                margin-top: 2px;
-                object-fit: contain;
-            }
-
-            .center { text-align: center; }
-            .right { text-align: right; }
-
-            .positive { color: #27ae60 !important; }
-            .negative { color: #e74c3c !important; }
-            .highlight { color: var(--primary-gold); }
-        </style>
-    </head>
-    <body>
+    <div class="page-wrapper">
         <div class="card">
             <div id="main-container" class="card-content">
                 <div class="card-header">
@@ -129,118 +217,166 @@
             </div>
         </div>
 
-        <script>
-            async function displayStockByTicker(tickerSymbol) {
-                try {
-                    const response = await fetch('stock-data.json');
-                    const stocks = await response.json();
-                    const container = document.getElementById('main-container');
+        <div class="nav-sidebar">
+            <button class="nav-btn" title="Next" onclick="navigate('next')">
+                <img src="logos/icons/next.png" alt="Next">
+            </button>
 
-                    const stock = stocks.find(s => s.ticker.toUpperCase() === tickerSymbol.toUpperCase());
+            <button class="nav-btn" title="Previous" onclick="navigate('prev')">
+                <img src="logos/icons/prev.png" alt="Prev">
+            </button>
 
-                    if (!stock) {
-                        container.innerHTML = `<p style="text-align:center;">Ticker "${tickerSymbol}" not found.</p>`;
-                        return;
-                    }
+            <a href="index.html" class="nav-btn" title="Home">
+                <img src="logos/icons/home.png" alt="Home">
+            </a>
+        </div>
+    </div>
 
-                    // 1. Color Logic (P&L and CAGR only)
-                    const pnlClass = stock.profitLoss.includes('-') ? 'class="value negative"' : 'class="value positive"';
-                    const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
-                    
-                    // 2. Broker Image Path Fix
-                    // Converts "Paytm Money" to "paytm-money" and "HDFC Sky" to "hdfc-sky"
-                    const sanitizedBroker = stock.broker.toLowerCase().replace(/\s+/g, '-');
-                    const brokerLogoPath = `logos/broker/${sanitizedBroker}.png`;
+    <script>
+        async function displayStockByTicker(tickerSymbol) {
+            try {
+                const response = await fetch('stock-data.json');
+                const stocks = await response.json();
+                const container = document.getElementById('main-container');
 
-                    const basePath = stock.logoUrl;
+                const stock = stocks.find(s => s.ticker.toUpperCase() === tickerSymbol.toUpperCase());
 
-                    container.innerHTML = `
-                        <div class="card-header">
+                if (!stock) {
+                    container.innerHTML = `<p style="text-align:center;">Ticker "${tickerSymbol}" not found.</p>`;
+                    return;
+                }
+
+                // Color Logic
+                const pnlClass = stock.profitLoss.includes('-') ? 'class="value negative"' : 'class="value positive"';
+                const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
+                
+                // Broker Image Path
+                const sanitizedBroker = stock.broker.toLowerCase().replace(/\s+/g, '-');
+                const brokerLogoPath = `logos/broker/${sanitizedBroker}.png`;
+                const basePath = stock.logoUrl;
+
+                container.innerHTML = `
+                    <div class="card-header">
                         <div class="logo-box">
                             <img src="${basePath}.png" 
-                                alt="${stock.companyName} Logo" 
-                                onerror="handleImageError(this, '${basePath}')">
+                                 alt="${stock.companyName} Logo" 
+                                 onerror="handleImageError(this, '${basePath}')">
                         </div>
-                            <div class="title-section">
-                                <h1>${stock.companyName}</h1>
-                                <p class="ticker-badge">${stock.ticker}</p>
+                        <div class="title-section">
+                            <h1>${stock.companyName}</h1>
+                            <p class="ticker-badge">${stock.ticker}</p>
+                        </div>
+                    </div>
+
+                    <div class="info-table">
+                        <div class="table-caption">Holding Details</div>
+                        <div class="grid-row">
+                            <div class="item">
+                                <label>Buy Date</label>
+                                <div class="value">${stock.buyDate}</div>
+                            </div>
+                            <div class="item center">
+                                <label>Quantity</label>
+                                <div class="value highlight">${stock.quantity}</div>
+                            </div>
+                            <div class="item right">
+                                <label>Buy Price</label>
+                                <div class="value">${stock.buyPrice}</div>
                             </div>
                         </div>
 
-                        <div class="info-table">
-                            <div class="table-caption">Holding Details</div>
-                            <div class="grid-row">
-                                <div class="item">
-                                    <label>Buy Date</label>
-                                    <div class="value">${stock.buyDate}</div>
-                                </div>
-                                <div class="item center">
-                                    <label>Quantity</label>
-                                    <div class="value highlight">${stock.quantity}</div>
-                                </div>
-                                <div class="item right">
-                                    <label>Buy Price</label>
-                                    <div class="value">${stock.buyPrice}</div>
-                                </div>
+                        <div class="grid-row">
+                            <div class="item">
+                                <label>Abs. Returns</label>
+                                <div class="value">${stock.absReturns}</div>
                             </div>
-
-                            <div class="grid-row">
-                                <div class="item">
-                                    <label>Abs. Returns</label>
-                                    <div class="value">${stock.absReturns}</div>
-                                </div>
-                                <div class="item center">
-                                    <label>Profit/Loss</label>
-                                    <div ${pnlClass}>${stock.profitLoss}</div>
-                                </div>
-                                <div class="item right">
-                                    <label>CAGR</label>
-                                    <div ${cagrClass}>${stock.cagr}</div>
-                                </div>
+                            <div class="item center">
+                                <label>Profit/Loss</label>
+                                <div ${pnlClass}>${stock.profitLoss}</div>
                             </div>
-
-                            <div class="grid-row footer-row">
-                                <div class="item">
-                                    <label>Broker</label>
-                                    <img src="${brokerLogoPath}" 
-                                         alt="${stock.broker}" 
-                                         class="broker-banner"
-                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                    <div class="value" style="display:none;">${stock.broker}</div>
-                                </div>
-                                <div class="item center">
-                                    <label>Holding Period</label>
-                                    <div class="value">${stock.holdingPeriod}</div>
-                                </div>
-                                <div class="item right">
-                                    <label>MCAP Rank</label>
-                                    <div class="value">${stock.mcapRank}</div>
-                                </div>
+                            <div class="item right">
+                                <label>CAGR</label>
+                                <div ${cagrClass}>${stock.cagr}</div>
                             </div>
                         </div>
-                    `;
-                } catch (error) {
-                    console.error("Error:", error);
-                    document.getElementById('main-container').innerHTML = `<p style="text-align:center;">Error loading data.</p>`;
-                }
+
+                        <div class="grid-row footer-row">
+                            <div class="item">
+                                <label>Broker</label>
+                                <img src="${brokerLogoPath}" 
+                                     alt="${stock.broker}" 
+                                     class="broker-banner"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="value" style="display:none;">${stock.broker}</div>
+                            </div>
+                            <div class="item center">
+                                <label>Period</label>
+                                <div class="value">${stock.holdingPeriod}</div>
+                            </div>
+                            <div class="item right">
+                                <label>MCAP Rank</label>
+                                <div class="value">${stock.mcapRank}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('main-container').innerHTML = `<p style="text-align:center;">Error loading data.</p>`;
             }
-            function handleImageError(image, basePath) {
-            // If the failed source was the .png, try the .jpg
+        }
+
+        function handleImageError(image, basePath) {
             if (image.src.endsWith('.png')) {
                 image.src = basePath + '.jpg';
-            } 
-            // If the .jpg also failed (or it wasn't a .png), show placeholder
-            else {
+            } else {
                 image.src = 'https://via.placeholder.com/150?text=No+Logo';
-                image.onerror = null; // Prevent infinite loops
+                image.onerror = null; 
             }
-             }
+        }
 
-            window.onload = function() {
+        async function navigate(direction) {
+            try {
+                const response = await fetch('stock-data.json');
+                const allStocks = await response.json();
+                
+                const sortedStocks = allStocks
+                    .map(s => {
+                        const rankValue = parseInt(s.mcapRank.toString().replace(/[^\d]/g, ''), 10);
+                        return { ...s, rankNum: rankValue };
+                    })
+                    .filter(s => !isNaN(s.rankNum))
+                    .sort((a, b) => a.rankNum - b.rankNum);
+
+                if (sortedStocks.length === 0) return;
+
                 const params = new URLSearchParams(window.location.search);
-                const ticker = params.get('ticker') || 'hdfcbank'; 
-                displayStockByTicker(ticker);
-            };
-        </script>
-    </body>
+                const currentTicker = (params.get('ticker') || 'hdfcbank').toLowerCase();
+                
+                const currentIndex = sortedStocks.findIndex(s => s.ticker.toLowerCase() === currentTicker);
+
+                let nextIndex;
+                if (currentIndex === -1) {
+                    nextIndex = 0; 
+                } else if (direction === 'next') {
+                    nextIndex = (currentIndex + 1) % sortedStocks.length;
+                } else {
+                    nextIndex = (currentIndex - 1 + sortedStocks.length) % sortedStocks.length;
+                }
+
+                const nextRecord = sortedStocks[nextIndex];
+                window.location.search = `?ticker=${encodeURIComponent(nextRecord.ticker)}`;
+                
+            } catch (error) {
+                console.error("Navigation error:", error);
+            }
+        }
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const ticker = params.get('ticker') || 'hdfcbank'; 
+            displayStockByTicker(ticker);
+        };
+    </script>
+</body>
 </html>
