@@ -1,19 +1,5 @@
 [
   {
-    "companyName": "STOCK",
-    "ticker": "TICKER",
-    "logoUrl": "logos/TICKER",
-    "buyDate": "BUY DATE",
-    "quantity": "QTY",
-    "buyPrice": "BUY PRICE",
-    "holdingPeriod": "HOLDING PERIOD",
-    "profitLoss": "PROFIT/ LOSS",
-    "absReturns": "OVERALL RETURNS",
-    "cagr": "CAGR",
-    "broker": "BROKER",
-    "mcapRank": "#MCAP RANK"
-  },
-  {
     "companyName": "Reliance Industries",
     "ticker": "RELIANCE",
     "logoUrl": "logos/RELIANCE",
