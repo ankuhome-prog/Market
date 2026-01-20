@@ -23,7 +23,6 @@
             .card {
                 background: var(--bg-card);
                 width: 500px;
-               
                 border-radius: 24px;
                 padding: 32px;
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -36,7 +35,7 @@
 
             .logo-box img {
                 max-height: 150px;
-                max-width: 400px;              
+                max-width: 400px;               
                 margin-bottom: 12px;
             }
 
@@ -84,6 +83,7 @@
             .footer-row {
                 border-bottom: none;
                 background-color: #fafbfc;
+                align-items: center; 
             }
 
             .item {
@@ -104,79 +104,38 @@
                 color: var(--text-main);
             }
 
+            .broker-banner {
+                max-height: 25px;
+                max-width: 100%;
+                display: block;
+                margin-top: 2px;
+                object-fit: contain;
+            }
+
             .center { text-align: center; }
             .right { text-align: right; }
 
             .positive { color: #27ae60 !important; }
+            .negative { color: #e74c3c !important; }
             .highlight { color: var(--primary-gold); }
         </style>
     </head>
     <body>
         <div class="card">
-            <div class="card-content">
+            <div id="main-container" class="card-content">
                 <div class="card-header">
-                    <div class="logo-box">
-                        <img id="comp-logo" src="" alt="Logo">
-                    </div>
-                    <div class="title-section">
-                        <h1 id="comp-name">Loading...</h1>
-                        <p id="ticker" class="ticker-badge">---</p>
-                    </div>
-                </div>
-
-                <div class="info-table">
-                    <div class="table-caption">Holding Details</div>
-                    <div class="grid-row">
-                        <div class="item">
-                            <label>Buy Date</label>
-                            <div id="buy-date" class="value">--</div>
-                        </div>
-                        <div class="item center">
-                            <label>Quantity</label>
-                            <div id="qty" class="value highlight">--</div>
-                        </div>
-                        <div class="item right">
-                            <label>Buy Price</label>
-                            <div id="buy-price" class="value">--</div>
-                        </div>
-                    </div>
-
-                    <div class="grid-row">
-                        <div class="item">
-                            <label>Holding Period</label>
-                            <div id="hold-period" class="value">--</div>
-                        </div>
-                        <div class="item center">
-                            <label>Abs. Returns</label>
-                            <div id="abs-ret" class="value positive">--</div>
-                        </div>
-                        <div class="item right">
-                            <label>CAGR</label>
-                            <div id="cagr" class="value">--</div>
-                        </div>
-                    </div>
-
-                    <div class="grid-row footer-row">
-                        <div class="item">
-                            <label>Broker</label>
-                            <div id="broker" class="value">--</div>
-                        </div>
-                        <div class="item right">
-                            <label>MCAP Rank</label>
-                            <div id="mcap" class="value">--</div>
-                        </div>
-                    </div>
+                    <h1 id="comp-name">Loading...</h1>
                 </div>
             </div>
         </div>
+
         <script>
             async function displayStockByTicker(tickerSymbol) {
                 try {
                     const response = await fetch('stock-data.json');
                     const stocks = await response.json();
-                    const container = document.querySelector('.card-content');
+                    const container = document.getElementById('main-container');
 
-                    // 1. Find the specific stock in the array
                     const stock = stocks.find(s => s.ticker.toUpperCase() === tickerSymbol.toUpperCase());
 
                     if (!stock) {
@@ -184,14 +143,24 @@
                         return;
                     }
 
-                    const isNegative = stock.absReturns.includes('-');
-                    const returnClass = isNegative ? 'style="color: #e74c3c !important"' : 'class="positive"';
+                    // 1. Color Logic (P&L and CAGR only)
+                    const pnlClass = stock.profitLoss.includes('-') ? 'class="value negative"' : 'class="value positive"';
+                    const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
+                    
+                    // 2. Broker Image Path Fix
+                    // Converts "Paytm Money" to "paytm-money" and "HDFC Sky" to "hdfc-sky"
+                    const sanitizedBroker = stock.broker.toLowerCase().replace(/\s+/g, '-');
+                    const brokerLogoPath = `logos/broker/${sanitizedBroker}.png`;
+
+                    const basePath = stock.logoUrl;
 
                     container.innerHTML = `
                         <div class="card-header">
-                            <div class="logo-box">
-                                <img src="${stock.logoUrl}" alt="${stock.companyName} Logo">
-                            </div>
+                        <div class="logo-box">
+                            <img src="${basePath}.png" 
+                                alt="${stock.companyName} Logo" 
+                                onerror="handleImageError(this, '${basePath}')">
+                        </div>
                             <div class="title-section">
                                 <h1>${stock.companyName}</h1>
                                 <p class="ticker-badge">${stock.ticker}</p>
@@ -217,23 +186,31 @@
 
                             <div class="grid-row">
                                 <div class="item">
-                                    <label>Holding Period</label>
-                                    <div class="value">${stock.holdingPeriod}</div>
+                                    <label>Abs. Returns</label>
+                                    <div class="value">${stock.absReturns}</div>
                                 </div>
                                 <div class="item center">
-                                    <label>Abs. Returns</label>
-                                    <div class="value" ${returnClass}>${stock.absReturns}</div>
+                                    <label>Profit/Loss</label>
+                                    <div ${pnlClass}>${stock.profitLoss}</div>
                                 </div>
                                 <div class="item right">
                                     <label>CAGR</label>
-                                    <div class="value">${stock.cagr}</div>
+                                    <div ${cagrClass}>${stock.cagr}</div>
                                 </div>
                             </div>
 
                             <div class="grid-row footer-row">
                                 <div class="item">
                                     <label>Broker</label>
-                                    <div class="value">${stock.broker}</div>
+                                    <img src="${brokerLogoPath}" 
+                                         alt="${stock.broker}" 
+                                         class="broker-banner"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <div class="value" style="display:none;">${stock.broker}</div>
+                                </div>
+                                <div class="item center">
+                                    <label>Holding Period</label>
+                                    <div class="value">${stock.holdingPeriod}</div>
                                 </div>
                                 <div class="item right">
                                     <label>MCAP Rank</label>
@@ -244,13 +221,25 @@
                     `;
                 } catch (error) {
                     console.error("Error:", error);
+                    document.getElementById('main-container').innerHTML = `<p style="text-align:center;">Error loading data.</p>`;
                 }
             }
+            function handleImageError(image, basePath) {
+            // If the failed source was the .png, try the .jpg
+            if (image.src.endsWith('.png')) {
+                image.src = basePath + '.jpg';
+            } 
+            // If the .jpg also failed (or it wasn't a .png), show placeholder
+            else {
+                image.src = 'https://via.placeholder.com/150?text=No+Logo';
+                image.onerror = null; // Prevent infinite loops
+            }
+             }
 
             window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const ticker = params.get('ticker') || 'hdfcbank'; // default fallback
-            displayStockByTicker(ticker);
+                const params = new URLSearchParams(window.location.search);
+                const ticker = params.get('ticker') || 'hdfcbank'; 
+                displayStockByTicker(ticker);
             };
         </script>
     </body>
