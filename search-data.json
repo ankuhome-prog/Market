@@ -1227,6 +1227,16 @@
 {"name": "BPL ", "ticker": "BPL "},
 {"name": "Gujarat Kidney & Super Speciality", "ticker": "GKSL"},
 {"name": "Wardwizard Innovations & Mobility", "ticker": "538970*"},
-{"name": "KSH International", "ticker": "KSHINTL"}
+{"name": "KSH International", "ticker": "KSHINTL"},
+{"name": "Ace Integrated Solutions", "ticker": "ACEINTEG"},
+{"name": "Alps Industries", "ticker": "ALPSINDUS"},
+{"name": "Antarctica", "ticker": "ANTGRAPHIC"},
+{"name": "Rajdarshan Industries", "ticker": "ARENTERP"},
+{"name": "Astron Paper & Board Mill", "ticker": "ASTRON"},
+{"name": "BIL Vyapar ", "ticker": "BILVYAPAR"},
+{"name": "California Software Company", "ticker": "CALSOFT"},
+{"name": "Creative Eye", "ticker": "CREATIVEYE"},
+{"name": "DCM Financial Services", "ticker": "DCMFINSERV"},
+{"name": "Debock Industries", "ticker": "DIL"}
 ]
 }
