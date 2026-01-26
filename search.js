@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
   suggestions.style.top = '100%';
   suggestions.style.background = '#fff';
   suggestions.style.width = '100%';
-  suggestions.style.maxHeight = '260px';
+  suggestions.style.maxHeight = '450px';
   suggestions.style.overflowY = 'auto';
   suggestions.style.boxShadow = '0 4px 24px rgba(24,48,96,0.10)';
   suggestions.style.borderRadius = '18px';
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .filter(Boolean)
       // Sort by earliest match (lowest index), then by name for ties
       .sort((a, b) => a.matchIndex - b.matchIndex || a.item.name.localeCompare(b.item.name))
-      .slice(0, 6)
+      .slice(0, 8)
       .map(({ item }) => item);
 
     if (filtered.length === 0) {

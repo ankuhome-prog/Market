@@ -6,18 +6,21 @@
   <title>Market</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Global Styles */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background: #f1f2f6;
     }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Search Bar Area */
     .search-container {
       display: flex;
       align-items: center;
@@ -29,48 +32,249 @@
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
       margin-top: 20vh;
-      transition: box-shadow 0.3s, border-color 0.3s, max-width 0.3s;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      z-index: 10;
     }
     .search-container:focus-within {
       box-shadow: 0 5px 20px rgba(0,0,0,0.11);
       border-color: #0056b3;
       max-width: 700px;
     }
-    .search-container input[type="text"] {
+    .search-container input {
       border: none;
       outline: none;
-      padding: 8px 8px 8px 0;
+      padding: 8px;
       width: 100%;
-      font-size: 15px;
+      font-size: 16px;
       background: transparent;
-      transition: font-size 0.3s;
-    }
-    .search-container input[type="text"]:focus {
-      font-size: 17px;
     }
     .search-icon {
       width: 20px;
       height: 20px;
       fill: #888;
       margin-right: 8px;
-      transition: fill 0.3s;
     }
-    .search-container:focus-within .search-icon {
+
+    /* Circular Buttons Row */
+    .trigger-wrapper {
+      display: flex;
+      gap: 40px;
+      margin-top: 50px;
+    }
+    .circle-btn {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+      text-align: center;
+    }
+    .circle-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border-color: #0056b3;
+    }
+    .circle-btn svg {
+      width: 30px;
+      height: 30px;
       fill: #0056b3;
+      margin-bottom: 5px;
+    }
+    .circle-btn span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none; /* Hidden by default */
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .modal-card {
+      background: #fff;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #eee;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Form Styles */
+    .calc-title { margin: 0 0 20px 0; color: #222; }
+    .input-group { margin-bottom: 15px; }
+    .input-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      background: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f7ff;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #0056b3;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
+
   <div class="search-container">
     <svg class="search-icon" viewBox="0 0 24 24">
       <path d="M10 2a8 8 0 105.29 14.71l5 5a1 1 0 001.42-1.42l-5-5A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/>
     </svg>
     <input type="text" placeholder="Search your holdings...">
   </div>
-  <!-- Place near your .search-container in the HTML body -->
 
-    
+  <div class="trigger-wrapper">
+    <div class="circle-btn" onclick="openModal('cagr-modal')">
+      <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+      <span>CAGR</span>
+    </div>
+    <div class="circle-btn" onclick="openModal('iv-modal')">
+      <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+      <span>Investment</span>
+    </div>
+  </div>
 
+  <div id="cagr-modal" class="modal-overlay" onclick="closeOnOverlay(event, 'cagr-modal')">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal('cagr-modal')">✕</button>
+      <h3 class="calc-title">CAGR Calculator</h3>
+      <div class="input-group">
+        <label>Invested Amount</label>
+        <input type="number" id="cagr-start" placeholder="e.g. 10000">
+      </div>
+      <div class="input-group">
+        <label>Current Amount</label>
+        <input type="number" id="cagr-end" placeholder="e.g. 15000">
+      </div>
+      <div class="input-group">
+        <label>Duration (Years)</label>
+        <input type="number" id="cagr-years" placeholder="e.g. 3">
+      </div>
+      <button class="action-btn" onclick="calcCAGR()">Calculate Returns</button>
+      <div class="result-box" id="cagr-res">Result: --</div>
+    </div>
+  </div>
+
+  <div id="iv-modal" class="modal-overlay" onclick="closeOnOverlay(event, 'iv-modal')">
+    <div class="modal-card">
+      <button class="close-btn" onclick="closeModal('iv-modal')">✕</button>
+      <h3 class="calc-title">Investment Value</h3>
+      <div class="input-group">
+        <label>Amount (₹)</label>
+        <input type="number" id="iv-amt" placeholder="e.g. 5000">
+      </div>
+      <div class="input-group">
+        <label>Expected Return (% p.a.)</label>
+        <input type="number" id="iv-rate" placeholder="e.g. 12">
+      </div>
+      <div class="input-group">
+        <label>Time Period (Years)</label>
+        <input type="number" id="iv-years" placeholder="e.g. 10">
+      </div>
+      <div class="input-group">
+        <label>Type</label>
+        <select id="iv-type">
+          <option value="sip">Monthly SIP</option>
+          <option value="lumpsum">Lumpsum</option>
+        </select>
+      </div>
+      <button class="action-btn" onclick="calcIV()">Calculate Value</button>
+      <div class="result-box" id="iv-res">Result: --</div>
+    </div>
+  </div>
+
+  <script>
+    // Modal Controls
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    function closeOnOverlay(e, id) {
+      if (e.target.id === id) closeModal(id);
+    }
+
+    // CAGR Logic
+    function calcCAGR() {
+      const s = parseFloat(document.getElementById('cagr-start').value);
+      const e = parseFloat(document.getElementById('cagr-end').value);
+      const y = parseFloat(document.getElementById('cagr-years').value);
+      if (s && e && y) {
+        const res = (Math.pow((e / s), (1 / y)) - 1) * 100;
+        document.getElementById('cagr-res').innerText = res.toFixed(2) + "% CAGR";
+      }
+    }
+
+    // Investment Logic
+    function calcIV() {
+      const amt = parseFloat(document.getElementById('iv-amt').value);
+      const rate = parseFloat(document.getElementById('iv-rate').value) / 100;
+      const yrs = parseFloat(document.getElementById('iv-years').value);
+      const type = document.getElementById('iv-type').value;
+      let fv = 0;
+
+      if (amt && rate && yrs) {
+        if (type === 'lumpsum') {
+          fv = amt * Math.pow((1 + rate), yrs);
+        } else {
+          const i = rate / 12;
+          const n = yrs * 12;
+          fv = amt * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+        }
+        document.getElementById('iv-res').innerText = "₹ " + Math.round(fv).toLocaleString('en-IN');
+      }
+    }
+  </script>
   <script src="search.js"></script>
 </body>
 </html>
