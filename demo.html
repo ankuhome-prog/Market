@@ -40,22 +40,83 @@
             justify-content: center;
             width: 100%;
             max-width: 1200px;
-            position: relative; /* Anchor for absolute positioning */
+            position: relative;
         }
 
-        /* Projection Card: Positioned to the left of the center */
-        .projection-card {
+        /* Side Cards Base Styling */
+        .projection-card, .identity-card {
             background: var(--bg-card);
             padding: 24px;
             border-radius: 24px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            width: 280px;
+            width: 320px;
             position: absolute;
-            top: 0;                   /* Aligns with the top of the container */
-            right: calc(50% + 270px); /* Keeps it to the left of the main card */
             z-index: 1;
+            box-sizing: border-box;
         }
 
+        .projection-card {
+            top: 0;
+            right: calc(50% + 270px);
+        }
+
+        .identity-card {
+            top: 210px; 
+            right: calc(50% + 270px);
+        }
+
+        /* Identity Card Specifics */
+        .identity-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        #hq-location {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1.5px dashed black;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .info-block {
+            margin-bottom: 16px;
+        }
+
+        .info-block label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--primary-gold);
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+
+        .info-content {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: gray;
+            
+            padding-left: 0;
+            padding-top: 0px;
+            border-radius: 5px;
+            
+        }
+
+        /* Projection Card Components */
         .projection-card label {
             display: block;
             font-size: 11px;
@@ -85,7 +146,7 @@
             margin-top: 10px;
         }
 
-        /* Main Card Styling: Stays in the center flow */
+        /* Main Center Card */
         .card {
             background: var(--bg-card);
             width: 500px;
@@ -102,7 +163,7 @@
         .ticker-badge { display: inline-block; background: var(--bg-soft); color: var(--text-light); padding: 4px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; margin-top: 8px; }
 
         .info-table { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
-        .table-caption { background: var(--bg-soft); padding: 12px; text-align: center; font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-color); }
+        .table-caption { background: var(--bg-soft); padding: 7px; text-align: center; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-color); }
         .grid-row { display: flex; border-bottom: 1px solid var(--border-color); }
         .footer-row { border-bottom: none; background-color: #fafbfc; align-items: center; }
         .item { flex: 1; padding: 16px 8px; min-width: 0; }
@@ -111,13 +172,13 @@
 
         .broker-banner { max-height: 18px; max-width: 80%; display: block; margin-top: 2px; object-fit: contain; }
         
-        /* Navigation Sidebar: Positioned to the right of the center */
+        /* Navigation */
         .nav-sidebar { 
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
             position: absolute;
-            left: calc(50% + 270px); /* Mirror of the projection card */
+            left: calc(50% + 270px);
         }
         
         .nav-btn { width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--bg-card); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; text-decoration: none; }
@@ -130,54 +191,12 @@
         .negative { color: #e74c3c !important; }
         .highlight { color: var(--primary-gold); }
 
-        /* Responsive handling for smaller screens */
         @media (max-width: 1100px) {
-    /* Stack cards vertically and center them */
-    .cards-container { 
-        flex-direction: column; 
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-    }
-
-    /* MAIN CARD: Set as first in order */
-    .card {
-        width: 100%;
-        max-width: 500px; /* Standard width for mobile/tablet */
-        order: 1;
-        box-sizing: border-box;
-    }
-
-    /* PROJECTION CARD: Match main card width and move below */
-    .projection-card { 
-        position: static; 
-        width: 100%; 
-        max-width: 500px; /* Same as .card */
-        order: 2; 
-        box-sizing: border-box;
-    }
-
-    /* NAV SIDEBAR: Floating vertical on the right */
-    .nav-sidebar {
-        position: fixed;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1000;
-        gap: 12px;
-        left: auto; /* Disables desktop left-calc */
-    }
-
-    /* Make buttons slightly more thumb-friendly on mobile */
-    .nav-btn {
-        width: 35px;
-        height: 35px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(4px);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-}
+            .cards-container { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+            .card { width: 100%; max-width: 500px; order: 1; }
+            .projection-card, .identity-card { position: static; width: 100%; max-width: 500px; order: 2; margin-top: 10px;}
+            .nav-sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); z-index: 1000; left: auto; }
+        }
     </style>
 </head>
 <body>
@@ -199,7 +218,27 @@
                 </div>
                 <div id="projection-na" style="display:none; text-align: center; padding: 10px 0;">
                     <h2 class="negative">N/A</h2>
-                    <p style="font-size: 12px; color: var(--text-light);">Projection unavailable for negative growth.</p>
+                    <p style="font-size: 12px; color: var(--text-light);">Projection unavailable.</p>
+                </div>
+            </div>
+
+            <div id="identity-card" class="identity-card" style="display: none;">
+                <div class="identity-header">
+                    <img id="nation-flag" src="" alt="" style="width: 28px; height: auto; border-radius: 3px; display: none;">
+                    <span id="nation-name"></span>
+                </div>
+                <div id="hq-location"></div>
+                
+                <hr class="divider">
+
+                <div class="info-block">
+                    <label>About Company</label>
+                    <div id="stock-about" class="info-content"></div>
+                </div>
+
+                <div class="info-block">
+                    <label>Products & Services</label>
+                    <div id="stock-products" class="info-content"></div>
                 </div>
             </div>
 
@@ -222,6 +261,12 @@
     <script>
         let currentStockData = null;
 
+        function getFlagPath(nationality) {
+            if (!nationality) return '';
+            const fileName = nationality.toLowerCase().trim().replace(/\s+/g, '-');
+            return `logos/flags/${fileName}.png`;
+        }
+
         async function displayStockByTicker(tickerSymbol) {
             try {
                 const response = await fetch('stock-data.json');
@@ -235,6 +280,23 @@
 
                 currentStockData = stock;
                 document.getElementById('projection-card').style.display = 'block';
+                document.getElementById('identity-card').style.display = 'block';
+                
+                const flagImg = document.getElementById('nation-flag');
+                const flagPath = getFlagPath(stock.nationality);
+                
+                if (flagPath) {
+                    flagImg.src = flagPath;
+                    flagImg.style.display = 'block';
+                    flagImg.onerror = function() { this.style.display = 'none'; }; 
+                }
+
+                // Identity Card Mapping
+                document.getElementById('nation-name').innerText = stock.nationality || "N/A";
+                document.getElementById('hq-location').innerText = `${stock.city || 'N/A'}, ${stock.state || ''}`;
+                document.getElementById('stock-about').innerText = stock.about || "Description not available.";
+                document.getElementById('stock-products').innerText = stock.products || "N/A";
+
                 updateProjection();
                 renderMainCard(stock);
             } catch (error) {
@@ -244,10 +306,8 @@
 
         function updateProjection() {
             if (!currentStockData) return;
-
             const contentDiv = document.getElementById('projection-content');
             const naDiv = document.getElementById('projection-na');
-            
             const cagrStr = currentStockData.cagr.replace(/[^-0-9.]/g, '');
             const cagr = parseFloat(cagrStr) / 100;
 
@@ -262,13 +322,10 @@
 
             const years = document.getElementById('year-slider').value;
             document.getElementById('year-val').innerText = years;
-
             const buyPrice = parseFloat(currentStockData.buyPrice.replace(/[^\d.]/g, ''));
             const quantity = parseInt(currentStockData.quantity.replace(/[^\d.]/g, ''));
-            
             const presentValue = buyPrice * quantity;
             const futureValue = presentValue * Math.pow((1 + cagr), years);
-
             document.getElementById('future-amt').innerText = formatIndianCurrency(futureValue);
         }
 
@@ -277,14 +334,9 @@
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 0
             });
-
-            if (num >= 10000000) {
-                return formatter.format(num / 10000000) + " Cr";
-            } else if (num >= 100000) {
-                return formatter.format(num / 100000) + " Lakh";
-            } else {
-                return formatter.format(num) + " /-";
-            }
+            if (num >= 10000000) return formatter.format(num / 10000000) + " Cr";
+            if (num >= 100000) return formatter.format(num / 100000) + " Lakh";
+            return formatter.format(num) + " /-";
         }
 
         function renderMainCard(stock) {
@@ -321,20 +373,14 @@
         }
 
         function handleImageError(image, basePath) {
-            // Determine what we just tried to load
             const currentSrc = image.src.toLowerCase();
-
             if (!currentSrc.includes('.png') && !currentSrc.includes('.jpg') && !currentSrc.includes('.gif')) {
-                // If the base path had no extension, start the cycle with .png
                 image.src = basePath + '.png';
             } else if (currentSrc.endsWith('.png')) {
-                // If png failed, try jpg
                 image.src = basePath + '.jpg';
             } else if (currentSrc.endsWith('.jpg')) {
-                // If jpg failed, try gif
                 image.src = basePath + '.gif';
             } else {
-                // Everything failed, show placeholder and stop the loop
                 image.src = 'https://via.placeholder.com/150?text=No+Logo';
                 image.onerror = null; 
             }
@@ -343,25 +389,13 @@
         async function navigate(direction) {
             const response = await fetch('stock-data.json');
             const stocks = await response.json();
-
-            const validStocks = stocks.filter(s => {
-                const rank = String(s.mcapRank || "").replace(/\D/g, '');
-                return rank !== ""; 
-            });
-
-            const sorted = validStocks.sort((a, b) => {
-                return parseInt(a.mcapRank.replace(/\D/g, '')) - parseInt(b.mcapRank.replace(/\D/g, ''));
-            });
-
+            const validStocks = stocks.filter(s => (String(s.mcapRank || "").replace(/\D/g, '')) !== "");
+            const sorted = validStocks.sort((a, b) => parseInt(a.mcapRank.replace(/\D/g, '')) - parseInt(b.mcapRank.replace(/\D/g, '')));
             const params = new URLSearchParams(window.location.search);
             const currentTicker = (params.get('ticker') || 'hdfcbank').toLowerCase();
             const idx = sorted.findIndex(s => s.ticker.toLowerCase() === currentTicker);
             let currentIdx = idx === -1 ? 0 : idx;
-
-            let next = direction === 'next' 
-                ? (currentIdx + 1) % sorted.length 
-                : (currentIdx - 1 + sorted.length) % sorted.length;
-
+            let next = direction === 'next' ? (currentIdx + 1) % sorted.length : (currentIdx - 1 + sorted.length) % sorted.length;
             window.location.search = `?ticker=${encodeURIComponent(sorted[next].ticker)}`;
         }
 
