@@ -263,8 +263,8 @@
 
         function getFlagPath(nationality) {
             if (!nationality) return '';
-            const fileName = nationality.toLowerCase().trim().replace(/\s+/g, '-');
-            return `logos/flags/${fileName}.png`;
+            // Returns the name exactly as provided
+            return `logos/flags/${nationality}.png`;
         }
 
         async function displayStockByTicker(tickerSymbol) {
