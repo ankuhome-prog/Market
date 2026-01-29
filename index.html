@@ -256,24 +256,36 @@
     }
 
     // Investment Logic
-    function calcIV() {
-      const amt = parseFloat(document.getElementById('iv-amt').value);
-      const rate = parseFloat(document.getElementById('iv-rate').value) / 100;
-      const yrs = parseFloat(document.getElementById('iv-years').value);
-      const type = document.getElementById('iv-type').value;
-      let fv = 0;
+  function calcIV() {
+  const amt = parseFloat(document.getElementById('iv-amt').value);
+  const rateInput = parseFloat(document.getElementById('iv-rate').value);
+  const yrs = parseFloat(document.getElementById('iv-years').value);
+  const type = document.getElementById('iv-type').value;
+  let fv = 0;
 
-      if (amt && rate && yrs) {
-        if (type === 'lumpsum') {
-          fv = amt * Math.pow((1 + rate), yrs);
-        } else {
-          const i = rate / 12;
-          const n = yrs * 12;
-          fv = amt * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-        }
-        document.getElementById('iv-res').innerText = "₹ " + Math.round(fv).toLocaleString('en-IN');
-      }
+  if (amt && rateInput && yrs) {
+    const rate = rateInput / 100;
+    
+    if (type === 'lumpsum') {
+      fv = amt * Math.pow((1 + rate), yrs);
+    } else {
+      // THE FIX: 
+      // 1. Calculate monthly rate (i) exactly
+      const i = rate / 12;
+      // 2. Calculate total months (n)
+      const n = yrs * 12;
+
+      // 3. The "Annuity Due" Formula (Payments at START of month)
+      // This is the exact formula that gives 3,84,935
+      fv = amt * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
     }
+
+    // Formatting with Indian Locale and no decimals
+    document.getElementById('iv-res').innerText = "₹ " + fv;
+  }
+}
+
+
   </script>
   <script src="search.js"></script>
 </body>

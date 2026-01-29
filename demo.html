@@ -109,11 +109,9 @@
             font-weight: 500;
             line-height: 1.2;
             color: gray;
-            
             padding-left: 0;
             padding-top: 0px;
             border-radius: 5px;
-            
         }
 
         /* Projection Card Components */
@@ -166,6 +164,19 @@
         .table-caption { background: var(--bg-soft); padding: 7px; text-align: center; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-color); }
         .grid-row { display: flex; border-bottom: 1px solid var(--border-color); }
         .footer-row { border-bottom: none; background-color: #fafbfc; align-items: center; }
+        
+        /* Independent Outlook Card Styling */
+        .outlook-container {
+            margin-top: 5px;
+            
+            text-align: center;
+                        
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-light);
+            
+        }
+
         .item { flex: 1; padding: 16px 8px; min-width: 0; }
         .item label { display: block; font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
         .item .value { font-size: 14px; font-weight: 600; color: var(--text-main); }
@@ -232,7 +243,7 @@
                 <hr class="divider">
 
                 <div class="info-block">
-                    <label>About Company</label>
+                    <label>About</label>
                     <div id="stock-about" class="info-content"></div>
                 </div>
 
@@ -263,7 +274,6 @@
 
         function getFlagPath(nationality) {
             if (!nationality) return '';
-            // Returns the name exactly as provided
             return `logos/flags/${nationality}.png`;
         }
 
@@ -291,7 +301,6 @@
                     flagImg.onerror = function() { this.style.display = 'none'; }; 
                 }
 
-                // Identity Card Mapping
                 document.getElementById('nation-name').innerText = stock.nationality || "N/A";
                 document.getElementById('hq-location').innerText = `${stock.city || 'N/A'}, ${stock.state || ''}`;
                 document.getElementById('stock-about').innerText = stock.about || "Description not available.";
@@ -345,12 +354,36 @@
             const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
             const brokerLogoPath = `logos/broker/${stock.broker.toLowerCase().replace(/\s+/g, '-')}.png`;
 
+            // Forecast Data calculation
+            const y1Raw = stock["1y"] || "N/A";
+            let outlookHTML = "";
+
+            // Check if value is N/A or empty
+            if (y1Raw.toUpperCase() === "N/A" || y1Raw.trim() === "") {
+                outlookHTML = `<div class="outlook-container"> ⚠️ Forecast not available, please check later.</div>`;
+            } else {
+                const y1Num = parseFloat(y1Raw.replace(/[^-0-9.]/g, ''));
+                const isPositive = y1Num >= 0;
+                const trendText = isPositive ? "grow" : "decline";
+                const trendColor = isPositive ? "#27ae60" : "#e74c3c";
+                const trendArrow = isPositive ? "▲" : "▼";
+
+                outlookHTML = `
+                    <div class="outlook-container">
+                        In a year your investment may ${trendText} by 
+                        <span style="color: ${trendColor}; font-weight: 700; margin-left: 4px;">
+                            ${trendArrow} ${Math.abs(y1Num)}%
+                        </span>
+                    </div>`;
+            }
+
             container.innerHTML = `
                 <div class="card-header">
                     <div class="logo-box"><img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')"></div>
                     <h1>${stock.companyName}</h1>
                     <p class="ticker-badge">${stock.ticker}</p>
                 </div>
+                
                 <div class="info-table">
                     <div class="table-caption">Holding Details</div>
                     <div class="grid-row">
@@ -369,6 +402,7 @@
                         <div class="item right"><label>MCAP Rank</label><div class="value">${stock.mcapRank}</div></div>
                     </div>
                 </div>
+                ${outlookHTML}                
             `;
         }
 
