@@ -292,6 +292,32 @@
         .then(() => console.log("Service Worker Registered"));
     }
 
+      async function preDownloadAllLogos() {
+      try {
+          const response = await fetch('stock-data.json');
+          const stocks = await response.json();
+          
+          stocks.forEach(stock => {
+              if (stock.logoUrl) {
+                  // This triggers the Service Worker to fetch and cache the image
+                  const img = new Image();
+                  img.src = stock.logoUrl;
+              }
+              // Also pre-cache flags if you have them
+              if (stock.nationality) {
+                  const flag = new Image();
+                  flag.src = `logos/flags/${stock.nationality}.png`;
+              }
+          });
+          console.log("Background download of all logos started...");
+      } catch (error) {
+          console.error("Pre-download failed:", error);
+      }
+  }
+
+  // Call this function once the page loads
+  window.addEventListener('load', preDownloadAllLogos);
+
   </script>
   <script src="search.js"></script>
 </body>

@@ -437,32 +437,36 @@
         window.onload = () => {
             const ticker = new URLSearchParams(window.location.search).get('ticker') || 'hdfcbank';
             displayStockByTicker(ticker);
+            
         };
-        // --- Swipe Detection Logic ---
+        // --- Updated Swipe Detection Logic ---
         let touchstartX = 0;
         let touchendX = 0;
+        let isSliderTouch = false; // Flag to track if the touch is on the slider
 
         function handleGesture() {
-            const swipeThreshold = 50; // minimum distance in pixels
+            // If the touch started on the slider, exit the function immediately
+            if (isSliderTouch) return;
+
+            const swipeThreshold = 50; 
             if (touchendX < touchstartX - swipeThreshold) {
-                // Swiped Left -> Show Next
                 navigate('next');
-            }
-            if (touchendX > touchstartX + swipeThreshold) {
-                // Swiped Right -> Show Previous
+            } else if (touchendX > touchstartX + swipeThreshold) {
                 navigate('prev');
             }
         }
 
-        // Add listeners to the whole body or specifically to the .card
         document.addEventListener('touchstart', e => {
+            // Check if the user is touching the slider or its container
+            isSliderTouch = e.target.id === 'year-slider';
             touchstartX = e.changedTouches[0].screenX;
-        }, false);
+        }, { passive: true });
 
         document.addEventListener('touchend', e => {
             touchendX = e.changedTouches[0].screenX;
             handleGesture();
-        }, false);
+        }, { passive: true });
+        
     </script>
 </body>
 </html>
