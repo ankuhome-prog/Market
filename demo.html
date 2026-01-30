@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="logos/icons/holding.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Portfolio Card</title>
+    <title>Holding</title>
     <style>
         :root {
             --primary-gold: #c1a35f;
@@ -437,6 +438,31 @@
             const ticker = new URLSearchParams(window.location.search).get('ticker') || 'hdfcbank';
             displayStockByTicker(ticker);
         };
+        // --- Swipe Detection Logic ---
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        function handleGesture() {
+            const swipeThreshold = 50; // minimum distance in pixels
+            if (touchendX < touchstartX - swipeThreshold) {
+                // Swiped Left -> Show Next
+                navigate('next');
+            }
+            if (touchendX > touchstartX + swipeThreshold) {
+                // Swiped Right -> Show Previous
+                navigate('prev');
+            }
+        }
+
+        // Add listeners to the whole body or specifically to the .card
+        document.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        }, false);
     </script>
 </body>
 </html>

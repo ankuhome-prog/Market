@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0056b3">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" href="logos/rupee.png" type="image/png">
   <meta charset="UTF-8">
   <title>Market</title>
@@ -284,7 +287,10 @@
     document.getElementById('iv-res').innerText = "₹ " + fv;
   }
 }
-
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log("Service Worker Registered"));
+    }
 
   </script>
   <script src="search.js"></script>
