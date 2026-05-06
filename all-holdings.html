@@ -519,7 +519,11 @@
         card.className = 'card';
         card.innerHTML = `
             <div class="card-header">
-                <img src="${stock.logoUrl}.png" class="company-logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/32';">
+                <img src="${stock.logoUrl}.png" 
+                class="company-logo" 
+             onerror="if (this.src.endsWith('.png')) { this.src='${stock.logoUrl}.jpg'; } 
+              else if (this.src.endsWith('.jpg')) { this.src='${stock.logoUrl}.gif'; } 
+              else { this.onerror=null; this.src='https://via.placeholder.com/32'; }">
                 <div class="header-center">
                     <!-- Added onclick redirect here -->
                     <span class="company-name" onclick="window.location.href='${redirectUrl}'">
