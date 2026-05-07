@@ -1,0 +1,608 @@
+[
+  {
+    "sector": "Oil & Gas",
+    "tickers": [
+      "RELIANCE",
+      "ONGC",
+      "IOC",
+      "BPCL",
+      "GAIL",
+      "HINDPETRO",
+      "OIL",
+      "ATGL",
+      "PETRONET",
+      "MRPL",
+      "GUJGASLTD",
+      "IGL",
+      "CASTROLIND"
+    ]
+  },
+  {
+    "sector": "Bank",
+    "tickers": [
+      "HDFCBANK",
+      "SBIN",
+      "ICICIBANK",
+      "AXISBANK",
+      "KOTAKBANK",
+      "BANKBARODA",
+      "UNIONBANK",
+      "PNB",
+      "CANBK",
+      "INDIANB",
+      "IDBI",
+      "AUBANK",
+      "FEDERALBNK",
+      "INDUSINDBK",
+      "IOB",
+      "BANKINDIA",
+      "YESBANK",
+      "MAHABANK",
+      "IDFCFIRSTB",
+      "UCOBANK",
+      "BANDHANBNK",
+      "CENTRALBK",
+      "KARURVYSYA",
+      "RBLBANK",
+      "CUB",
+      "PSB"
+    ]
+  },
+  {
+    "sector": "Telecom",
+    "tickers": [
+      "BHARTIARTL",
+      "IDEA",
+      "INDUSTOWER",
+      "BHARTIHEXA",
+      "HFCL"
+    ]
+  },
+  {
+    "sector": "Software",
+    "tickers": [
+      "TCS",
+      "INFY",
+      "HCLTECH",
+      "WIPRO",
+      "TECHM",
+      "LTM",
+      "OFSS",
+      "PERSISTENT",
+      "TATACOMM",
+      "MPHASIS",
+      "COFORGE",
+      "HEXT",
+      "TATAELXSI",
+      "NETWEB",
+      "KPITTECH",
+      "AFFLE",
+      "REDINGTON"
+    ]
+  },
+  {
+    "sector": "NBFC",
+    "tickers": [
+      "BAJFINANCE",
+      "BAJAJFINSV",
+      "SHRIRAMFIN",
+      "JIOFIN",
+      "PFC",
+      "MUTHOOTFIN",
+      "CHOLAFIN",
+      "TATACAP",
+      "IRFC",
+      "RECLTD",
+      "BAJAJHFL",
+      "LTF",
+      "SBICARD",
+      "HDBFS",
+      "SUNDARMFIN",
+      "HUDCO",
+      "PIRAMALFIN",
+      "M&MFIN",
+      "POONAWALLA",
+      "IREDA",
+      "CHOLAHLDNG",
+      "LICHSGFIN",
+      "PNBHOUSING",
+      "MANAPPURAM",
+      "AADHARHFC",
+      "CREDITACC",
+      "IIFL",
+      "CGCL"
+    ]
+  },
+  {
+    "sector": "Construction",
+    "tickers": [
+      "LT",
+      "ULTRACEMCO",
+      "ASIANPAINT",
+      "PIDILITIND",
+      "POLYCAB",
+      "AMBUJACEM",
+      "SHREECEM",
+      "RVNL",
+      "BERGEPAINT",
+      "APLAPOLLO",
+      "ASTRAL",
+      "JKCEMENT",
+      "DALBHARAT",
+      "ESCORTS",
+      "WELCORP",
+      "ACC",
+      "IRB",
+      "RAMCOCEM"
+    ]
+  },
+  {
+    "sector": "FMCG",
+    "tickers": [
+      "HINDUNILVR",
+      "ITC",
+      "NESTLEIND",
+      "ETERNAL",
+      "VBL",
+      "BRITANNIA",
+      "TATACONSUM",
+      "MARICO",
+      "DABUR",
+      "COLPAL",
+      "PATANJALI",
+      "3MINDIA",
+      "PGHH",
+      "JUBLFOOD",
+      "AWL",
+      "GILLETTE",
+      "EMAMILTD"
+    ]
+  },
+  {
+    "sector": "Insurance",
+    "tickers": [
+      "LICI",
+      "SBILIFE",
+      "HDFCLIFE",
+      "ICICIGI",
+      "ICICIPRULI",
+      "POLICYBZR",
+      "GICRE",
+      "MFSL",
+      "STARHEALTH",
+      "GODIGIT",
+      "NIACL"
+    ]
+  },
+  {
+    "sector": "Power",
+    "tickers": [
+      "ADANIPOWER",
+      "NTPC",
+      "POWERGRID",
+      "COALINDIA",
+      "ADANIGREEN",
+      "ADANIENSOL",
+      "POWERINDIA",
+      "TATAPOWER",
+      "CGPOWER",
+      "ENRIN",
+      "VEDL",
+      "GVT&D",
+      "JSWENERGY",
+      "NTPCGREEN",
+      "WAAREEENER",
+      "TORNTPOWER",
+      "NHPC",
+      "SUZLON",
+      "APARINDS",
+      "THERMAX",
+      "PREMIERENE",
+      "SJVN",
+      "SCHNEIDER",
+      "CESC",
+      "KIRLOSENG",
+      "KPIL",
+      "EMMVEE",
+      "TDPOWERSYS",
+      "TRITURBINE",
+      "ACMESOLAR",
+      "INOXWIND"
+    ]
+  },
+  {
+    "sector": "Pharmaceutical",
+    "tickers": [
+      "SUNPHARMA",
+      "DIVISLAB",
+      "TORNTPHARM",
+      "APOLLOHOSP",
+      "CIPLA",
+      "DRREDDY",
+      "LUPIN",
+      "MAXHEALTH",
+      "MANKIND",
+      "ZYDUSLIFE",
+      "AUROPHARMA",
+      "FORTIS",
+      "GLENMARK",
+      "ALKEM",
+      "LAURUSLABS",
+      "BIOCON",
+      "ABBOTINDIA",
+      "ANTHEM",
+      "GLAXO",
+      "IPCALAB",
+      "ASTERDM",
+      "NH",
+      "AJANTPHARM",
+      "EMCURE",
+      "MEDANTA",
+      "GLAND",
+      "IKS",
+      "KIMS",
+      "LALPATHLAB",
+      "WOCKPHARMA",
+      "SAILIFE",
+      "PFIZER",
+      "PPLPHARMA",
+      "NEULANDLAB",
+      "ONESOURCE",
+      "ASTRAZEN",
+      "NATCOPHARM",
+      "SAGILITY",
+      "SYNGENE",
+      "ERIS",
+      "COHANCE",
+      "GRANULES"
+    ]
+  },
+  {
+    "sector": "Automobile",
+    "tickers": [
+      "MARUTI",
+      "M&M",
+      "BAJAJ-AUTO",
+      "EICHERMOT",
+      "TVSMOTOR",
+      "TMCV",
+      "HYUNDAI",
+      "TMPV",
+      "HEROMOTOCO",
+      "ASHOKLEY",
+      "UNOMINDA",
+      "TIINDIA",
+      "MRF",
+      "BALKRISIND",
+      "ATHERENERG",
+      "ENDURANCE",
+      "TVSHLTD",
+      "ZFCVINDIA",
+      "MSUMI",
+      "APOLLOTYRE",
+      "TENNIND",
+      "FORCEMOT",
+      "BELRISE",
+      "SUNDRMFAST",
+      "ELGIEQUIP"
+    ]
+  },
+  {
+    "sector": "Transport & Logistics",
+    "tickers": [
+      "ADANIPORTS",
+      "INDIGO",
+      "GMRAIRPORT",
+      "JSWINFRA",
+      "CONCOR",
+      "DELHIVERY",
+      "AEGISLOG",
+      "GESHIP",
+      "AEGISVOPAK"
+    ]
+  },
+  {
+    "sector": "Lifestyle",
+    "tickers": [
+      "TITAN",
+      "TRENT",
+      "LENSKART"
+    ]
+  },
+  {
+    "sector": "Conglomerate",
+    "tickers": [
+      "ADANIENT"
+    ]
+  },
+  {
+    "sector": "Defense",
+    "tickers": [
+      "BEL",
+      "HAL",
+      "MAZDOCK",
+      "BDL",
+      "COCHINSHIP",
+      "GRSE",
+      "ITI",
+      "DATAPATTNS",
+      "MTARTECH"
+    ]
+  },
+  {
+    "sector": "Metal",
+    "tickers": [
+      "JSWSTEEL",
+      "TATASTEEL",
+      "HINDZINC",
+      "HINDALCO",
+      "JINDALSTEL",
+      "LLOYDSME",
+      "NMDC",
+      "SAIL",
+      "NATIONALUM",
+      "JSL",
+      "HINDCOPPER",
+      "NLCINDIA",
+      "SHYAMMETL",
+      "KIOCL",
+      "PTCIL",
+      "GMDCLTD",
+      "GALLANTT",
+      "SARDAEN",
+      "GPIL",
+      "RATNAMANI"
+    ]
+  },
+  {
+    "sector": "Retail",
+    "tickers": [
+      "DMART",
+      "VMM"
+    ]
+  },
+  {
+    "sector": "Textile",
+    "tickers": [
+      "GRASIM",
+      "PAGEIND",
+      "KPRMILL",
+      "VTL"
+    ]
+  },
+  {
+    "sector": "Capital Market",
+    "tickers": [
+      "ICICIAMC",
+      "BSE",
+      "GROWW",
+      "HDFCAMC",
+      "BAJAJHLDNG",
+      "ABCAPITAL",
+      "MCX",
+      "NAM-INDIA",
+      "MOTILALOFS",
+      "360ONE",
+      "AIIL",
+      "TATAINVEST",
+      "CRISIL",
+      "ABSLAMC",
+      "ANANDRATHI",
+      "ANGELONE",
+      "CDSL",
+      "NUVAMA",
+      "CAMS"
+    ]
+  },
+  {
+    "sector": "Industrial Equipment",
+    "tickers": [
+      "ABB",
+      "CUMMINSIND",
+      "SIEMENS",
+      "BHEL",
+      "MOTHERSON",
+      "BOSCHLTD",
+      "BHARATFORG",
+      "SCHAEFFLER",
+      "LTTS",
+      "AIAENG",
+      "SONACOMS",
+      "HONAUT",
+      "TIMKEN",
+      "TATATECH",
+      "CARBORUNIV",
+      "CRAFTSMAN",
+      "CIEINDIA",
+      "GRINDWELL",
+      "JYOTICNC"
+    ]
+  },
+  {
+    "sector": "Real Estate",
+    "tickers": [
+      "DLF",
+      "LODHA",
+      "PHOENIXLTD",
+      "PRESTIGE",
+      "OBEROIRLTY",
+      "GODREJPROP",
+      "NBCC",
+      "BRIGADE",
+      "ANANTRAJ"
+    ]
+  },
+  {
+    "sector": "Chemicals",
+    "tickers": [
+      "SOLARINDS",
+      "SRF",
+      "LINDEINDIA",
+      "COROMANDEL",
+      "FACT",
+      "UPL",
+      "PIIND",
+      "FLUOROCHEM",
+      "NAVINFLUOR",
+      "JBCHEPHARM",
+      "GODREJIND",
+      "HSCL",
+      "DEEPAKNTR",
+      "SUMICHEM",
+      "ACUTAAS",
+      "BAYERCROP",
+      "TATACHEM",
+      "ATUL",
+      "DCMSHRIRAM",
+      "NAVA",
+      "AARTIIND",
+      "CHAMBLFERT"
+    ]
+  },
+  {
+    "sector": "Consumer Goods",
+    "tickers": [
+      "GODREJCP",
+      "LGEINDIA",
+      "DIXON",
+      "VOLTAS",
+      "BLUESTARCO",
+      "AMBER"
+    ]
+  },
+  {
+    "sector": "E-Commerce",
+    "tickers": [
+      "MEESHO",
+      "SWIGGY",
+      "NYKAA",
+      "URBANCO"
+    ]
+  },
+  {
+    "sector": "Tobacco & Spirits",
+    "tickers": [
+      "UNITDSPR",
+      "RADICO",
+      "UBL",
+      "GODFRYPHLP"
+    ]
+  },
+  {
+    "sector": "Hospitality",
+    "tickers": [
+      "INDHOTEL",
+      "ITCHOTELS",
+      "EIHOTEL"
+    ]
+  },
+  {
+    "sector": "Electric Equipment",
+    "tickers": [
+      "HAVELLS",
+      "KEI",
+      "RRKABEL",
+      "CROMPTON"
+    ]
+  },
+  {
+    "sector": "Fintech",
+    "tickers": [
+      "PAYTM",
+      "PINELABS"
+    ]
+  },
+  {
+    "sector": "Online Classified",
+    "tickers": [
+      "NAUKRI"
+    ]
+  },
+  {
+    "sector": "Plastic Products",
+    "tickers": [
+      "SUPREMEIND"
+    ]
+  },
+  {
+    "sector": "Railway",
+    "tickers": [
+      "IRCTC"
+    ]
+  },
+  {
+    "sector": "Jewelry",
+    "tickers": [
+      "KALYANKJIL"
+    ]
+  },
+  {
+    "sector": "Education",
+    "tickers": [
+      "PWL"
+    ]
+  },
+  {
+    "sector": "Battery",
+    "tickers": [
+      "EXIDEIND",
+      "HBLENGINE"
+    ]
+  },
+  {
+    "sector": "Surveillance",
+    "tickers": [
+      "CPPLUS"
+    ]
+  },
+  {
+    "sector": "Footwear",
+    "tickers": [
+      "METROBRAND"
+    ]
+  },
+  {
+    "sector": "Hardware",
+    "tickers": [
+      "KAYNES",
+      "SYRMA"
+    ]
+  },
+  {
+    "sector": "Entertainment",
+    "tickers": [
+      "PFOCUS",
+      "SUNTV"
+    ]
+  },
+  {
+    "sector": "Glass",
+    "tickers": [
+      "ASAHIINDIA"
+    ]
+  },
+  {
+    "sector": "Dairy",
+    "tickers": [
+      "HATSUN"
+    ]
+  },
+  {
+    "sector": "Plywood",
+    "tickers": [
+      "CENTURYPLY"
+    ]
+  },
+  {
+    "sector": "Aquaculture",
+    "tickers": [
+      "AVANTIFEED"
+    ]
+  },
+  {
+    "sector": "Sanitaryware",
+    "tickers": [
+      "KAJARIACER"
+    ]
+  }
+]
