@@ -132,7 +132,9 @@
             border-radius: 8px;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
+        .cat-item:hover { background: #e2e8f0; }
         .cat-header-row {
             display: flex;
             justify-content: space-between;
@@ -142,6 +144,51 @@
         .cat-name { font-size: 0.65rem; color: var(--muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%; }
         .cat-count-badge { font-size: 0.6rem; color: #1e293b; background: #e2e8f0; padding: 0px 4px; border-radius: 4px; font-weight: 700; }
         .cat-val { font-size: 0.85rem; font-weight: 700; margin-top: 2px; }
+
+        /* --- POPUP / MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: white;
+            width: 90%; max-width: 400px;
+            max-height: 80vh;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+        .modal-header {
+            padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: #f8fafc;
+        }
+        .modal-title { font-weight: 700; color: var(--text); font-size: 1rem; }
+        .modal-close {
+            background: #ef4444; color: white; border: none;
+            width: 24px; height: 24px; border-radius: 50%;
+            cursor: pointer; font-weight: bold; line-height: 1;
+            font-size: 1.4rem;
+        }
+        .modal-body {
+            padding: 10px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .modal-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 8px; border-bottom: 1px solid #f1f5f9;
+        }
+        .modal-row:last-child { border-bottom: none; }
+        .modal-stock-info { display: flex; align-items: center; gap: 10px; }
+        .modal-logo { width: 24px; height: 24px; object-fit: contain; }
+        .modal-stock-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+        .modal-stock-ret { font-size: 0.85rem; font-weight: 700; }
 
         /* --- Sorting Bar --- */
         .sort-bar-container { position: sticky; top: 10px; z-index: 100; margin-bottom: 20px; }
@@ -254,6 +301,17 @@
             <div id="category-grid" class="cat-grid"></div>
         </div>
 
+        <!-- Popup Modal -->
+        <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <span class="modal-title" id="modal-title">Category Stocks</span>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+            </div>
+        </div>
+
         <!-- Sorting Bar -->
         <div class="sort-bar-container" id="sort-bar-parent">
             <div class="sort-bar" id="sort-scroll-area">
@@ -278,11 +336,29 @@
     </div>
 
     <script>
+                function handleLogoError(img, baseUrl) {
+            const extensions = ['jpg', 'gif', 'png'];
+            // Find what we just tried
+            const currentSrc = img.src;
+            const currentExt = currentSrc.split('.').pop().toLowerCase();
+            
+            // Find the next extension to try
+            const currentIndex = extensions.indexOf(currentExt);
+            
+            if (currentIndex < extensions.length - 1) {
+                // Try the next one in the list
+                img.src = baseUrl + '.' + extensions[currentIndex + 1];
+            } else {
+                // If all failed, use a placeholder and stop the loop
+                img.src = 'https://via.placeholder.com/24';
+                img.onerror = null; 
+            }
+        }
         let allHoldings = [];
         let indicesData = [];
         let sectorsData = [];
         let activeCategoryTab = 'indices';
-        let catSortMode = 0; // 0: Default, 1: High-to-Low, 2: Low-to-High
+        let catSortMode = 0; 
         let currentSortField = null;
         let isAscending = true;
 
@@ -371,61 +447,104 @@
             else icon.innerText = '↑';
         }
 
+        /* --- MODAL LOGIC --- */
+        function openCategoryModal(catName, stockList) {
+            document.getElementById('modal-title').innerText = catName;
+            const body = document.getElementById('modal-body');
+            body.innerHTML = '';
+
+            // Sort High to Low by absolute return
+            const sorted = [...stockList].sort((a, b) => cleanNum(b.absReturns) - cleanNum(a.absReturns));
+
+            sorted.forEach(stock => {
+                const row = document.createElement('div');
+                row.className = 'modal-row';
+                
+                // Use the exact redirect logic from your main grid
+                const redirectUrl = `demo.html?ticker=${encodeURIComponent(stock.ticker || stock.companyName)}`;
+                
+                row.innerHTML = `
+                    <div class="modal-stock-info">
+                        <!-- Triple-fallback logic for png -> jpg -> gif -> placeholder -->
+                        <img src="${stock.logoUrl}.png" class="modal-logo" 
+                             onerror="this.src='${stock.logoUrl}.jpg'; this.onerror=function(){ this.src='${stock.logoUrl}.gif'; this.onerror=function(){ this.src='https://via.placeholder.com/24'; } }">
+                        
+                        <!-- Using the same span + onclick + style as your main holdings grid -->
+                        <span class="modal-stock-name" 
+                              onclick="window.location.href='${redirectUrl}'" 
+                              style="cursor: pointer; text-decoration: none;">
+                              ${stock.companyName}
+                        </span>
+                    </div>
+                    <span class="modal-stock-ret ${getColorClass(stock.absReturns)}">${stock.absReturns}</span>
+                `;
+                body.appendChild(row);
+            });
+
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function closeModal(e) {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+
         function renderCategories() {
-    const grid = document.getElementById('category-grid');
-    grid.innerHTML = '';
-    const source = activeCategoryTab === 'indices' ? indicesData : sectorsData;
-    const labelKey = activeCategoryTab === 'indices' ? 'index' : 'sector';
+            const grid = document.getElementById('category-grid');
+            grid.innerHTML = '';
+            const source = activeCategoryTab === 'indices' ? indicesData : sectorsData;
+            const labelKey = activeCategoryTab === 'indices' ? 'index' : 'sector';
 
-    let categoryResults = [];
-    source.forEach(cat => {
-        let catInv = 0;   // Sum of Buy Prices
-        let catCurr = 0;  // Sum of (Current * Qty)
-        let stockCount = 0;
-        
-        // Handle Tickers (String for Indices, Array for Sectors)
-        const catTickers = typeof cat.tickers === 'string' 
-            ? cat.tickers.split(',').map(t => t.trim()) 
-            : cat.tickers;
-        
-        allHoldings.forEach(stock => {
-            if (catTickers.includes(stock.ticker)) {
-                const qty = cleanNum(stock.quantity);
-                const buyPrice = cleanNum(stock.buyPrice);
-                const currentPrice = cleanNum(stock.current);
+            let categoryResults = [];
+            source.forEach(cat => {
+                let catInv = 0; 
+                let catCurr = 0; 
+                let stockCount = 0;
+                let catStockList = [];
+                
+                const catTickers = typeof cat.tickers === 'string' 
+                    ? cat.tickers.split(',').map(t => t.trim()) 
+                    : cat.tickers;
+                
+                allHoldings.forEach(stock => {
+                    if (catTickers.includes(stock.ticker)) {
+                        const qty = cleanNum(stock.quantity);
+                        const buyPrice = cleanNum(stock.buyPrice);
+                        const currentPrice = cleanNum(stock.current);
 
-                catInv += buyPrice;            // Logic: Sum of all buy prices
-                catCurr += currentPrice * qty; // Logic: Current * Qty
-                stockCount++;
-            }
-        });
+                        catInv += buyPrice; 
+                        catCurr += currentPrice * qty; 
+                        stockCount++;
+                        catStockList.push(stock);
+                    }
+                });
 
-        if (catInv > 0) {
-            categoryResults.push({
-                name: cat[labelKey],
-                count: stockCount,
-                ret: ((catCurr - catInv) / catInv) * 100
+                if (catInv > 0) {
+                    categoryResults.push({
+                        name: cat[labelKey],
+                        count: stockCount,
+                        ret: ((catCurr - catInv) / catInv) * 100,
+                        stocks: catStockList
+                    });
+                }
+            });
+
+            if (catSortMode === 1) categoryResults.sort((a, b) => b.ret - a.ret);
+            else if (catSortMode === 2) categoryResults.sort((a, b) => a.ret - b.ret);
+
+            categoryResults.forEach(res => {
+                const item = document.createElement('div');
+                item.className = 'cat-item';
+                item.onclick = () => openCategoryModal(res.name, res.stocks);
+                item.innerHTML = `
+                    <div class="cat-header-row">
+                        <span class="cat-name">${res.name}</span>
+                        <span class="cat-count-badge">${res.count}</span>
+                    </div>
+                    <span class="cat-val ${res.ret >= 0 ? 'up' : 'down'}">${res.ret.toFixed(2)}%</span>
+                `;
+                grid.appendChild(item);
             });
         }
-    });
-
-    // Handle Sorting (High to Low / Low to High)
-    if (catSortMode === 1) categoryResults.sort((a, b) => b.ret - a.ret);
-    else if (catSortMode === 2) categoryResults.sort((a, b) => a.ret - b.ret);
-
-    categoryResults.forEach(res => {
-        const item = document.createElement('div');
-        item.className = 'cat-item';
-        item.innerHTML = `
-            <div class="cat-header-row">
-                <span class="cat-name">${res.name}</span>
-                <span class="cat-count-badge">${res.count}</span>
-            </div>
-            <span class="cat-val ${res.ret >= 0 ? 'up' : 'down'}">${res.ret.toFixed(2)}%</span>
-        `;
-        grid.appendChild(item);
-    });
-}
 
         function getColorClass(value) { return String(value).trim().startsWith('-') ? 'down' : 'up'; }
 
@@ -498,7 +617,7 @@
                             <div class="perf-item"><span class="lbl">CAGR:</span>&nbsp;<span class="val ${getColorClass(stock.cagr)}">${stock.cagr}</span></div>
                             <div class="perf-item"><span class="lbl">P/L:</span>&nbsp;<span class="val ${getColorClass(stock.profitLoss)}">${stock.profitLoss}</span></div>
                         </div>
-                        <div class="broker-container"><img src="logos/broker/${bName}2.png" class="broker-img" onerror="this.parentElement.innerText='${stock.broker}'"></div>
+                        <div class="broker-container"><img src="logos/broker/${bName}3.png" class="broker-img" onerror="this.parentElement.innerText='${stock.broker}'"></div>
                     </div>
                 `;
                 grid.appendChild(card);

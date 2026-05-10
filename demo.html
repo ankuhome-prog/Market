@@ -166,6 +166,7 @@
             color: white;
             border-color: var(--primary-gold);
         }
+        
 
         /* --- Updated Mobile View Logic --- */
         @media (max-width: 1400px) {
@@ -339,7 +340,7 @@
             
             if (stock && stock.history) {
                 currentHistory = stock.history; 
-                filterChart('6'); // This will trigger renderChart
+                filterChart('12'); // Default 1Y view.
             }
         } catch (error) { console.log("Chart fetch error:", error); }
     }
