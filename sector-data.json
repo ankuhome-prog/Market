@@ -906,7 +906,7 @@
     ]
   },
   {
-    "sector": "Jewellery ",
+    "sector": "Jewellery",
     "tickers": [
       "TITAN",
       "KALYANKJIL",
@@ -929,7 +929,12 @@
       "TBZ",
       "MVGJL",
       "RADHIKAJWE",
-      "RBZJEWEL"
+      "RBZJEWEL",
+      "AUSOMENT",
+      "MOKSH",
+      "BANARBEADS",
+      "KANANIIND",
+      "LYPSAGEMS"
     ]
   },
   {
@@ -1338,6 +1343,8 @@
       "STEELCITY",
       "INVENTURE",
       "DBSTOCKBRO",
+      "PALASHSECU",
+      "BLBLIMITED",
       "TFL",
       "21STCENMGM",
       "KHANDSE"
@@ -2295,23 +2302,6 @@
       "KRYSTAL",
       "INNOVISION",
       "AARVI"
-    ]
-  },
-  {
-    "sector": "Jewellery",
-    "tickers": [
-      "AUSOMENT",
-      "MOKSH",
-      "BANARBEADS",
-      "KANANIIND",
-      "LYPSAGEMS"
-    ]
-  },
-  {
-    "sector": "capital Market",
-    "tickers": [
-      "PALASHSECU",
-      "BLBLIMITED"
     ]
   }
 ]
