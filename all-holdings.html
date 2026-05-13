@@ -163,17 +163,24 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
         }
         .modal-header {
-            padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 15px;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
             border-bottom: 1px solid var(--border);
-            background: #f8fafc;
+            background: white;
+            position: relative;
         }
-        .modal-title { font-weight: 700; color: var(--text); font-size: 1rem; }
+        .modal-title { font-weight: 700; color: var(--text); font-size: 1rem; text-align: center; }
+        .modal-cat-logo { width: 100px; height: 50px; object-fit: contain; }
         .modal-close {
-            background: #ef4444; color: white; border: none;
+            position: absolute;
+            top: 12px; right: 12px;
+            background: black; color: white; border: none;
             width: 24px; height: 24px; border-radius: 50%;
             cursor: pointer; font-weight: bold; line-height: 1;
-            font-size: 1.4rem;
+            font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
         }
         .modal-body {
             padding: 10px;
@@ -196,7 +203,7 @@
             display: flex; align-items: center; gap: 4px; padding: 8px; padding-left: 0px;
             background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
             border-radius: 16px; border: 1px solid rgba(226, 232, 240, 0.8);
-            overflow-x: auto; scrollbar-width: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            overflow-x: auto; scrollbar-width: none; box-shadow: 0 10px 15px -33px rgba(0, 0, 0, 0.05);
             scroll-behavior: smooth;
         }
         .sort-bar::-webkit-scrollbar { display: none; }
@@ -304,9 +311,8 @@
         <!-- Popup Modal -->
         <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
-                <div class="modal-header">
-                    <span class="modal-title" id="modal-title">Category Stocks</span>
-                    <button class="modal-close" onclick="closeModal()">×</button>
+                <div class="modal-header" id="modal-header">
+                    <!-- Dynamic Header Content -->
                 </div>
                 <div class="modal-body" id="modal-body"></div>
             </div>
@@ -336,24 +342,6 @@
     </div>
 
     <script>
-                function handleLogoError(img, baseUrl) {
-            const extensions = ['jpg', 'gif', 'png'];
-            // Find what we just tried
-            const currentSrc = img.src;
-            const currentExt = currentSrc.split('.').pop().toLowerCase();
-            
-            // Find the next extension to try
-            const currentIndex = extensions.indexOf(currentExt);
-            
-            if (currentIndex < extensions.length - 1) {
-                // Try the next one in the list
-                img.src = baseUrl + '.' + extensions[currentIndex + 1];
-            } else {
-                // If all failed, use a placeholder and stop the loop
-                img.src = 'https://via.placeholder.com/24';
-                img.onerror = null; 
-            }
-        }
         let allHoldings = [];
         let indicesData = [];
         let sectorsData = [];
@@ -447,29 +435,32 @@
             else icon.innerText = '↑';
         }
 
-        /* --- MODAL LOGIC --- */
+        /* --- MODAL LOGIC UPDATED --- */
         function openCategoryModal(catName, stockList) {
-            document.getElementById('modal-title').innerText = catName;
+            const header = document.getElementById('modal-header');
             const body = document.getElementById('modal-body');
-            body.innerHTML = '';
+            
+            // Get logo of the first stock in the list to represent the category
+            const repLogo = stockList.length > 0 ? stockList[0].logoUrl : 'https://via.placeholder.com/40';
 
-            // Sort High to Low by absolute return
+            header.innerHTML = `
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <img src="logos/nse/${catName}.png" class="modal-cat-logo" onerror="this.src='${repLogo}.jpg'; this.onerror=function(){this.src='https://via.placeholder.com/40'}">
+                
+            `;
+
+            body.innerHTML = '';
             const sorted = [...stockList].sort((a, b) => cleanNum(b.absReturns) - cleanNum(a.absReturns));
 
             sorted.forEach(stock => {
                 const row = document.createElement('div');
                 row.className = 'modal-row';
-                
-                // Use the exact redirect logic from your main grid
                 const redirectUrl = `demo.html?ticker=${encodeURIComponent(stock.ticker || stock.companyName)}`;
                 
                 row.innerHTML = `
                     <div class="modal-stock-info">
-                        <!-- Triple-fallback logic for png -> jpg -> gif -> placeholder -->
                         <img src="${stock.logoUrl}.png" class="modal-logo" 
                              onerror="this.src='${stock.logoUrl}.jpg'; this.onerror=function(){ this.src='${stock.logoUrl}.gif'; this.onerror=function(){ this.src='https://via.placeholder.com/24'; } }">
-                        
-                        <!-- Using the same span + onclick + style as your main holdings grid -->
                         <span class="modal-stock-name" 
                               onclick="window.location.href='${redirectUrl}'" 
                               style="cursor: pointer; text-decoration: none;">
@@ -484,7 +475,7 @@
             document.getElementById('modal-overlay').style.display = 'flex';
         }
 
-        function closeModal(e) {
+        function closeModal() {
             document.getElementById('modal-overlay').style.display = 'none';
         }
 
@@ -530,6 +521,7 @@
 
             if (catSortMode === 1) categoryResults.sort((a, b) => b.ret - a.ret);
             else if (catSortMode === 2) categoryResults.sort((a, b) => a.ret - b.ret);
+            else if (activeCategoryTab === 'sectors') categoryResults.sort((a, b) => a.name.localeCompare(b.name));
 
             categoryResults.forEach(res => {
                 const item = document.createElement('div');
