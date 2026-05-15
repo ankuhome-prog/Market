@@ -25,6 +25,21 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            
+            /* Prevent text selection and image dragging globally */
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* IE10+/Edge */
+            user-select: none;          /* Standard */
+        }
+
+        /* Ensure images inside the document cannot be dragged */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
         }
 
         .page-wrapper {
@@ -60,7 +75,7 @@
         .graph-card { width: 350px; padding: 24px; }
         .card { width: 500px; padding: 32px; padding-bottom: 13px; }
 
-        .left-column {
+        .left-column, .right-column {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -127,7 +142,6 @@
             margin-top: 8px; 
         }
 
-        /* Sector Tag Style */
         .sector-badge {
             display: inline-block;
             background: #e1f5fe;
@@ -138,7 +152,6 @@
             font-weight: 600;
             margin-top: 8px;
             margin-left: 5px;
-            
         }
 
         .info-table { border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; }
@@ -154,6 +167,48 @@
 
         .broker-banner { max-height: 18px; max-width: 80%; display: block; margin-top: 2px; object-fit: contain; }
         
+        /* Compact Returns Styling */
+        .returns-scroll-container {
+            max-height: 150px; 
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .returns-scroll-container::-webkit-scrollbar { width: 4px; }
+        .returns-scroll-container::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 10px;
+        }
+
+        .calendar-item {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .cal-year {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 0;
+            background: var(--bg-soft);
+            color: var(--text-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cal-perc {
+            padding: 8px 0;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .calendar-item.positive .cal-year { background: #e8f5e9; color: #2e7d32; }
+        .calendar-item.negative .cal-year { background: #ffebee; color: #c62828; }
+
         .nav-sidebar { 
             display: flex; 
             flex-direction: column; 
@@ -191,43 +246,85 @@
             color: white;
             border-color: var(--primary-gold);
         }
+
+        .logo-box a { display: inline-block; border: none; outline: none; }
+        .logo-box img { cursor: pointer; transition: transform 0.2s ease; }
+        .logo-box img:hover { transform: scale(1.03); }
+
+        /* Label Container Layout */
+        .label-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .label-container label { margin-bottom: 0; }
+
+        /* i Button / Tooltip Styling */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #2d3436;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 8px 10px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%; 
+            right: 0;
+            margin-bottom: 5px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.3;
+            text-transform: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Tooltip Arrow */
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            right: 5px;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2d3436 transparent transparent transparent;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
         
-
-        /* --- Updated Mobile View Logic --- */
         @media (max-width: 1400px) {
-            .cards-container { 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 20px; 
-                width: 100%;
-            }
-
+            .cards-container { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+            .left-column, .right-column { order: 1; width: 100%; display: contents; }
             #projection-card { order: 2; }
             .card { order: 1; }
-            #identity-card { order: 4; }
             #graph-card { order: 3; }
-            .chart-container { 
-                height: 150px;
-                width: 100%;}
-
-            .left-column { order: 1; width: 100%; display: contents; }
-            
-            .projection-card, .card, .identity-card, .graph-card { 
-                width: 100%; 
-                height: 80%;
-                max-width: 500px; 
-                position: relative;
-            }
-
-            .nav-sidebar { 
-                position: fixed; 
-                right: 15px; 
-                top: 50%; 
-                transform: translateY(-50%); 
-                margin-left: 0;
-                z-index: 1000;
-                height: auto;
-            }
+            #returns-card { order: 4; }
+            #identity-card { order: 5; }
+            .projection-card, .card, .identity-card, .graph-card { width: 100%; height: auto; max-width: 500px; position: relative; }
+            .nav-sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); margin-left: 0; z-index: 1000; height: auto; }
         }
     </style>
 </head>
@@ -258,7 +355,7 @@
 
                 <div id="identity-card" class="identity-card" style="display: none;">
                     <div class="identity-header">
-                        <img id="nation-flag" src="" alt="" style="width: 28px; height: auto; border-radius: 3px; display: none;">
+                        <img id="nation-flag" src="" alt="" style="width: 28px; height: auto; border-radius: 3px; display: none;" draggable="false">
                         <span id="nation-name"></span>
                     </div>
                     <div id="hq-location"></div>
@@ -274,7 +371,6 @@
                 </div>
             </div>
 
-            <!-- Main Stats Card -->
             <div class="card">
                 <div id="main-container" class="card-content">
                     <div class="card-header">
@@ -283,26 +379,39 @@
                 </div>
             </div>
 
-            <!-- Graph Card -->
-            <div id="graph-card" class="graph-card" style="display: none;">
-                <label>Rank History</label>
-                <div class="chart-container">
-                    <canvas id="mcapChart"></canvas>
+            <div class="right-column">
+                <div id="graph-card" class="graph-card" style="display: none;">
+                    <label>Rank History</label>
+                    <div class="chart-container">
+                        <canvas id="mcapChart"></canvas>
+                    </div>
+                    <div class="range-selector" style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
+                        <button class="range-btn" onclick="filterChart(6)">6M</button>
+                        <button class="range-btn" onclick="filterChart(12)">1Y</button>
+                        <button class="range-btn" onclick="filterChart(60)">5Y</button>
+                        <button class="range-btn" onclick="filterChart('all')">ALL</button>
+                    </div>
                 </div>
-                <div class="range-selector" style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
-                    <button class="range-btn" onclick="filterChart(6)">6M</button>
-                    <button class="range-btn" onclick="filterChart(12)">1Y</button>
-                    <button class="range-btn" onclick="filterChart(60)">5Y</button>
-                    <button class="range-btn" onclick="filterChart('all')">ALL</button>
+
+                <div id="returns-card" class="graph-card" style="display: none;">
+                    <div class="label-container">
+                        <label>Yearly Returns (%)</label>
+                        <div class="tooltip-container">
+                            <i class="info-icon">ⓘ</i>
+                            <span class="tooltip-text">Yearly returns are available till MCAP Rank: 1000.</span>
+                        </div>
+                    </div>
+                    <div class="returns-scroll-container">
+                        <div id="returns-grid" class="calendar-grid"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="nav-sidebar">
-                <button class="nav-btn" onclick="navigate('next')"><img src="logos/icons/next.png" alt="Next"></button>
-                <button class="nav-btn" onclick="navigate('prev')"><img src="logos/icons/prev.png" alt="Previous"></button>
-                <a href="all-holdings.html" class="nav-btn"><img src="logos/icons/list.jpg" alt="All Holdings"></a>
-                <a href="index.html" class="nav-btn"><img src="logos/icons/home.png" alt="Home"></a>
+                <button class="nav-btn" onclick="navigate('next')"><img src="logos/icons/next.png" alt="Next" draggable="false"></button>
+                <button class="nav-btn" onclick="navigate('prev')"><img src="logos/icons/prev.png" alt="Previous" draggable="false"></button>
+                <a href="all-holdings.html" class="nav-btn"><img src="logos/icons/list.jpg" alt="All Holdings" draggable="false"></a>
+                <a href="index.html" class="nav-btn"><img src="logos/icons/home.png" alt="Home" draggable="false"></a>
             </div>
         </div>
     </div>
@@ -331,12 +440,14 @@
             document.getElementById('projection-card').style.display = 'block';
             document.getElementById('identity-card').style.display = 'block';
             document.getElementById('graph-card').style.display = 'block';
+            document.getElementById('returns-card').style.display = 'block';
             
             const flagImg = document.getElementById('nation-flag');
             const flagPath = getFlagPath(stock.nationality);
             if (flagPath) {
                 flagImg.src = flagPath;
                 flagImg.style.display = 'block';
+                flagImg.setAttribute('draggable', 'false'); // Lock down the dynamic flag
                 flagImg.onerror = function() { this.style.display = 'none'; }; 
             }
 
@@ -348,9 +459,60 @@
             renderMainCard(stock);
             updateProjection();
             loadChartData(tickerSymbol);
-            updateSectorTag(tickerSymbol); // New Sector Call
+            updateSectorTag(tickerSymbol);
+            loadReturnsData(tickerSymbol);
             
         } catch (error) { console.error(error); }
+    }
+
+    async function loadReturnsData(ticker) {
+        try {
+            const response = await fetch('price-history.json');
+            const data = await response.json();
+            const prices = data[ticker.toUpperCase()];
+            const grid = document.getElementById('returns-grid');
+            grid.innerHTML = '';
+
+            if (!prices) {
+                document.getElementById('returns-card').style.display = 'none';
+                return;
+            }
+
+            const years = Object.keys(prices).sort();
+            const currentYear = new Date().getFullYear();
+            let html = '';
+            
+            for (let i = 1; i < years.length; i++) {
+                const prevYear = years[i-1];
+                const currYear = years[i];
+                
+                let prev, curr, displayLabel;
+                
+                if (parseInt(currYear) === currentYear) {
+                    prev = prices[currYear];  
+                    curr = parseFloat(currentStockData.current.replace(/[^\d.]/g, ''));
+                    displayLabel = 'YTD';
+                } else {
+                    prev = prices[prevYear];
+                    curr = prices[currYear];
+                    displayLabel = currYear;
+                }
+                
+                if (prev === "#N/A" || curr === "#N/A" || !prev || !curr) continue;
+
+                const diff = ((curr - prev) / prev) * 100;
+                const isPos = diff >= 0;
+                html = `
+                    <div class="calendar-item ${isPos ? 'positive' : 'negative'}">
+                        <div class="cal-year">${displayLabel}</div>
+                        <div class="cal-perc ${isPos ? 'positive' : 'negative'}">
+                            ${isPos ? '+' : ''}${diff.toFixed(1)}%
+                        </div>
+                    </div>
+                ` + html;
+            }
+            grid.innerHTML = html || '<div style="font-size:11px; color:gray;">No data</div>';
+        } catch (e) { console.log(e); }
     }
 
     async function updateSectorTag(ticker) {
@@ -373,35 +535,22 @@
         try {
             const response = await fetch('mcap-data.json');
             const data = await response.json();
-            
-            // New structure: data is an object where ticker is the key
-            // Example: {"RELIANCE": [["2026-05", 1], ["2026-04", 1]]}
             const tickerUpper = ticker.toUpperCase();
             const historyArray = data[tickerUpper];
 
             if (historyArray && Array.isArray(historyArray)) {
-                // Convert [date, rank] arrays back to objects for the rest of the script
                 currentHistory = historyArray.map(item => {
                     const dateStr = item[0];
-                    const dateObj = new Date(dateStr + "-01"); // Add day for valid parsing
-                    
+                    const dateObj = new Date(dateStr + "-01"); 
                     return {
                         date: dateStr,
                         rank: item[1],
-                        // Reconstruct the label on the fly to keep UI the same
                         label: dateObj.toLocaleString('default', { month: 'long', year: 'numeric' })
                     };
                 });
-                
                 filterChart('12');
-            } else {
-                console.log("No history found for:", tickerUpper);
-                // Clear chart if no data
-                if (mcapChart) mcapChart.destroy();
-            }
-        } catch (error) { 
-            console.log("Chart fetch error:", error); 
-        }
+            } else if (mcapChart) { mcapChart.destroy(); }
+        } catch (error) { console.log(error); }
     }
 
     function filterChart(months) {
@@ -409,28 +558,18 @@
         const displayData = [...filteredData].reverse(); 
         const labels = displayData.map(item => item.label);
         const values = displayData.map(item => item.rank);
-
         renderChart(labels, values);
-        
         const labelsMap = { 6: "6M", 12: "1Y", 60: "5Y", 'all': "ALL" };
         const targetText = labelsMap[months];
-
         document.querySelectorAll('.range-btn').forEach(btn => {
-            if (btn.innerText.trim() === targetText) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
+            btn.classList.toggle('active', btn.innerText.trim() === targetText);
         });
     }
 
     function renderChart(labels, values) {
         const ctx = document.getElementById('mcapChart').getContext('2d');
         if (mcapChart) { mcapChart.destroy(); }
-
-        const isImprovement = values[values.length - 1] <= values[0];
-        const trendColor = isImprovement ? '#27ae60' : '#e74c3c';
-
+        const trendColor = values[values.length - 1] <= values[0] ? '#27ae60' : '#e74c3c';
         mcapChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -451,32 +590,9 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: { duration: 1000, easing: 'easeInOutQuart' },
-                plugins: { 
-                    legend: { display: false },
-                    tooltip: {
-                        enabled: true,
-                        mode: 'index',
-                        intersect: false,
-                        displayColors: false,
-                        callbacks: {
-                            title: (items) => items[0].label,
-                            label: (item) => ` Rank: ${item.formattedValue}`
-                        }
-                    }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: { 
-                        reverse: true, 
-                        grid: { color: '#edf2f7' }, 
-                        ticks: { 
-                            font: { size: 10 },
-                            precision: 0,
-                            maxTicksLimit: 5,
-                            stepSize: 1,
-                            callback: function(value) { if (value >= 0) return value; }
-                        } 
-                    },
+                    y: { reverse: true, grid: { color: '#edf2f7' }, ticks: { font: { size: 10 }, precision: 0, maxTicksLimit: 5 } },
                     x: { grid: { display: false }, ticks: { display: false } }
                 }
             }
@@ -520,7 +636,6 @@
         const pnlClass = stock.profitLoss.includes('-') ? 'class="value negative"' : 'class="value positive"';
         const cagrClass = stock.cagr.includes('-') ? 'class="value negative"' : 'class="value positive"';
         const brokerLogoPath = `logos/broker/${stock.broker.toLowerCase().replace(/\s+/g, '-')}.png`;
-
         const y1Raw = stock["1y"] || "N/A";
         let outlookHTML = "";
 
@@ -538,9 +653,14 @@
                 </div>`;
         }
 
+        // Added draggable="false" to all dynamic image elements populated here
         container.innerHTML = `
             <div class="card-header">
-                <div class="logo-box"><img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')"></div>
+                <div class="logo-box">
+                    <a href="https://www.google.com/finance/beta/quote/${stock.ticker}:NSE" target="_blank">
+                        <img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')" draggable="false">
+                    </a>
+                </div>
                 <h1>${stock.companyName}</h1>
                 <p class="ticker-badge">${stock.ticker}</p>
                 <span id="sector-tag" class="sector-badge">Loading Sector...</span>
@@ -558,7 +678,7 @@
                     <div class="item right"><label>CAGR</label><div ${cagrClass}>${stock.cagr}</div></div>
                 </div>
                 <div class="grid-row footer-row">
-                    <div class="item"><label>Broker</label><img src="${brokerLogoPath}" class="broker-banner" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="value" style="display:none;">${stock.broker}</div></div>
+                    <div class="item"><label>Broker</label><img src="${brokerLogoPath}" class="broker-banner" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" draggable="false"><div class="value" style="display:none;">${stock.broker}</div></div>
                     <div class="item center"><label>Period</label><div class="value">${stock.holdingPeriod}</div></div>
                     <div class="item right"><label>MCAP Rank</label><div class="value">${stock.mcapRank}</div></div>
                 </div>
@@ -586,8 +706,7 @@
         const stocks = await response.json();
         const validStocks = stocks.filter(s => (String(s.mcapRank || "").replace(/\D/g, '')) !== "");
         const sorted = validStocks.sort((a, b) => parseInt(a.mcapRank.replace(/\D/g, '')) - parseInt(b.mcapRank.replace(/\D/g, '')));
-        const params = new URLSearchParams(window.location.search);
-        const currentTicker = (params.get('ticker') || 'RELIANCE').toLowerCase();
+        const currentTicker = (new URLSearchParams(window.location.search).get('ticker') || 'RELIANCE').toLowerCase();
         const idx = sorted.findIndex(s => s.ticker.toLowerCase() === currentTicker);
         let next = direction === 'next' ? (idx + 1) % sorted.length : (idx - 1 + sorted.length) % sorted.length;
         window.location.search = `?ticker=${encodeURIComponent(sorted[next].ticker)}`;
