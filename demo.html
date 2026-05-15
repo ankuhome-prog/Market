@@ -373,12 +373,35 @@
         try {
             const response = await fetch('mcap-data.json');
             const data = await response.json();
-            const stock = data.find(s => s.ticker.toUpperCase() === ticker.toUpperCase());
-            if (stock && stock.history) {
-                currentHistory = stock.history; 
+            
+            // New structure: data is an object where ticker is the key
+            // Example: {"RELIANCE": [["2026-05", 1], ["2026-04", 1]]}
+            const tickerUpper = ticker.toUpperCase();
+            const historyArray = data[tickerUpper];
+
+            if (historyArray && Array.isArray(historyArray)) {
+                // Convert [date, rank] arrays back to objects for the rest of the script
+                currentHistory = historyArray.map(item => {
+                    const dateStr = item[0];
+                    const dateObj = new Date(dateStr + "-01"); // Add day for valid parsing
+                    
+                    return {
+                        date: dateStr,
+                        rank: item[1],
+                        // Reconstruct the label on the fly to keep UI the same
+                        label: dateObj.toLocaleString('default', { month: 'long', year: 'numeric' })
+                    };
+                });
+                
                 filterChart('12');
+            } else {
+                console.log("No history found for:", tickerUpper);
+                // Clear chart if no data
+                if (mcapChart) mcapChart.destroy();
             }
-        } catch (error) { console.log("Chart fetch error:", error); }
+        } catch (error) { 
+            console.log("Chart fetch error:", error); 
+        }
     }
 
     function filterChart(months) {
