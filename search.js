@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const suggestions = document.createElement('ul');
   suggestions.className = 'search-suggestions';
-  // ... (Styles remain the same as your original code)
+  
+  // Styles remain intact
   suggestions.style.listStyle = 'none';
   suggestions.style.margin = '10px 0 0 0';
   suggestions.style.padding = '0';
@@ -29,55 +30,142 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let dataList = [];
 
-  // Updated to fetch stock-data.json
   fetch('stock-data.json')
     .then(response => response.json())
     .then(data => {
-      // Assuming the JSON is a direct array or has a specific key
       dataList = Array.isArray(data) ? data : (data.searchList || []);
     });
 
+  // Strips special characters but KEEPS casing/spaces if needed
+  function cleanWord(word) {
+    if (!word) return '';
+    return word.toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  // Split string into clean, individual alphanumeric words
+  function tokenizeText(str) {
+    if (!str) return [];
+    return str.split(/\s+/).map(cleanWord).filter(Boolean);
+  }
+
+  // Helper Function: Checks if a single search word fuzzily matches a single target word
+  // (Characters must appear in the correct sequence)
+  function fuzzyMatchSingleWord(searchWord, targetWord) {
+    if (!searchWord) return true; // Empty search word acts as wildcard/match
+    if (!targetWord) return false;
+    
+    let searchIdx = 0;
+    let targetIdx = 0;
+    
+    while (searchIdx < searchWord.length && targetIdx < targetWord.length) {
+      if (searchWord[searchIdx] === targetWord[targetIdx]) {
+        searchIdx++;
+      }
+      targetIdx++;
+    }
+    return searchIdx === searchWord.length;
+  }
+
+  // NEW: Checks index-to-index word fuzzy matching
+  // userWords[0] matches companyWords[0], userWords[1] matches companyWords[1], etc.
+  function fuzzyMatchWordForWord(searchWords, targetWords) {
+    if (searchWords.length > targetWords.length) return false;
+    
+    for (let i = 0; i < searchWords.length; i++) {
+      if (!fuzzyMatchSingleWord(searchWords[i], targetWords[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Helper Function: Removes consecutive repeated letters (e.g., "bnnk" -> "bnk")
+  function removeRepeatedLetters(str) {
+    return str.replace(/([a-zA-Z])\1+/g, '$1');
+  }
+
+  // Core search processor logic
+  function processSearch(originalQuery) {
+    const searchWords = tokenizeText(originalQuery);
+    if (searchWords.length === 0) return [];
+
+    const compressedQuery = searchWords.join('');
+
+    return dataList
+      .map(item => {
+        const companyWords = tokenizeText(item.companyName);
+        const tickerNorm = cleanWord(item.ticker);
+        
+        const aboutLower = (item.about || '').toLowerCase();
+        const productsLower = (item.products || '').toLowerCase();
+
+        let matchWeight = Infinity;
+
+        // 1. Strict "starts with" or "includes" matching on full target names
+        const companyNameNorm = companyWords.join('');
+        if (companyNameNorm.startsWith(compressedQuery)) {
+          matchWeight = 1;
+        } else if (tickerNorm.startsWith(compressedQuery)) {
+          matchWeight = 2;
+        } else if (companyNameNorm.includes(compressedQuery)) {
+          matchWeight = 3;
+        }
+        // 2. NEW: Word-for-Word Sequential Fuzzy matching
+        else if (fuzzyMatchWordForWord(searchWords, companyWords)) {
+          matchWeight = 4;
+        } 
+        // 3. Fallback: Fuzzy matching directly on ticker
+        else if (fuzzyMatchSingleWord(compressedQuery, tickerNorm)) {
+          matchWeight = 5;
+        } 
+        // 4. Strict multi-word substring fallback for About and Products
+        else if (
+          searchWords.every(word => aboutLower.includes(word)) || 
+          searchWords.every(word => productsLower.includes(word))
+        ) {
+          matchWeight = 6;
+        }
+
+        if (matchWeight === Infinity) return null;
+
+        return { item, matchWeight };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (a.matchWeight !== b.matchWeight) {
+          return a.matchWeight - b.matchWeight;
+        }
+        return a.item.companyName.localeCompare(b.item.companyName);
+      })
+      .slice(0, 8)
+      .map(({ item }) => item);
+  }
+
   input.addEventListener('input', function() {
-    const val = input.value.trim().toLowerCase();
+    const originalVal = input.value;
     suggestions.innerHTML = '';
-    if (!val) {
+    
+    if (!originalVal.trim()) {
       suggestions.style.display = 'none';
       return;
     }
 
-    const filtered = dataList
-      .map(item => {
-        let minIdx = Infinity;
-        
-        // Fields to search through
-        const searchFields = [
-          item.companyName, 
-          item.ticker, 
-          item.about, 
-          item.products
-        ];
+    let filtered = processSearch(originalVal);
 
-        searchFields.forEach(field => {
-          if (field) {
-            const i = field.toLowerCase().indexOf(val);
-            if (i !== -1) minIdx = Math.min(minIdx, i);
-          }
-        });
-
-        return minIdx !== Infinity
-          ? { item, matchIndex: minIdx }
-          : null;
-      })
-      .filter(Boolean)
-      .sort((a, b) => a.matchIndex - b.matchIndex || a.item.companyName.localeCompare(b.item.companyName))
-      .slice(0, 8)
-      .map(({ item }) => item);
+    // Fallback logic for repeated keystroke typos
+    if (filtered.length === 0) {
+      const cleanVal = removeRepeatedLetters(originalVal);
+      if (cleanVal !== originalVal) {
+        filtered = processSearch(cleanVal);
+      }
+    }
 
     if (filtered.length === 0) {
       suggestions.style.display = 'none';
       return;
     }
 
+    // Render results
     filtered.forEach(stock => {
       const li = document.createElement('li');
       li.style.padding = "12px 18px";
@@ -90,7 +178,6 @@ document.addEventListener("DOMContentLoaded", function() {
       li.style.fontWeight = "500";
       li.style.color = "#2d3748";
       
-      // UI: Show Company Name and Ticker
       li.innerHTML = `<span style="color: #1a202c;">${stock.companyName}</span> <small style="color: #718096; margin-left: 8px;">${stock.ticker}</small>`;
       
       li.addEventListener("mousedown", function() {
