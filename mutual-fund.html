@@ -1449,7 +1449,7 @@
             
             let amcMarkup = "";
             sortedAMCs.forEach(([amcName, count]) => {
-                const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+                const logoUrl = `logos/amc/${encodeURIComponent(amcName)} Small.png`;
                 amcMarkup += `
                 <div class="amc-logo-node" onclick="openDrilldownPopup('amc', '${amcName.replace(/'/g, "\\'")}', ${count})">
                     <div class="amc-logo-wrapper" title="${amcName}">
@@ -1493,7 +1493,7 @@
 
             let headingMarkup = "";
             if (scopeType === 'amc') {
-                const bigLogoUrl = `/logos/amc/${encodeURIComponent(targetName)} Big.png`;
+                const bigLogoUrl = `logos/amc/${encodeURIComponent(targetName)} Big.png`;
                 headingMarkup = `
                     <div class="drilldown-header-box">
                         <div class="drilldown-big-logo-wrap">
@@ -1532,7 +1532,7 @@
                         </div>
                     `;
                 } else {
-                    const smallLogoUrl = `/logos/amc/${encodeURIComponent(rowAmc)} Small.png`;
+                    const smallLogoUrl = `logos/amc/${encodeURIComponent(rowAmc)} Small.png`;
                     listContainerMarkup += `
                         <div class="drilldown-row-item" onclick="openSchemeModalDirectly(${JSON.stringify(row).replace(/"/g, '&quot;')})">
                             <div class="drilldown-row-left">
@@ -1583,7 +1583,7 @@
             if (rowData[globalHeaders.cat4] && String(rowData[globalHeaders.cat4]).trim() !== "") tags.push(String(rowData[globalHeaders.cat4]).trim());
 
             const tagsMarkup = tags.map(tag => `<span class="modal-cat-pill">${tag}</span>`).join('');
-            const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+            const logoUrl = `logos/amc/${encodeURIComponent(amcName)} Small.png`;
 
             contentRoot.innerHTML = `
                 <div class="modal-tree-structure">
@@ -1777,7 +1777,7 @@
                 const cagrData = formatReturns(row[globalHeaders.cagr]);
 
                 const tags = [row[globalHeaders.cat1], row[globalHeaders.cat2]].filter(Boolean);
-                const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+                const logoUrl = `logos/amc/${encodeURIComponent(amcName)} Small.png`;
 
                 const tempWrapper = document.createElement('div');
                 tempWrapper.className = 'scheme-card';
