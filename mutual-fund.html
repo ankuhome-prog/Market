@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Fund Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #f4f6f9;          /* Light slate backdrop */
+            --bg-card: #ffffff;          /* Pure white cards */
+            --border-color: #e2e8f0;     /* Soft clean border gray */
+            --text-main: #0f172a;        /* Deep slate/navy */
+            --text-muted: #64748b;       /* Muted gray for secondary labels */
+            --grad-1-start: #8b5cf6;     /* Vibrant modern purple */
+            --grad-1-end: #6d28d9;
+            --grad-2-start: #06b6d4;     /* Crisp cyan/blue gradient */
+            --grad-2-end: #0ea5e9;
+            --accent-green: #10b981;     /* Clean emerald green */
+            --accent-red: #ef4444;       /* High-visibility red */
+            --search-focus: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Container Layout */
+        main {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Metrics Grid Layout */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .card {
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+            min-height: 70px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-1 { 
+            background: linear-gradient(135deg, var(--grad-1-start) 0%, var(--grad-1-end) 100%); 
+            color: #ffffff;
+        }
+        .card-2 { 
+            background: linear-gradient(135deg, var(--grad-2-start) 0%, var(--grad-2-end) 100%); 
+            color: #ffffff;
+        }
+        .card-3 { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main);
+        }
+
+        .card-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            margin-bottom: 0;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.9;
+            letter-spacing: 0.75px;
+            text-transform: uppercase;
+        }
+        
+        .card-3 .card-title {
+            color: var(--text-muted);
+            opacity: 1;
+        }
+
+        /* Dynamic Analytics Dynamic Tabs Card */
+        .analytics-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .tab-headers {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            gap: 1.5rem;
+        }
+
+        .tab-link {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding-bottom: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .tab-link:hover {
+            color: var(--text-main);
+        }
+
+        .tab-link.active {
+            color: var(--grad-1-start);
+        }
+
+        .tab-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--grad-1-start);
+        }
+
+        .tab-content-pane {
+            display: none;
+        }
+
+        /* Keep base rules for the AMC tab horizontal scrolling layout matrix */
+        #amc-tab-pane.tab-content-pane.active {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 12px 12px 16px 6px !important;
+            overflow-x: auto !important;
+            overflow-y: visible !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+
+        /* NEW: Force the Category tab pane to wrap elements into multiple rows natively */
+        #category-tab-pane.tab-content-pane.active {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;        /* CRUCIAL: Allows boxes to drop to the next line */
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.75rem 1rem;                  /* Sets row-gap and column-gap tracking sizes */
+            padding: 12px 6px !important;       /* Clean breathing room padding metrics */
+            
+            overflow-x: visible !important;     /* Disables horizontal scroll masks */
+            overflow-y: visible !important;     
+        }
+
+        .tab-content-pane.active::-webkit-scrollbar {
+            height: 6px !important; /* Slim, clean horizontal scrollbar thickness */
+            display: block !important;
+        }
+        .tab-content-pane.active::-webkit-scrollbar-track {
+            background: transparent !important; /* Keeps background clean */
+        }
+        .tab-content-pane.active::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1 !important; /* Soft gray color matching standard UI rules */
+            border-radius: 10px !important;
+            transition: background-color 0.2s;
+        }
+        .tab-content-pane.active::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted) !important; /* Darkens on hover for interactive feedback */
+}
+        /* AMC Horizontal Log Bar Nodes */
+        .amc-logo-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; /* Crucial: Roots the absolute badge to this container */
+        }
+
+        .amc-logo-node:hover {
+            transform: translateY(-4px);
+        }
+
+        .amc-logo-wrapper {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+            position: relative;
+            overflow: visible !important;
+            
+        }
+
+        .amc-logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Category Nodes */
+        .category-text-node {
+            display: inline-flex;          /* Shrink-wraps the container to fits its internal components */
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-main);
+            padding: 0.5rem 1rem;
+            
+            border-radius: 25px;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+            gap: 1.25rem;                  /* Clean, consistent spacing between the text and your internal badge */
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+            overflow: hidden !important; 
+
+            /* REMOVED: fixed min-width and max-width metrics */
+            width: max-content;            /* Ensures it cleanly expands horizontally to match long text strings */
+        }
+        .amc-logo-wrapper .node-badge-counter {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+        }
+
+        /* Forces the Category bubble to sit naturally inside the box flow layout */
+        .category-text-node .node-badge-counter {
+            position: static !important;  /* Disables absolute positioning layout rules */
+            margin-left: auto;            /* Pushes the bubble neatly to the far right edge of the inner box */
+            border: none !important;      /* Removes the white masking border ring */
+            box-shadow: none !important;  /* Removes the outer floating shadow layer */
+        }
+
+        .category-text-node:hover {
+            border-color: var(--grad-1-start);
+            background-color: #f1f5f9;
+        }
+
+        .category-text-label {
+            font-size: 0.95rem;
+            
+            color: var(--text-main);
+            white-space: nowrap;           /* Prevents the category name from wrapping to a second line */
+            overflow: visible;             
+            text-overflow: clip;           
+        }
+
+        /* Redesigned Modern Counter Badge */
+        .node-badge-counter {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        background: linear-gradient(135deg, var(--grad-1-start) 0%, var(--grad-1-end) 100%);
+        color: #ffffff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 4px;
+        border-radius: 100%; /* Perfect circular layout matrix */
+        border: 2px solid var(--bg-card); /* Thick crisp masking boundary separator */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(109, 40, 217, 0.25);
+        z-index: 10;
+        
+    }
+
+        /* Hover Accent Transition (Optional enhancement) */
+        .amc-logo-node:hover .node-badge-counter,
+        .category-text-node:hover .node-badge-counter {
+            background-color: #e0e7ff;      /* Very soft brand tinted blue/purple */
+                /* Changes text color to your primary brand purple */
+            border-color: #c7d2fe;          /* Slightly deeper brand border tint */
+        }
+
+        /* All Schemes Layout Headers */
+        .schemes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-left: 5px;
+            margin-right: 5px;
+            
+        }
+
+        /* Locate this block inside your mobile media query and add align-items */
+.schemes-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Crucial: Locks both text baselines hard against the left margin */
+    justify-content: center;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.schemes-section-title {
+    font-size: 1.05rem;
+    white-space: nowrap;
+    text-align: left;        /* Ensures text forces leftward calculations */
+    font-weight: bold;
+}
+
+.showing-counter {
+    font-size: 0.75rem;
+    white-space: nowrap;
+    text-align: left;        /* Keeps counter text locked down on the same plane */
+}
+
+        .controls-tray {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-btn-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            position: relative;
+        }
+        /* Ensures the anchor element layout mimics button metrics exactly */
+        a.icon-btn-circle {
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .icon-btn-circle:hover, .icon-btn-circle.active {
+            color: var(--grad-1-start);
+            border-color: var(--grad-1-start);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+        }
+
+        /* RESTORED: Notification Dot Dynamic Placement */
+        .icon-btn-circle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--grad-1-start);
+            border-radius: 50%;
+            border: 1.5px solid var(--bg-card);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .icon-btn-circle.has-active::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .search-wrapper-inline {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-input-inline {
+            width: 0px;
+            opacity: 0;
+            pointer-events: none;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.6rem 0rem;
+            font-size: 0.9rem;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-right: 0px;
+        }
+
+        .search-wrapper-inline.expanded .search-input-inline {
+            width: 260px;
+            opacity: 1;
+            pointer-events: auto;
+            padding: 0.6rem 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .search-input-inline:focus {
+            border-color: var(--search-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .search-results-pane {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            z-index: 200;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .search-results-pane.show {
+            display: block;
+        }
+
+        .search-item {
+            padding: 0.75rem 1.2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-main);
+            text-align: left;
+        }
+
+        .search-item:hover {
+            background-color: rgba(59, 130, 246, 0.08);
+            color: var(--search-focus);
+        }
+
+        .filter-dropdown-wrapper { position: relative; }
+        .filter-options-pane {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            z-index: 100;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 0.75rem;
+        }
+        .filter-options-pane.show { display: block; }
+
+        .filter-bulk-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.25rem 0.5rem 0.65rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+            gap: 0.5rem;
+        }
+
+        .bulk-action-link {
+            font-size: 0.75rem;
+            color: var(--search-focus);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-options-list { display: flex; flex-direction: column; }
+        .filter-option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.45rem 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            user-select: none;
+        }
+        .filter-option-item input[type="checkbox"] { accent-color: var(--grad-1-start); }
+
+        .sort-dropdown-wrapper { position: relative; }
+        .sort-options-pane {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 260px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            z-index: 100;
+            padding: 0.5rem;
+        }
+        .sort-options-pane.show { display: block; }
+
+        .sort-option-item-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            user-select: none;
+        }
+        .sort-option-item-custom.active {
+            background-color: rgba(139, 92, 246, 0.08);
+            color: var(--grad-1-start);
+            font-weight: 600;
+        }
+        .sort-option-item-custom .check-icon { display: none; width: 14px; height: 14px; stroke: var(--grad-1-start); }
+        .sort-option-item-custom.active .check-icon { display: block; }
+
+        /* General Home Schemes Grid Cards */
+        .schemes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .scheme-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .scheme-card:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 2px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .scheme-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-width: 0; /* Crucial: Overrides flexbox defaults so child text elements can truncate instead of expanding */
+        }
+
+        .scheme-name-label {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .categories-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .cat-badge {
+            background-color: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            width: 100%;
+            margin: 0.25rem 0;
+        }
+
+        .metrics-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.25rem;
+        }
+
+        .metric-item { display: flex; flex-direction: column; gap: 0.25rem; }
+        .metric-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .metric-val {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* High-Visibility Clean Color Profiles Across Web Matrix Elements */
+        .return-positive { color: var(--accent-green) !important; }
+        .return-negative { color: var(--accent-red) !important; }
+
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0 3rem 0;
+        }
+
+        .btn-load-more {
+            background: linear-gradient(135deg, var(--grad-1-start) 0%, var(--grad-1-end) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-load-more:disabled {
+            background: #e2e8f0;
+            color: var(--text-muted);
+            box-shadow: none;
+        }
+
+        /* POPUP MODAL SYSTEM OVERLAY */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        .modal-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 580px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+            padding: 2.25rem;
+            position: relative;
+            animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* COMPACT DRILLDOWN FIXED SCROLLABLE POPUP GRID */
+        .modal-container.drilldown-large {
+            max-width: 850px;
+            width: 90vw;
+            max-height: 75vh; 
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            overflow: hidden; 
+        }
+
+        .drilldown-header-box {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .drilldown-big-logo-wrap {
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            background-color: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .drilldown-big-logo-wrap img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .drilldown-meta-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .drilldown-meta-scope {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .drilldown-meta-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ISOLATED COMPACT SCROLLABLE VIEW BODY */
+        .drilldown-scrollable-body {
+            display: block;
+            width: 100%;
+            overflow-y: scroll !important;  
+            max-height: calc(75vh - 140px);
+            overscroll-behavior: contain !important; 
+            padding: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .drilldown-scrollable-body::-webkit-scrollbar {
+            width: 8px !important;
+            display: block !important;
+        }
+        .drilldown-scrollable-body::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.02) !important;
+            border-radius: 10px;
+        }
+        .drilldown-scrollable-body::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1 !important;
+            border-radius: 20px !important;
+            border: 1px solid transparent;
+        }
+        .drilldown-scrollable-body::-webkit-scrollbar-thumb:hover {
+            background-color: var(--text-muted) !important;
+        }
+
+        .drilldown-list-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .drilldown-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 0.75rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 0.9rem;
+            gap: 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.15s, transform 0.1s;
+        }
+
+        .drilldown-row-item:hover {
+            background-color: rgba(139, 92, 246, 0.04);
+            transform: translateX(2px);
+        }
+
+        .drilldown-row-item:last-child {
+            border-bottom: none;
+        }
+
+        .drilldown-row-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-width: 0;
+            flex-grow: 1;
+        }
+
+        .drilldown-row-small-logo {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drilldown-row-small-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .drilldown-row-name {
+            font-weight: 500;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .drilldown-row-cagr {
+            font-weight: 600;
+            flex-shrink: 0;
+            text-align: right;
+        }
+
+        @keyframes modalFadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .modal-close-btn:hover { color: var(--text-main); }
+
+        /* CORE DETAIL POPUP STRUCTS (REDESIGNED) */
+        .modal-tree-structure {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            text-align: left;
+            width: 100%;
+        }
+
+        .modal-left-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-logo-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            
+        }
+
+        .modal-logo-box img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
+        }
+
+        .modal-nav-display {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0284c7;
+            
+            white-space: nowrap;
+            text-align: center;
+            width: 100%;
+        }
+
+        .modal-right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .modal-scheme-name { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            color: var(--text-main); 
+            line-height: 1.4; 
+            padding-right: 1.5rem; /* Prevents text colliding with close 'x' button */
+        }
+
+        .modal-categories-grid { 
+            display: flex; 
+            justify-content: flex-start; 
+            align-items: center; 
+            gap: 0.35rem; 
+            flex-wrap: wrap; 
+        }
+
+        .modal-cat-pill {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .modal-returns-columns { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            width: 100%; 
+            gap: 1rem; 
+            background: #fafafa;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-top: 0.25rem;
+        }
+
+        .modal-return-card { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.15rem; 
+        }
+        .modal-return-card:first-child { 
+            text-align: left; 
+            padding-right: 0.5rem; 
+            border-right: 1px solid var(--border-color);
+        }
+        .modal-return-card:last-child { 
+            text-align: left; 
+            padding-left: 0.5rem; 
+        }
+        .modal-return-title { 
+            font-size: 0.65rem; 
+            text-transform: uppercase; 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            letter-spacing: 0.5px;
+        }
+        .modal-return-value { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+        }
+
+        /* Mobile Responsive adjustment for the popup grid */
+        @media (max-width: 768px) {
+            .modal-tree-structure {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+                text-align: center;
+            }
+            .modal-left-column {
+                align-items: center;
+            }
+            .modal-logo-box {
+                width: 90px;
+                height: 90px;
+            }
+            .modal-nav-display {
+                width: auto;
+            }
+            .modal-right-column {
+                align-items: center;
+            }
+            .modal-scheme-name {
+                padding-right: 0;
+                font-size: 1.1rem;
+            }
+            .modal-categories-grid {
+                justify-content: center;
+            }
+            .modal-return-card:first-child {
+                text-align: center;
+                padding-right: 0;
+            }
+            .modal-return-card:last-child {
+                text-align: center;
+                padding-left: 0;
+            }
+        }
+
+        
+
+        @media (max-width: 768px) {
+            main { 
+                padding: 1rem 0.75rem; 
+                gap: 1.25rem; 
+            }
+            
+            /* Forces the 3 metrics cards to stay in the same row on mobile */
+            .metrics-container { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 0.5rem; 
+            }
+            
+            .card {
+                padding: 0.5rem 0.25rem;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 0.25rem;
+                min-height: 65px;
+                text-align: center;
+            }
+
+            .card-value {
+                font-size: 1.25rem; 
+            }
+
+            .card-title {
+                font-size: 0.6rem; 
+                letter-spacing: 0.25px;
+            }
+
+            /* NEW: Forces Section Header and Buttons into an un-broken single row framework */
+            .schemes-header { 
+                flex-direction: row; 
+                flex-wrap: nowrap;
+                justify-content: space-between; 
+                align-items: center; 
+                gap: 0.5rem; 
+                width: 100%;
+                position: relative; /* Context foundation for absolute search overlay */
+            }
+
+            /* Stack and align the counter neatly below the title text node */
+            .schemes-header-left {
+                display: flex;
+                flex-direction: column;
+                gap: 0.15rem;
+                min-width: 0;
+            }
+            
+            .schemes-section-title {
+                font-size: 1.05rem;
+                white-space: nowrap;
+            }
+
+            .showing-counter {
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+            
+            /* Compact alignment grid for our 3 action button profiles */
+            .controls-tray { 
+                width: auto; 
+                justify-content: flex-end; 
+                gap: 0.35rem;
+                flex-shrink: 0;
+            }
+
+            .icon-btn-circle {
+                width: 36px;
+                height: 36px;
+            }
+
+            .icon-btn-circle svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* RE-ENGINEERED SEARCH CONSTRAINTS: Overlays flat text to prevent mobile container blowouts */
+            .search-wrapper-inline.expanded {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background: var(--bg-main);
+                padding-left: 0.5rem;
+                z-index: 50;
+            }
+
+            .search-wrapper-inline.expanded .search-input-inline { 
+                width: 160px; 
+                padding: 0.45rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            /* Optimizes scheme grid cards to span full width safely on mobile devices */
+            .schemes-list { 
+                grid-template-columns: minmax(0, 1fr); 
+                width: 100%;
+                gap: 1rem; 
+            }
+
+            .scheme-card {
+                padding: 1rem;
+                gap: 0.85rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .scheme-content {
+                min-width: 0;
+            }
+
+            .scheme-name-label {
+                font-size: 0.95rem;
+            }
+            
+            .modal-container.drilldown-large { 
+                max-height: 85vh; 
+                padding: 1.25rem; 
+            }
+            
+            .drilldown-scrollable-body { 
+                max-height: calc(85vh - 140px); 
+            }
+            #amc-tab-pane.tab-content-pane.active {
+                display: grid !important;
+                grid-template-rows: repeat(2, auto);
+                grid-auto-flow: column; 
+                grid-auto-columns: max-content;
+                gap: 0.75rem 1rem;
+                padding: 12px 12px 6px 6px !important;
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                scrollbar-width: none;
+            }
+
+            /* Force the Category pane to wrap fluidly on mobile screens too */
+            #category-tab-pane.tab-content-pane.active {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;     /* Clean multi-line wrapping grid stack */
+                gap: 0.5rem 0.75rem;            /* Snug mobile component layout tracking */
+                padding: 8px 4px !important;
+                overflow-x: visible !important;
+                overflow-y: visible !important;
+            }
+        }
+        
+
+            .tab-content-pane.active::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Optimization for AMC node blocks in the 2-row layout grid */
+            .amc-logo-node {
+                gap: 0.35rem;
+            }
+
+            .amc-logo-wrapper {
+                width: 85px;  /* Slightly downsized on mobile to maximize viewport grid space */
+                height: 85px;
+                padding: 6px;
+            }
+
+            /* Optimization for Category node blocks in the 2-row layout grid */
+            
+        /* Prevents dragging or text selection on all images */
+        img {
+            user-select: none;           /* Standard syntax */
+            -webkit-user-select: none;   /* Safari */
+            -ms-user-select: none;       /* IE 10+ and Edge */
+            
+            -webkit-user-drag: none;     /* Safari and Chrome */
+            user-drag: none;             /* Standard syntax */
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="metrics-container">
+            <div class="card card-1">
+                <div class="card-value" id="total-schemes">--</div>
+                <div class="card-title">Schemes</div>
+            </div>
+            <div class="card card-2">
+                <div class="card-value" id="total-categories">--</div>
+                <div class="card-title">Categories</div>
+            </div>
+            <div class="card card-3">
+                <div class="card-value" id="total-amcs">--</div>
+                <div class="card-title">AMCs</div>
+            </div>
+        </div>
+
+        <div class="analytics-card">
+            <div class="tab-headers">
+                <button class="tab-link active" onclick="switchAnalyticsTab('amc-tab-pane', this)">AMCs</button>
+                <button class="tab-link" onclick="switchAnalyticsTab('category-tab-pane', this)">Categories</button>
+            </div>
+            <div id="amc-tab-pane" class="tab-content-pane active"></div>
+            <div id="category-tab-pane" class="tab-content-pane"></div>
+        </div>
+
+        <div class="schemes-header">
+            <div class="schemes-header-left">
+                <div class="schemes-section-title">All Schemes</div>
+                <div class="showing-counter" id="showing-counter">Showing 0 of 0</div>
+                
+            </div>
+            <div class="controls-tray">
+                <!-- NEW: Home Button aligned perfectly with action items -->
+                <a href="index.html" class="icon-btn-circle" title="Go to Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </a>
+
+                <div class="search-wrapper-inline" id="search-container">
+                    <input type="text" class="search-input-inline" id="search-bar" autocomplete="off" placeholder="Search schemes..." oninput="handleSearchInput(this.value)" onkeydown="handleSearchKeydown(event)">
+                    <button class="icon-btn-circle" onclick="toggleSearchExpand(event)" title="Search Schemes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <div class="search-results-pane" id="search-results"></div>
+                </div>
+
+                <div class="filter-dropdown-wrapper">
+                    <button class="icon-btn-circle" id="filter-btn" onclick="toggleFilterDropdown(event)" title="Filter Categories">
+                        <!-- NEW FUNNEL CODE -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                    </button>
+                    <div class="filter-options-pane" id="filter-pane">
+                        <div class="filter-bulk-actions">
+                            <button class="bulk-action-link" onclick="setBulkCheckboxState(true, event)">All</button>
+                            <button class="bulk-action-link" style="color: var(--text-muted);" onclick="setBulkCheckboxState(false, event)">None</button>
+                            <button class="bulk-action-link btn-inline-clear" onclick="resetAllControlStates(event)">Reset All</button>
+                        </div>
+                        <div class="filter-options-list" id="filter-options-list"></div>
+                    </div>
+                </div>
+
+                <div class="sort-dropdown-wrapper">
+                    <button class="icon-btn-circle" id="sort-btn" onclick="toggleSortDropdown(event)" title="Sort Schemes">
+                        <!-- Two arrows beside each other (Up and Down) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow (Left Side) -->
+                            <path d="m3 16 4 4 4-4"></path>
+                            <path d="M7 20V4"></path>
+                            <!-- Down Arrow (Right Side) -->
+                            <path d="m21 8-4-4-4 4"></path>
+                            <path d="M17 4v16"></path>
+                        </svg>
+                    </button>
+                    <div class="sort-options-pane" id="sort-pane">
+                        <div class="sort-option-item-custom active" data-value="none" onclick="handleCustomSortSelection(this)">
+                            <span>Default (Unsorted)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="name-asc" onclick="handleCustomSortSelection(this)">
+                            <span>Scheme Name (A to Z)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="name-desc" onclick="handleCustomSortSelection(this)">
+                            <span>Scheme Name (Z to A)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="abs-desc" onclick="handleCustomSortSelection(this)">
+                            <span>Abs. Returns (Highest)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="abs-asc" onclick="handleCustomSortSelection(this)">
+                            <span>Abs. Returns (Lowest)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="cagr-desc" onclick="handleCustomSortSelection(this)">
+                            <span>CAGR (Highest First)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="sort-option-item-custom" data-value="cagr-asc" onclick="handleCustomSortSelection(this)">
+                            <span>CAGR (Lowest First)</span>
+                            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="schemes-list" id="schemes-container"></div>
+        <div class="load-more-container">
+            <button class="btn-load-more" id="btn-load-more" onclick="renderNextBatch()">Load Next 100 Schemes</button>
+        </div>
+    </main>
+
+    <!-- UNIFIED POPUP SYSTEM -->
+    <div class="modal-overlay" id="popup-modal" onclick="closeActiveModal()">
+        <div class="modal-container" id="modal-container-box" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeActiveModal()">&times;</button>
+            <div id="modal-dynamic-content-root"></div>
+        </div>
+    </div>
+
+   <script>
+        let globalRawRows = [];
+        let globalFilteredRows = [];
+        let globalHeaders = {};
+        let uniqueCategory1List = [];
+        let activeCategoriesSet = new Set();
+        let currentSortRule = "none";
+        
+        let currentLoadedIndex = 0;
+        const BATCH_SIZE = 100;
+
+        let currentSearchFocusedIndex = -1;
+        let matchedSearchRowsCache = [];
+
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('mutual-fund.json');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const json = await response.json();
+                if (!json || !json.headers || !json.data) throw new Error("Invalid JSON structure.");
+
+                globalRawRows = json.data;
+                
+                globalHeaders = {
+                    schemeCode: json.headers.indexOf("Scheme Code"),
+                    schemeName: json.headers.indexOf("Scheme Name"),
+                    amc: json.headers.indexOf("AMC"),
+                    cat1: json.headers.indexOf("Category 1"),
+                    cat2: json.headers.indexOf("Category 2"),
+                    cat3: json.headers.indexOf("Category 3"),
+                    cat4: json.headers.indexOf("Category 4"),
+                    currentNav: json.headers.indexOf("Current NAV"),
+                    absReturns: json.headers.indexOf("Abs Returns"),
+                    cagr: json.headers.indexOf("CAGR")
+                };
+
+                const uniqueSchemes = new Set();
+                const uniqueCategories = new Set();
+                const uniqueAMCs = new Set();
+                
+                const amcCounts = {};
+                const categoryCounts = {};
+
+                globalRawRows.forEach(row => {
+                    if (!row || !Array.isArray(row)) return;
+                    if(row[globalHeaders.schemeCode]) uniqueSchemes.add(row[globalHeaders.schemeCode]);
+                    
+                    const cat1Raw = row[globalHeaders.cat1] ? String(row[globalHeaders.cat1]).trim() : "";
+                    if(cat1Raw !== "") {
+                        uniqueCategories.add(cat1Raw);
+                        categoryCounts[cat1Raw] = (categoryCounts[cat1Raw] || 0) + 1;
+                    }
+                    
+                    const amcRaw = row[globalHeaders.amc] ? String(row[globalHeaders.amc]).trim() : "";
+                    if(amcRaw !== "") {
+                        uniqueAMCs.add(amcRaw);
+                        amcCounts[amcRaw] = (amcCounts[amcRaw] || 0) + 1;
+                    }
+                });
+
+                document.getElementById('total-schemes').innerText = uniqueSchemes.size.toLocaleString();
+                document.getElementById('total-categories').innerText = uniqueCategories.size.toLocaleString();
+                document.getElementById('total-amcs').innerText = uniqueAMCs.size.toLocaleString();
+
+                uniqueCategory1List = Array.from(uniqueCategories).sort();
+                buildFilterCheckboxesUI();
+                buildAnalyticsTabsUI(amcCounts, categoryCounts);
+                handleEnginePipeline();
+
+            } catch (error) {
+                console.error("Dashboard Crash:", error);
+            }
+        }
+
+        function switchAnalyticsTab(paneId, buttonEl) {
+            const container = buttonEl.closest('.analytics-card');
+            container.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+            container.querySelectorAll('.tab-content-pane').forEach(pane => pane.classList.remove('active'));
+            
+            buttonEl.classList.add('active');
+            document.getElementById(paneId).classList.add('active');
+        }
+
+        function buildAnalyticsTabsUI(amcCounts, categoryCounts) {
+            const amcPane = document.getElementById('amc-tab-pane');
+            const catPane = document.getElementById('category-tab-pane');
+            
+            const sortedAMCs = Object.entries(amcCounts).sort((a, b) => b[1] - a[1]);
+            const sortedCats = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+            
+            let amcMarkup = "";
+            sortedAMCs.forEach(([amcName, count]) => {
+                const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+                amcMarkup += `
+                <div class="amc-logo-node" onclick="openDrilldownPopup('amc', '${amcName.replace(/'/g, "\\'")}', ${count})">
+                    <div class="amc-logo-wrapper" title="${amcName}">
+                        <img src="${logoUrl}" alt="${amcName}" onerror="this.style.display='none'; this.parentElement.innerText='${amcName.substring(0,2).toUpperCase()}'">
+                        <span class="node-badge-counter">${count}</span>
+                    </div>
+                </div>
+            `;
+            });
+            amcPane.innerHTML = amcMarkup;
+            
+            let catMarkup = "";
+            sortedCats.forEach(([catName, count]) => {
+                catMarkup += `
+                    <div class="category-text-node" onclick="openDrilldownPopup('category', '${catName.replace(/'/g, "\\'")}', ${count})">
+                        <span class="category-text-label" title="${catName}">${catName}</span>
+                        <span class="node-badge-counter">${count}</span>
+                    </div>
+                `;
+            });
+            catPane.innerHTML = catMarkup;
+        }
+
+        function openDrilldownPopup(scopeType, targetName, totalCount) {
+            const containerBox = document.getElementById('modal-container-box');
+            const contentRoot = document.getElementById('modal-dynamic-content-root');
+            
+            containerBox.className = "modal-container drilldown-large";
+            
+            let mappedRows = globalRawRows.filter(row => {
+                if (!row) return false;
+                const compareValue = scopeType === 'amc' ? row[globalHeaders.amc] : row[globalHeaders.cat1];
+                return (compareValue ? String(compareValue).trim() : "") === targetName;
+            });
+
+            mappedRows.sort((x, y) => {
+                let cagrX = x[globalHeaders.cagr] !== undefined && x[globalHeaders.cagr] !== null && x[globalHeaders.cagr] !== "" ? Number(x[globalHeaders.cagr]) : -Infinity;
+                let cagrY = y[globalHeaders.cagr] !== undefined && y[globalHeaders.cagr] !== null && y[globalHeaders.cagr] !== "" ? Number(y[globalHeaders.cagr]) : -Infinity;
+                return cagrY - cagrX;
+            });
+
+            let headingMarkup = "";
+            if (scopeType === 'amc') {
+                const bigLogoUrl = `/logos/amc/${encodeURIComponent(targetName)} Big.png`;
+                headingMarkup = `
+                    <div class="drilldown-header-box">
+                        <div class="drilldown-big-logo-wrap">
+                            <img src="${bigLogoUrl}" alt="${targetName}" onerror="this.style.display='none'; this.parentElement.innerText='${targetName.substring(0,2).toUpperCase()}'">
+                        </div>
+                        <div class="drilldown-meta-titles">
+                            <div class="drilldown-meta-scope">${targetName}</div>
+                            <div class="drilldown-meta-sub">${totalCount} Schemes listed (Sorted by CAGR)</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                headingMarkup = `
+                    <div class="drilldown-header-box">
+                        <div class="drilldown-meta-titles">
+                            <div class="drilldown-meta-scope" style="color: var(--grad-1-end);">${targetName}</div>
+                            <div class="drilldown-meta-sub">${totalCount} Category funds listed (Sorted by CAGR)</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let listContainerMarkup = `<div class="drilldown-list-container">`;
+            mappedRows.forEach(row => {
+                const rowAmc = row[globalHeaders.amc] ? String(row[globalHeaders.amc]) : "AMC";
+                const rowTitle = row[globalHeaders.schemeName] || "Unknown Scheme";
+                const cagrData = formatReturns(row[globalHeaders.cagr]);
+
+                if (scopeType === 'amc') {
+                    listContainerMarkup += `
+                        <div class="drilldown-row-item" onclick="openSchemeModalDirectly(${JSON.stringify(row).replace(/"/g, '&quot;')})">
+                            <div class="drilldown-row-left">
+                                <div class="drilldown-row-name" title="${rowTitle}">${rowTitle}</div>
+                            </div>
+                            <div class="drilldown-row-cagr ${cagrData.className}">${cagrData.text}</div>
+                        </div>
+                    `;
+                } else {
+                    const smallLogoUrl = `/logos/amc/${encodeURIComponent(rowAmc)} Small.png`;
+                    listContainerMarkup += `
+                        <div class="drilldown-row-item" onclick="openSchemeModalDirectly(${JSON.stringify(row).replace(/"/g, '&quot;')})">
+                            <div class="drilldown-row-left">
+                                <div class="drilldown-row-small-logo" title="${rowAmc}">
+                                    <img src="${smallLogoUrl}" alt="${rowAmc}" onerror="this.style.display='none'; this.parentElement.innerText='${rowAmc.substring(0,2).toUpperCase()}'">
+                                </div>
+                                <div class="drilldown-row-name" title="${rowTitle}">${rowTitle}</div>
+                            </div>
+                            <div class="drilldown-row-cagr ${cagrData.className}">${cagrData.text}</div>
+                        </div>
+                    `;
+                }
+            });
+            listContainerMarkup += `</div>`;
+
+            contentRoot.innerHTML = `${headingMarkup} <div class="drilldown-scrollable-body">${listContainerMarkup}</div>`;
+            document.getElementById('popup-modal').classList.add('show');
+            
+            const bodyScrollable = document.querySelector('.drilldown-scrollable-body');
+            if (bodyScrollable) bodyScrollable.scrollTop = 0;
+        }
+
+        function openSchemeModalDirectly(rowData) {
+            openSchemeModal(rowData);
+        }
+
+        function openSchemeModal(rowData) {
+            const containerBox = document.getElementById('modal-container-box');
+            const contentRoot = document.getElementById('modal-dynamic-content-root');
+            
+            containerBox.className = "modal-container";
+
+            const amcName = rowData[globalHeaders.amc] ? String(rowData[globalHeaders.amc]) : "Unknown AMC";
+            const schemeTitle = rowData[globalHeaders.schemeName] ? String(rowData[globalHeaders.schemeName]) : "Unknown Scheme";
+            
+            let nav = "N/A";
+            if (rowData[globalHeaders.currentNav] !== undefined && rowData[globalHeaders.currentNav] !== null && !isNaN(rowData[globalHeaders.currentNav])) {
+                nav = Number(rowData[globalHeaders.currentNav]).toFixed(4);
+            }
+            
+            const absData = formatReturns(rowData[globalHeaders.absReturns]);
+            const cagrData = formatReturns(rowData[globalHeaders.cagr]);
+
+            const tags = [];
+            if (rowData[globalHeaders.cat1] && String(rowData[globalHeaders.cat1]).trim() !== "") tags.push(String(rowData[globalHeaders.cat1]).trim());
+            if (rowData[globalHeaders.cat2] && String(rowData[globalHeaders.cat2]).trim() !== "") tags.push(String(rowData[globalHeaders.cat2]).trim());
+            if (rowData[globalHeaders.cat3] && String(rowData[globalHeaders.cat3]).trim() !== "") tags.push(String(rowData[globalHeaders.cat3]).trim());
+            if (rowData[globalHeaders.cat4] && String(rowData[globalHeaders.cat4]).trim() !== "") tags.push(String(rowData[globalHeaders.cat4]).trim());
+
+            const tagsMarkup = tags.map(tag => `<span class="modal-cat-pill">${tag}</span>`).join('');
+            const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+
+            contentRoot.innerHTML = `
+                <div class="modal-tree-structure">
+                    <div class="modal-left-column">
+                        <div class="modal-logo-box">
+                            <img src="${logoUrl}" alt="${amcName}" onerror="this.style.display='none'; this.parentElement.innerText='${amcName.substring(0,2).toUpperCase()}'">
+                        </div>
+                        <div class="modal-nav-display">NAV: ${nav}</div>
+                    </div>
+                    <div class="modal-right-column">
+                        <div class="modal-scheme-name">${schemeTitle}</div>
+                        <div class="modal-categories-grid">
+                            ${tagsMarkup || '<span class="modal-cat-pill">Uncategorized</span>'}
+                        </div>
+                        <div class="modal-returns-columns">
+                            <div class="modal-return-card">
+                                <span class="modal-return-title">ABS Returns</span>
+                                <span class="modal-return-value ${absData.className}">${absData.text}</span>
+                            </div>
+                            <div class="modal-return-card">
+                                <span class="modal-return-title">CAGR</span>
+                                <span class="modal-return-value ${cagrData.className}">${cagrData.text}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('popup-modal').classList.add('show');
+        }
+
+        function closeActiveModal() {
+            document.getElementById('popup-modal').classList.remove('show');
+        }
+
+        function toggleFilterDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('sort-pane').classList.remove('show');
+            document.getElementById('sort-btn').classList.remove('active');
+            
+            // Close search dropdown when layout updates
+            document.getElementById('search-results').classList.remove('show');
+
+            document.getElementById('filter-pane').classList.toggle('show');
+            document.getElementById('filter-btn').classList.toggle('active');
+        }
+
+        function toggleSortDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('filter-pane').classList.remove('show');
+            document.getElementById('filter-btn').classList.remove('active');
+            
+            // Close search dropdown when layout updates
+            document.getElementById('search-results').classList.remove('show');
+
+            document.getElementById('sort-pane').classList.toggle('show');
+            document.getElementById('sort-btn').classList.toggle('active');
+        }
+
+        function buildFilterCheckboxesUI() {
+            const listContainer = document.getElementById('filter-options-list');
+            listContainer.innerHTML = "";
+            activeCategoriesSet = new Set(uniqueCategory1List);
+
+            uniqueCategory1List.forEach(category => {
+                const item = document.createElement('label');
+                item.className = 'filter-option-item';
+                item.innerHTML = `
+                    <input type="checkbox" value="${category}" checked onchange="handleCheckboxToggle(this)">
+                    <span>${category}</span>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function setBulkCheckboxState(shouldCheckAll, event) {
+            if (event) event.stopPropagation();
+            const checkboxes = document.querySelectorAll('#filter-options-list input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = shouldCheckAll);
+            activeCategoriesSet = shouldCheckAll ? new Set(uniqueCategory1List) : new Set();
+            handleEnginePipeline();
+        }
+
+        function handleCheckboxToggle(checkbox) {
+            if (checkbox.checked) activeCategoriesSet.add(checkbox.value);
+            else activeCategoriesSet.delete(checkbox.value);
+            handleEnginePipeline();
+        }
+
+        function handleCustomSortSelection(element) {
+            document.querySelectorAll('.sort-option-item-custom').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            currentSortRule = element.getAttribute('data-value');
+            handleEnginePipeline();
+            document.getElementById('sort-pane').classList.remove('show');
+            document.getElementById('sort-btn').classList.remove('active');
+        }
+
+        function resetAllControlStates(event) {
+            if (event) event.stopPropagation();
+            setBulkCheckboxState(true, null);
+            document.querySelectorAll('.sort-option-item-custom').forEach(item => item.classList.remove('active'));
+            const defaultSortItem = document.querySelector('.sort-option-item-custom[data-value="none"]');
+            if (defaultSortItem) defaultSortItem.classList.add('active');
+            currentSortRule = "none";
+            handleEnginePipeline();
+        }
+
+        function updateIndicatorBadges(sortValue) {
+            const filterBtn = document.getElementById('filter-btn');
+            if (activeCategoriesSet.size < uniqueCategory1List.length) {
+                filterBtn.classList.add('has-active');
+            } else {
+                filterBtn.classList.remove('has-active');
+            }
+
+            const sortBtn = document.getElementById('sort-btn');
+            if (sortValue !== "none") {
+                sortBtn.classList.add('has-active');
+            } else {
+                sortBtn.classList.remove('has-active');
+            }
+        }
+
+        function handleEnginePipeline() {
+            globalFilteredRows = globalRawRows.filter(row => {
+                if (!row || !Array.isArray(row)) return false;
+                const cat1Val = row[globalHeaders.cat1] ? String(row[globalHeaders.cat1]).trim() : "";
+                if (cat1Val === "") return activeCategoriesSet.size === uniqueCategory1List.length;
+                return activeCategoriesSet.has(cat1Val);
+            });
+
+            const sortValue = currentSortRule;
+            updateIndicatorBadges(sortValue);
+
+            if (sortValue !== "none" && globalFilteredRows.length > 0) {
+                globalFilteredRows.sort((rowA, rowB) => {
+                    let valA, valB;
+                    switch (sortValue) {
+                        case 'name-asc':
+                        case 'name-desc':
+                            valA = rowA[globalHeaders.schemeName] ? String(rowA[globalHeaders.schemeName]).toLowerCase() : "";
+                            valB = rowB[globalHeaders.schemeName] ? String(rowB[globalHeaders.schemeName]).toLowerCase() : "";
+                            return sortValue === 'name-asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                        case 'abs-asc':
+                        case 'abs-desc':
+                            valA = rowA[globalHeaders.absReturns] !== undefined && rowA[globalHeaders.absReturns] !== null && rowA[globalHeaders.absReturns] !== "" ? Number(rowA[globalHeaders.absReturns]) : -Infinity;
+                            valB = rowB[globalHeaders.absReturns] !== undefined && rowB[globalHeaders.absReturns] !== null && rowB[globalHeaders.absReturns] !== "" ? Number(rowB[globalHeaders.absReturns]) : -Infinity;
+                            return sortValue === 'abs-desc' ? valB - valA : valA - valB;
+                        case 'cagr-asc':
+                        case 'cagr-desc':
+                            valA = rowA[globalHeaders.cagr] !== undefined && rowA[globalHeaders.cagr] !== null && rowA[globalHeaders.cagr] !== "" ? Number(rowA[globalHeaders.cagr]) : -Infinity;
+                            valB = rowB[globalHeaders.cagr] !== undefined && rowB[globalHeaders.cagr] !== null && rowB[globalHeaders.cagr] !== "" ? Number(rowB[globalHeaders.cagr]) : -Infinity;
+                            return sortValue === 'cagr-desc' ? valB - valA : valA - valB;
+                        default: return 0;
+                    }
+                });
+            }
+
+            currentLoadedIndex = 0;
+            document.getElementById('schemes-container').innerHTML = "";
+            document.getElementById('btn-load-more').disabled = false;
+            renderNextBatch();
+        }
+
+        function formatReturns(value) {
+            if (value === undefined || value === null || isNaN(value) || value === "") return { text: "N/A", className: "" };
+            const numericVal = Number(value);
+            const percentage = (numericVal * 100).toFixed(2);
+            if (numericVal > 0) return { text: `+ ${percentage}%`, className: "return-positive" };
+            if (numericVal < 0) return { text: `- ${Math.abs(percentage)}%`, className: "return-negative" };
+            return { text: `${percentage}%`, className: "" };
+        }
+
+        function renderNextBatch() {
+            const schemesContainer = document.getElementById('schemes-container');
+            if (globalFilteredRows.length === 0) {
+                document.getElementById('showing-counter').innerText = "Showing 0 of 0";
+                schemesContainer.innerHTML = `<div style="color: var(--text-muted); padding: 3rem; text-align: center; border: 1px dashed var(--border-color); grid-column: 1/-1;"><p>No mutual fund schemes match your filters.</p></div>`;
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            const endIndex = Math.min(currentLoadedIndex + BATCH_SIZE, globalFilteredRows.length);
+
+            for (let i = currentLoadedIndex; i < endIndex; i++) {
+                const row = globalFilteredRows[i];
+                const amcName = row[globalHeaders.amc] ? String(row[globalHeaders.amc]) : "Unknown AMC";
+                const schemeTitle = row[globalHeaders.schemeName] || "Unknown Scheme";
+                let nav = row[globalHeaders.currentNav] ? Number(row[globalHeaders.currentNav]).toFixed(4) : "N/A";
+                const absData = formatReturns(row[globalHeaders.absReturns]);
+                const cagrData = formatReturns(row[globalHeaders.cagr]);
+
+                const tags = [row[globalHeaders.cat1], row[globalHeaders.cat2]].filter(Boolean);
+                const logoUrl = `/logos/amc/${encodeURIComponent(amcName)} Small.png`;
+
+                const tempWrapper = document.createElement('div');
+                tempWrapper.className = 'scheme-card';
+                tempWrapper.addEventListener('click', () => openSchemeModal(row));
+                tempWrapper.innerHTML = `
+                    <div class="logo-container">
+                        <img src="${logoUrl}" alt="${amcName}" onerror="this.style.display='none'; this.parentElement.innerText='${amcName.substring(0,2).toUpperCase()}'">
+                    </div>
+                    <div class="scheme-content">
+                        <div class="scheme-name-label" title="${schemeTitle}">${schemeTitle}</div>
+                        <div class="categories-row">${tags.map(t => `<span class="cat-badge">${t}</span>`).join('')}</div>
+                        <div class="divider"></div>
+                        <div class="metrics-row">
+                            <div class="metric-item"><span class="metric-label">NAV</span><span class="metric-val">${nav}</span></div>
+                            <div class="metric-item"><span class="metric-label">Abs.</span><span class="metric-val ${absData.className}">${absData.text}</span></div>
+                            <div class="metric-item"><span class="metric-label">CAGR</span><span class="metric-val ${cagrData.className}">${cagrData.text}</span></div>
+                        </div>
+                    </div>
+                `;
+                fragment.appendChild(tempWrapper);
+            }
+
+            schemesContainer.appendChild(fragment);
+            currentLoadedIndex = endIndex;
+            document.getElementById('showing-counter').innerText = `Showing ${currentLoadedIndex.toLocaleString()} of ${globalFilteredRows.length.toLocaleString()}`;
+            if (currentLoadedIndex >= globalFilteredRows.length) document.getElementById('btn-load-more').disabled = true;
+        }
+
+        // Search Handlers
+        function handleSearchInput(query) {
+            const cleanQuery = query.trim().toLowerCase();
+            const resultsPane = document.getElementById('search-results');
+            if (!cleanQuery) { resultsPane.classList.remove('show'); return; }
+            
+            matchedSearchRowsCache = globalRawRows.filter(row => row && row[globalHeaders.schemeName] && String(row[globalHeaders.schemeName]).toLowerCase().includes(cleanQuery)).slice(0, 15);
+            
+            if (matchedSearchRowsCache.length === 0) { 
+                resultsPane.innerHTML = `<div style="padding: 0.75rem 1.2rem; font-size: 0.9rem; color: var(--text-muted);">No matches</div>`; 
+                resultsPane.classList.add('show'); 
+                return; 
+            }
+            resultsPane.innerHTML = matchedSearchRowsCache.map((r, i) => `<div class="search-item" onclick="triggerPopupFromSearch(${i})">${r[globalHeaders.schemeName]}</div>`).join('');
+            resultsPane.classList.add('show');
+        }
+
+        function toggleSearchExpand(e) { 
+            e.stopPropagation(); 
+            // Close filter and sort panels when expanding search
+            document.getElementById('filter-pane').classList.remove('show');
+            document.getElementById('filter-btn').classList.remove('active');
+            document.getElementById('sort-pane').classList.remove('show');
+            document.getElementById('sort-btn').classList.remove('active');
+
+            const searchContainer = document.getElementById('search-container');
+            searchContainer.classList.toggle('expanded'); 
+            
+            if(searchContainer.classList.contains('expanded')) {
+                document.getElementById('search-bar').focus();
+            } else {
+                document.getElementById('search-bar').value = "";
+                document.getElementById('search-results').classList.remove('show');
+            }
+        }
+
+        function triggerPopupFromSearch(i) { 
+            if(matchedSearchRowsCache[i]) {
+                openSchemeModal(matchedSearchRowsCache[i]); 
+                // Auto-close search result tray upon modal firing
+                document.getElementById('search-results').classList.remove('show');
+            }
+        }
+
+        function handleSearchKeydown(event) {
+            // Placeholder wrapper for your existing key handler layout dependencies
+            if (event.key === 'Escape') {
+                document.getElementById('search-results').classList.remove('show');
+            }
+        }
+
+        // GLOBAL CLICK OVERLAY INTERCEPTOR: Automatically dismisses floating drop panels safely
+        // GLOBAL CLICK OVERLAY INTERCEPTOR: Automatically dismisses floating drop panels safely
+        document.addEventListener('click', function(event) {
+            const filterPane = document.getElementById('filter-pane');
+            const filterBtn = document.getElementById('filter-btn');
+            const sortPane = document.getElementById('sort-pane');
+            const sortBtn = document.getElementById('sort-btn');
+            const searchContainer = document.getElementById('search-container');
+            const searchResults = document.getElementById('search-results');
+            const searchBar = document.getElementById('search-bar');
+
+            // Handle Filter wrapper dismissal
+            if (filterPane.classList.contains('show') && !filterPane.contains(event.target) && event.target !== filterBtn && !filterBtn.contains(event.target)) {
+                filterPane.classList.remove('show');
+                filterBtn.classList.remove('active');
+            }
+
+            // Handle Sort wrapper dismissal
+            if (sortPane.classList.contains('show') && !sortPane.contains(event.target) && event.target !== sortBtn && !sortBtn.contains(event.target)) {
+                sortPane.classList.remove('show');
+                sortBtn.classList.remove('active');
+            }
+
+            // FIXED: Handle Search Bar collapse and result overlay dismissal when clicking outside
+            if (!searchContainer.contains(event.target)) {
+                searchResults.classList.remove('show');
+                if (searchContainer.classList.contains('expanded')) {
+                    searchContainer.classList.remove('expanded');
+                    searchBar.value = ""; // Clears text input so it's fresh for next expansion
+                }
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', loadDashboardData);
+    </script>
+</body>
+</html>
