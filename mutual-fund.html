@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logos/icons/mf.png" type="image/png">
     
     <style>
         :root {
@@ -55,7 +56,7 @@
         /* Metrics Grid Layout */
         .metrics-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 1.25rem;
         }
 
@@ -87,10 +88,15 @@
             background: linear-gradient(135deg, var(--grad-2-start) 0%, var(--grad-2-end) 100%); 
             color: #ffffff;
         }
-        .card-3 { 
+        .card-3, .card-4, .card-5 { 
             background: var(--bg-card); 
             border: 1px solid var(--border-color); 
             color: var(--text-main);
+        }
+
+        .card-3 .card-title, .card-4 .card-title, .card-5 .card-title {
+            color: var(--text-muted);
+            opacity: 1;
         }
 
         .card-value {
@@ -113,6 +119,26 @@
             color: var(--text-muted);
             opacity: 1;
         }
+        .card-text-col {
+                display: flex;
+                flex-direction: column;
+                justify-content: left;
+            }
+
+            .card-icon-wrap {
+                width: 100px;
+                height: 100px;
+                display: flex;
+                align-items: left;
+                justify-content: left;
+                flex-shrink: 0;
+            }
+
+            .card-icon-wrap img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
 
         /* Dynamic Analytics Dynamic Tabs Card */
         .analytics-card {
@@ -458,7 +484,7 @@
             width: 100%;
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             z-index: 200;
             max-height: 300px;
@@ -1236,19 +1262,42 @@
 
     <main>
         <div class="metrics-container">
-            <div class="card card-1">
-                <div class="card-value" id="total-schemes">--</div>
-                <div class="card-title">Schemes</div>
-            </div>
-            <div class="card card-2">
-                <div class="card-value" id="total-categories">--</div>
-                <div class="card-title">Categories</div>
-            </div>
-            <div class="card card-3">
-                <div class="card-value" id="total-amcs">--</div>
-                <div class="card-title">AMCs</div>
-            </div>
+    <div class="card card-1">
+        <div class="card-text-col">
+            <div class="card-value" id="total-schemes">--</div>
+            <div class="card-title">Schemes</div>
         </div>
+    </div>
+    <div class="card card-2">
+        <div class="card-text-col">
+            <div class="card-value" id="total-categories">--</div>
+            <div class="card-title">Categories</div>
+        </div>
+    </div>
+    <div class="card card-3">
+        <div class="card-text-col">
+            <div class="card-value" id="total-amcs">--</div>
+            <div class="card-title">AMCs</div>
+        </div>
+    </div>
+    <div class="card card-4" style="flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.35rem;">
+        <div class="card-icon-wrap" style="width: auto; height: 32px; display: flex; align-items: center; justify-content: flex-start;">
+            <img src="logos/icons/amfi.png" alt="AMFI Icon" style="max-height: 100%; width: auto; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerText='CN'">
+        </div>
+        <div class="card-text-col" style="justify-content: flex-start; text-align: left;">
+            <div class="card-title" style="text-align: left;">Data Feed</div>
+        </div>
+    </div>
+    <!-- NEW: MFSH Portfolio Snapshot Card -->
+    <div class="card card-5">
+        <div class="card-icon-wrap">
+            <img src="logos/icons/mfsh.png" alt="MFSH Icon" onerror="this.style.display='none'; this.parentElement.innerText='SH'">
+        </div>
+        <div class="card-text-col">
+            
+        </div>
+    </div>
+</div>
 
         <div class="analytics-card">
             <div class="tab-headers">
@@ -1309,7 +1358,7 @@
                         </svg>
                     </button>
                     <div class="sort-options-pane" id="sort-pane">
-                        <div class="sort-option-item-custom active" data-value="none" onclick="handleCustomSortSelection(this)">
+                        <div class="sort-option-item-custom" data-value="none" onclick="handleCustomSortSelection(this)">
                             <span>Default (Unsorted)</span>
                             <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
@@ -1329,7 +1378,7 @@
                             <span>Abs. Returns (Lowest)</span>
                             <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
-                        <div class="sort-option-item-custom" data-value="cagr-desc" onclick="handleCustomSortSelection(this)">
+                        <div class="sort-option-item-custom active" data-value="cagr-desc" onclick="handleCustomSortSelection(this)">
                             <span>CAGR (Highest First)</span>
                             <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
@@ -1362,7 +1411,7 @@
         let globalHeaders = {};
         let uniqueCategory1List = [];
         let activeCategoriesSet = new Set();
-        let currentSortRule = "none";
+        let currentSortRule = "cagr-desc";
         
         let currentLoadedIndex = 0;
         const BATCH_SIZE = 100;
