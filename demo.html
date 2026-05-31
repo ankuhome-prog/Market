@@ -711,6 +711,43 @@
         let next = direction === 'next' ? (idx + 1) % sorted.length : (idx - 1 + sorted.length) % sorted.length;
         window.location.search = `?ticker=${encodeURIComponent(sorted[next].ticker)}`;
     }
+    // Swipe Gestures for Mobile View
+    let touchstartX = 0;
+    let touchendX = 0;
+    const minSwipeDistance = 50; // Minimum distance in pixels to count as a swipe
+
+    function handleGesture() {
+        // Only trigger swipes if the viewport is in mobile layout (max-width: 1400px)
+        if (window.innerWidth <= 1400) {
+            if (touchstartX - touchendX > minSwipeDistance) {
+                // Swiped Left -> Load Next Stock
+                navigate('next');
+            }
+            if (touchendX - touchstartX > minSwipeDistance) {
+                // Swiped Right -> Load Previous Stock
+                navigate('prev');
+            }
+        }
+    }
+
+    // Attach listeners to the page wrapper to capture swipes smoothly
+    document.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleGesture();
+    }, { passive: true });
+    // Prevent slider drag from being intercepted as a page swipe
+    const slider = document.getElementById('year-slider');
+    if (slider) {
+        ['touchstart', 'touchend'].forEach(eventType => {
+            slider.addEventListener(eventType, e => {
+                e.stopPropagation();
+            }, { passive: true });
+        });
+    }
 
     window.onload = () => {
         const ticker = new URLSearchParams(window.location.search).get('ticker') || 'RELIANCE';
