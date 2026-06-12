@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const input = document.querySelector('.search-container input[type="text"]');
-  const container = document.querySelector('.search-container');
+  // UNIVERSAL FALLBACK: Dynamically match elements on either page setup
+  const input = document.getElementById('searchInput') || document.querySelector('.search-container input[type="text"]');
+  const container = document.getElementById('searchWrapper') || document.querySelector('.search-container');
+
+  if (!input || !container) {
+    console.warn("Search elements not found in DOM.");
+    return;
+  }
 
   let oldSuggestions = container.querySelector(".search-suggestions");
   if (oldSuggestions) oldSuggestions.remove();
@@ -8,20 +14,24 @@ document.addEventListener("DOMContentLoaded", function() {
   const suggestions = document.createElement('ul');
   suggestions.className = 'search-suggestions';
   
-  // Styles remain intact
+  // Styles remain completely intact
   suggestions.style.listStyle = 'none';
   suggestions.style.margin = '10px 0 0 0';
   suggestions.style.padding = '0';
   suggestions.style.position = 'absolute';
+  
+  // Dynamically matches whatever container width is active (stretches to 100% on both pages)
   suggestions.style.left = '0';
+  suggestions.style.right = '0';
+  suggestions.style.width = '100%'; 
+  
   suggestions.style.top = '100%';
   suggestions.style.background = '#fff';
-  suggestions.style.width = '100%';
   suggestions.style.maxHeight = '450px';
   suggestions.style.overflowY = 'auto';
   suggestions.style.boxShadow = '0 4px 24px rgba(24,48,96,0.10)';
   suggestions.style.borderRadius = '18px';
-  suggestions.style.zIndex = '999';
+  suggestions.style.zIndex = '9999'; 
   suggestions.style.display = 'none';
   suggestions.style.border = '1px solid #e3e6ef';
 
@@ -49,9 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Helper Function: Checks if a single search word fuzzily matches a single target word
-  // (Characters must appear in the correct sequence)
   function fuzzyMatchSingleWord(searchWord, targetWord) {
-    if (!searchWord) return true; // Empty search word acts as wildcard/match
+    if (!searchWord) return true; 
     if (!targetWord) return false;
     
     let searchIdx = 0;
@@ -66,8 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return searchIdx === searchWord.length;
   }
 
-  // NEW: Checks index-to-index word fuzzy matching
-  // userWords[0] matches companyWords[0], userWords[1] matches companyWords[1], etc.
+  // Checks index-to-index word fuzzy matching
   function fuzzyMatchWordForWord(searchWords, targetWords) {
     if (searchWords.length > targetWords.length) return false;
     
@@ -79,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return true;
   }
 
-  // Helper Function: Removes consecutive repeated letters (e.g., "bnnk" -> "bnk")
+  // Helper Function: Removes consecutive repeated letters
   function removeRepeatedLetters(str) {
     return str.replace(/([a-zA-Z])\1+/g, '$1');
   }
@@ -110,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (companyNameNorm.includes(compressedQuery)) {
           matchWeight = 3;
         }
-        // 2. NEW: Word-for-Word Sequential Fuzzy matching
+        // 2. Word-for-Word Sequential Fuzzy matching
         else if (fuzzyMatchWordForWord(searchWords, companyWords)) {
           matchWeight = 4;
         } 
@@ -173,16 +181,26 @@ document.addEventListener("DOMContentLoaded", function() {
       li.style.borderBottom = "1px solid #f1f2f6";
       li.style.background = "transparent";
       li.style.transition = "background 0.2s";
-      li.style.fontFamily = "Montserrat, Arial, sans-serif";
+      li.style.fontFamily = "Segoe UI, Roboto, Helvetica, Arial, sans-serif";
       li.style.fontSize = "15px";
-      li.style.fontWeight = "500";
-      li.style.color = "#2d3748";
+      li.style.fontWeight = "600";
+      li.style.color = "#2d3436";
       
-      li.innerHTML = `<span style="color: #1a202c;">${stock.companyName}</span> <small style="color: #718096; margin-left: 8px;">${stock.ticker}</small>`;
+      li.innerHTML = `<span style="color: #2d3436;">${stock.companyName}</span> <small style="color: #636e72; margin-left: 8px;">${stock.ticker}</small>`;
       
-      li.addEventListener("mousedown", function() {
+      li.addEventListener("mousedown", function(e) {
+        e.preventDefault();
         const ticker = stock.ticker || stock.companyName;
-        window.location.href = 'demo.html?ticker=' + encodeURIComponent(ticker);
+        
+        // FIXED ROUTING LOGIC: Checks if we are on the main landing page or the details workspace view
+        if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
+          // If on main screen, send query straight over to your details document asset file
+          window.location.href = `demo.html?ticker=${encodeURIComponent(ticker)}`;
+        } else {
+          // If already inside the detail dashboard page views, update parameter searches natively
+          window.location.search = `?ticker=${encodeURIComponent(ticker)}`;
+        }
+        
         input.value = '';
         suggestions.style.display = 'none';
       });
@@ -203,6 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(() => { 
       suggestions.style.display = 'none';
       input.value = ''; 
-    }, 150);
+    }, 180);
   });
 });

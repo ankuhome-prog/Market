@@ -209,6 +209,7 @@
         .calendar-item.positive .cal-year { background: #e8f5e9; color: #2e7d32; }
         .calendar-item.negative .cal-year { background: #ffebee; color: #c62828; }
 
+        /* Sidebar Main Layout Setup */
         .nav-sidebar { 
             display: flex; 
             flex-direction: column; 
@@ -219,7 +220,7 @@
             height: 100%;
         }
         
-        .nav-btn { width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--bg-card); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; text-decoration: none; }
+        .nav-btn { width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--bg-card); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; text-decoration: none; box-sizing: border-box; }
         .nav-btn img { width: 30px; height: 30px; object-fit: contain; }
 
         .center { text-align: center; }
@@ -314,6 +315,88 @@
             visibility: visible;
             opacity: 1;
         }
+
+        .search-trigger-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-light);
+            transition: fill 0.2s;
+        }
+        .search-trigger-btn:hover svg {
+            fill: var(--primary-gold);
+        }
+
+        /* Glassmorphic Centered Search Modal Box Overlay Styles */
+        .search-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(45, 52, 54, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 5000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding-top: 15vh;
+            box-sizing: border-box;
+        }
+
+        .search-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-container-box {
+            width: 90vw;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 8px 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            transform: translateY(-20px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .search-modal-overlay.active .search-container-box {
+            transform: translateY(0);
+        }
+
+        .search-container-box svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--text-light);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .search-container-box input[type="text"] {
+            width: 100%;
+            height: 30px;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        .search-container-box input[type="text"]::placeholder {
+            color: #a0aec0;
+        }
         
         @media (max-width: 1400px) {
             .cards-container { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
@@ -329,6 +412,15 @@
     </style>
 </head>
 <body>
+
+    <div class="search-modal-overlay" id="searchModalOverlay">
+        <div class="search-container-box search-container" id="searchWrapper">
+            <svg viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search your holdings..." autocomplete="off">
+        </div>
+    </div>
 
     <div class="page-wrapper">
         <div class="cards-container">
@@ -408,6 +500,12 @@
             </div>
 
             <div class="nav-sidebar">
+                <button class="nav-btn search-trigger-btn" id="searchTrigger" title="Search Holdings">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+
                 <button class="nav-btn" onclick="navigate('next')"><img src="logos/icons/next.png" alt="Next" draggable="false"></button>
                 <button class="nav-btn" onclick="navigate('prev')"><img src="logos/icons/prev.png" alt="Previous" draggable="false"></button>
                 <a href="all-holdings.html" class="nav-btn"><img src="logos/icons/list.jpg" alt="All Holdings" draggable="false"></a>
@@ -653,7 +751,6 @@
                 </div>`;
         }
 
-        // Added draggable="false" to all dynamic image elements populated here
         container.innerHTML = `
             <div class="card-header">
                 <div class="logo-box">
@@ -711,26 +808,22 @@
         let next = direction === 'next' ? (idx + 1) % sorted.length : (idx - 1 + sorted.length) % sorted.length;
         window.location.search = `?ticker=${encodeURIComponent(sorted[next].ticker)}`;
     }
-    // Swipe Gestures for Mobile View
+
     let touchstartX = 0;
     let touchendX = 0;
-    const minSwipeDistance = 50; // Minimum distance in pixels to count as a swipe
+    const minSwipeDistance = 50;
 
     function handleGesture() {
-        // Only trigger swipes if the viewport is in mobile layout (max-width: 1400px)
         if (window.innerWidth <= 1400) {
             if (touchstartX - touchendX > minSwipeDistance) {
-                // Swiped Left -> Load Next Stock
                 navigate('next');
             }
             if (touchendX - touchstartX > minSwipeDistance) {
-                // Swiped Right -> Load Previous Stock
                 navigate('prev');
             }
         }
     }
 
-    // Attach listeners to the page wrapper to capture swipes smoothly
     document.addEventListener('touchstart', e => {
         touchstartX = e.changedTouches[0].screenX;
     }, { passive: true });
@@ -739,7 +832,7 @@
         touchendX = e.changedTouches[0].screenX;
         handleGesture();
     }, { passive: true });
-    // Prevent slider drag from being intercepted as a page swipe
+
     const slider = document.getElementById('year-slider');
     if (slider) {
         ['touchstart', 'touchend'].forEach(eventType => {
@@ -753,6 +846,42 @@
         const ticker = new URLSearchParams(window.location.search).get('ticker') || 'RELIANCE';
         displayStockByTicker(ticker);
     };
+
+    // Glassmorphic Modal Interaction Controls
+    const searchModalOverlay = document.getElementById('searchModalOverlay');
+    const searchTrigger = document.getElementById('searchTrigger');
+    const searchInput = document.getElementById('searchInput');
+
+    searchTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        searchModalOverlay.classList.add('active');
+        // Clear old artifacts and force input focus focus paths instantly
+        searchInput.value = '';
+        setTimeout(() => searchInput.focus(), 50);
+    });
+
+    // Close on clicking the blurred backdrop workspace mask
+    searchModalOverlay.addEventListener('click', (e) => {
+        if (e.target === searchModalOverlay) {
+            closeSearchModal();
+        }
+    });
+
+    // Close on hitting the escape escape sequence tracks
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchModalOverlay.classList.contains('active')) {
+            closeSearchModal();
+        }
+    });
+
+    function closeSearchModal() {
+        searchModalOverlay.classList.remove('active');
+        searchInput.blur();
+        // Dispatches global lookahead cleanups to your suggestion system
+        const suggestionsMenu = document.querySelector('.search-suggestions');
+        if (suggestionsMenu) suggestionsMenu.style.display = 'none';
+    }
 </script>
+<script src="search.js"></script>
 </body>
 </html>

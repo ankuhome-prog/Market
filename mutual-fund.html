@@ -1493,8 +1493,9 @@
             const amcPane = document.getElementById('amc-tab-pane');
             const catPane = document.getElementById('category-tab-pane');
             
-            const sortedAMCs = Object.entries(amcCounts).sort((a, b) => b[1] - a[1]);
-            const sortedCats = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+                    // --- NEW CODE (AMCs by count descending, Categories alphabetically) ---
+        const sortedAMCs = Object.entries(amcCounts).sort((a, b) => b[1] - a[1]);
+        const sortedCats = Object.entries(categoryCounts).sort((a, b) => a[0].localeCompare(b[0]));
             
             let amcMarkup = "";
             sortedAMCs.forEach(([amcName, count]) => {
@@ -1634,6 +1635,9 @@
             const tagsMarkup = tags.map(tag => `<span class="modal-cat-pill">${tag}</span>`).join('');
             const logoUrl = `logos/amc/${encodeURIComponent(amcName)} Small.png`;
 
+            // 1. Generate the Google Search link
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(schemeTitle)}`;
+
             contentRoot.innerHTML = `
                 <div class="modal-tree-structure">
                     <div class="modal-left-column">
@@ -1643,7 +1647,12 @@
                         <div class="modal-nav-display">NAV: ${nav}</div>
                     </div>
                     <div class="modal-right-column">
-                        <div class="modal-scheme-name">${schemeTitle}</div>
+                        <a href="${googleSearchUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-block; width: fit-content;">
+                            <div class="modal-scheme-name" style="cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color 0.2s;" onmouseover="this.style.color='var(--grad-1-start)'" onmouseout="this.style.color='var(--text-main)'">
+                                <span>${schemeTitle}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6; flex-shrink: 0;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </div>
+                        </a>
                         <div class="modal-categories-grid">
                             ${tagsMarkup || '<span class="modal-cat-pill">Uncategorized</span>'}
                         </div>
