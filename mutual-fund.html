@@ -54,91 +54,153 @@
         }
 
         /* Metrics Grid Layout */
-        .metrics-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1.25rem;
-        }
+       /* --- METRICS CONTAINER --- */
+/* --- METRICS CONTAINER --- */
+.metrics-container {
+    display: grid;
+    /* CHANGED: Increased from repeat(5, 1fr) to repeat(6, 1fr) 
+       to cleanly fit your new 6th card in a single row */
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        .card {
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 1rem;
-            min-height: 70px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+/* --- BASE CARD STYLING --- */
+.card {
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    min-height: 70px;
+    box-sizing: border-box;
+    
+    background-color: #ffffff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-        }
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+}
 
-        .card-1 { 
-            background: linear-gradient(135deg, var(--grad-1-start) 0%, var(--grad-1-end) 100%); 
-            color: #ffffff;
-        }
-        .card-2 { 
-            background: linear-gradient(135deg, var(--grad-2-start) 0%, var(--grad-2-end) 100%); 
-            color: #ffffff;
-        }
-        .card-3, .card-4, .card-5 { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main);
-        }
+/* --- GRADIENT CARDS (1, 2, 3, & 3A) --- */
+/* --- GRADIENT CARDS (1, 2, 3, & 3A) --- */
+/* --- GRADIENT CARDS (Each card now has a completely unique color theme) --- */
 
-        .card-3 .card-title, .card-4 .card-title, .card-5 .card-title {
-            color: var(--text-muted);
-            opacity: 1;
-        }
+/* Card 1: Electric Blue to Deep Violet */
+/* --- GRADIENT CARDS (All updated to high-contrast, distinct gradients) --- */
 
-        .card-value {
-            font-size: 2.25rem;
-            font-weight: 700;
-            line-height: 1;
-            letter-spacing: -0.5px;
-            margin-bottom: 0;
-        }
+/* Card 1: Neon Cyan to Electric Blue */
+.card-1 { 
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); 
+    color: #ffffff;
+    border: none;
+}
 
-        .card-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            opacity: 0.9;
-            letter-spacing: 0.75px;
-            text-transform: uppercase;
-        }
-        
-        .card-3 .card-title {
-            color: var(--text-muted);
-            opacity: 1;
-        }
-        .card-text-col {
-                display: flex;
-                flex-direction: column;
-                justify-content: left;
-            }
+/* Card 2: Amber Gold to Sunset Orange */
+.card-2 { 
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); 
+    color: #ffffff;
+    border: none;
+}
 
-            .card-icon-wrap {
-                width: 100px;
-                height: 100px;
-                display: flex;
-                align-items: left;
-                justify-content: left;
-                flex-shrink: 0;
-            }
+/* Card 3: Lime Green to Rich Teal */
+.card-3 {
+    background: linear-gradient(135deg, #84cc16 0%, #0f766e 100%); 
+    color: #ffffff !important; 
+    border: none;
+}
 
-            .card-icon-wrap img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-            }
+/* Card 3A: Royalty Purple to Hot Pink (Kept your favorite look!) */
+.card-3A {
+    background: linear-gradient(135deg, #6366f1 0%, #db2777 100%); 
+    color: #ffffff !important; 
+    border: none;
+}
+
+/* --- LIGHT CARDS (4 & 5) --- */
+.card-4, .card-5 { 
+    background-color: #ffffff; 
+    border: 1px solid #e2e8f0; 
+    color: #1a202c; 
+}
+
+/* --- CARD TEXT & TYPOGRAPHY --- */
+.card-text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 0;
+}
+.card-3A .card-value {
+    font-size: 2.2rem; /* Adjust this value to make it larger or smaller */
+}
+
+.card-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* UPDATED: Added .card-3A here to guarantee its "SINCE" text is bright white */
+.card-1 .card-title, 
+.card-2 .card-title, 
+.card-3 .card-title,
+.card-3A .card-title {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.card-4 .card-title, 
+.card-5 .card-title {
+    color: #64748b; 
+}
+
+/* --- CARD ICON WRAPPER --- */
+.card-icon-wrap {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-icon-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.card-4, .card-5 {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 0.5rem !important;
+}
+
+/* Centers the title container inside icon cards */
+.card-4 .card-text-col, 
+.card-5 .card-text-col {
+    align-items: center !important;
+    text-align: center !important;
+}
 
         /* Dynamic Analytics Dynamic Tabs Card */
         .analytics-card {
@@ -759,9 +821,9 @@
 
         /* COMPACT DRILLDOWN FIXED SCROLLABLE POPUP GRID */
         .modal-container.drilldown-large {
-            max-width: 850px;
+            max-width: 650px;
             width: 90vw;
-            max-height: 75vh; 
+            max-height: 80vh; 
             height: auto;
             display: flex;
             flex-direction: column;
@@ -786,7 +848,7 @@
             align-items: center;
             justify-content: center;
             padding: 4px;
-            background-color: #fafafa;
+            
             border: 1px solid var(--border-color);
             border-radius: 8px;
             flex-shrink: 0;
@@ -1088,7 +1150,7 @@
             
             /* Forces the 3 metrics cards to stay in the same row on mobile */
             .metrics-container { 
-                grid-template-columns: repeat(3, 1fr); 
+                grid-template-columns: repeat(4, 1fr); 
                 gap: 0.5rem; 
             }
             
@@ -1105,10 +1167,28 @@
             .card-value {
                 font-size: 1.25rem; 
             }
+            .card-3A .card-value {
+                font-size: 1.25rem; 
+            }
 
             .card-title {
                 font-size: 0.6rem; 
                 letter-spacing: 0.25px;
+            }
+            .card-icon-wrap {
+                margin: 10px;
+                width: auto !important;
+                height: auto !important; /* Uniform height ensures cards don't stretch */
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                
+            }
+
+            .card-icon-wrap img {
+                max-height: 100% !important;
+                width: auto !important;
+                object-fit: contain;
             }
 
             /* NEW: Forces Section Header and Buttons into an un-broken single row framework */
@@ -1277,17 +1357,23 @@
     <div class="card card-3">
         <div class="card-text-col">
             <div class="card-value" id="total-amcs">--</div>
-            <div class="card-title">AMCs</div>
+            <div class="card-title">AMC's</div>
         </div>
     </div>
-    <div class="card card-4" style="flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.35rem;">
-        <div class="card-icon-wrap" style="width: auto; height: 32px; display: flex; align-items: center; justify-content: flex-start;">
-            <img src="logos/icons/amfi.png" alt="AMFI Icon" style="max-height: 100%; width: auto; object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerText='CN'">
-        </div>
-        <div class="card-text-col" style="justify-content: flex-start; text-align: left;">
-            <div class="card-title" style="text-align: left;">Data Feed</div>
+    <div class="card card-3A">
+        <div class="card-text-col">
+            <div class="card-value" id="total-time">--</div>
+            <div class="card-title">SINCE</div>
         </div>
     </div>
+    <div class="card card-4">
+    <div class="card-icon-wrap">
+        <img src="logos/icons/amfi.png" alt="AMFI Icon" onerror="this.style.display='none'; this.parentElement.innerText='CN'">
+    </div>
+    <div class="card-text-col">
+        
+    </div>
+</div>
     <!-- NEW: MFSH Portfolio Snapshot Card -->
     <div class="card card-5">
         <div class="card-icon-wrap">
@@ -1947,6 +2033,60 @@
                 }
             }
         });
+        function updateTimeSince() {
+    // Target date: May 12, 2026 (Note: JS months are 0-indexed, so May is 4)
+    const targetDate = new Date(2026, 4, 12); 
+    const currentDate = new Date();
+    
+    // Calculate total difference in milliseconds
+    const diffMs = Math.abs(currentDate - targetDate);
+    
+    // Total days calculation
+    const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    let displayValue = "";
+
+    // 1. Less than a month (approx. 30 days) -> Show as days
+    if (totalDays < 30) {
+        displayValue = `${totalDays} ${totalDays === 1 ? 'Day' : 'Days'}`;
+    } else {
+        // Calculate exact Year and Month breakdown
+        let years = currentDate.getFullYear() - targetDate.getFullYear();
+        let months = currentDate.getMonth() - targetDate.getMonth();
+        
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        const totalMonths = (years * 12) + months;
+
+        // 2. Greater than 12 months -> Show as Years and Months
+        if (totalMonths >= 12) {
+            const yearStr = `${years} ${years === 1 ? 'Year' : 'Years'}`;
+            const monthStr = months > 0 ? ` ${months} ${months === 1 ? 'Month' : 'Months'}` : '';
+            displayValue = yearStr + monthStr;
+        } 
+        // 3. Greater than a month but less than 12 months -> Show as Months
+        else {
+            displayValue = `${totalMonths} ${totalMonths === 1 ? 'Month' : 'Months'}`;
+        }
+    }
+
+    // Inject the calculated string into the card-value container
+    const timeContainer = document.getElementById("total-time");
+    if (timeContainer) {
+        timeContainer.textContent = displayValue;
+    }
+}
+
+// Run the function immediately on page load
+document.addEventListener("DOMContentLoaded", () => {
+    updateTimeSince();
+    
+    // Actively updates every hour to keep calculations fresh if the page stays open
+    setInterval(updateTimeSince, 3600000); 
+});
 
         window.addEventListener('DOMContentLoaded', loadDashboardData);
     </script>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleground</title>
+    <link class="rounded-full" rel="icon" href="logos/icons/vs.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        /* Custom subtle scrollbar styling */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* For Firefox */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.02);
+        }
+        /* Custom styling for the Select Dropdown Box */
+        #bet-selector {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #020617 !important; /* Rich deep black/slate theme */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px !important; /* Clean rounded corners */
+            padding: 6px 24px 6px 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2334d399' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 12px;
+        }
+
+        /* Force the native option popup box menu to match */
+        #bet-selector option {
+            background-color: #020617 !important; /* Black theme context menu */
+            color: #34d399 !important; /* Emerald text selection */
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col justify-between">
+
+    <div class="mt-4"></div>
+
+    <div id="arena-loader" class="flex-grow flex flex-col items-center justify-center gap-4 transition-all duration-500 my-auto">
+        <div class="relative flex items-center justify-center">
+            <div class="w-16 h-16 border-4 border-emerald-500/10 border-t-emerald-400 rounded-full animate-spin"></div>
+            <div class="absolute w-12 h-12 border-4 border-transparent border-b-amber-500/40 rounded-full animate-spin [animation-duration:1.5s] [animation-direction:reverse]"></div>
+            <i data-lucide="swords" class="absolute w-6 h-6 text-emerald-400 animate-pulse"></i>
+        </div>
+        <div class="text-center">
+            <span class="text-xs font-black tracking-widest text-emerald-400 uppercase block animate-pulse">Synchronizing Arena</span>
+            
+        </div>
+    </div>
+
+    <main id="arena-main-content" class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-grow mt-2 hidden opacity-0 transition-opacity duration-500">
+        
+        <section id="old-card" class="lg:col-span-5 bg-gradient-to-b from-red-950/20 to-gray-950 border border-red-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl"></div>
+            
+            <div>
+                <div class="flex justify-between items-start mb-6">
+                    <span class="bg-red-950 text-red-400 border border-red-800/60 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">
+                        Sold Holdings
+                    </span>
+                    <div id="old-icon-container" class="p-2 rounded-full transition-all duration-500">
+                        <i id="old-icon" data-lucide="ghost" class="stroke-red-500/50 fill-red-500/5 w-8 h-8 opacity-60 transition-all duration-500"></i>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-black text-red-400 tracking-tight">" What If I Held? "</h2>
+                <p class="text-xs text-gray-400 mt-1">Value if you never booked the loss.</p>
+                
+                <div class="mt-8 space-y-4">
+                    <div>
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Current Value</span>
+                        <div id="old-value" class="text-4xl font-extrabold text-gray-100 tracking-tight mt-1">₹0.00</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800/60">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Profit/Loss</span>
+                            <span id="old-profit-loss" class="font-bold text-sm">₹0.00</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-500 block">Returns</span>
+                            <span id="old-pct" class="font-bold text-sm">0.00%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-gray-800/40">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Exited Positions</h3>
+                        <div id="old-assets-list" class="space-y-2.5 max-h-[150px] overflow-y-auto pr-1 custom-scrollbar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-2 flex flex-col items-center justify-center py-6 lg:py-0 gap-5">
+            
+            <div class="flex flex-col items-center gap-3 w-full">
+                <div class="flex items-center justify-center">
+                    <i id="swords-icon" data-lucide="swords" class="w-15 h-15 transition-all duration-500"></i>
+                </div>
+                <div id="battle-status-badge" class="w-full px-4 py-2.5 rounded-xl font-bold text-center tracking-wide text-xs border shadow-lg transition-all duration-500"></div>
+            </div>
+
+            <div class="text-center mt-1 w-full flex flex-col items-center">
+                <span class="text-xs font-black tracking-widest text-gray-500 uppercase block mb-1">Battle Status</span>
+                
+                <div id="net-total-pct" class="text-lg font-black tracking-tight mb-0.5 transition-all duration-500">0.00%</div>
+                
+                <div id="delta-value" class="text-3xl font-black tracking-tight">₹0.00</div>
+                <span id="delta-label" class="text-[10px] text-gray-400 uppercase tracking-wider block mb-4">Net Advantage</span>
+                
+                <div class="flex flex-col gap-3 w-full bg-gray-900/40 border border-gray-800/60 rounded-2xl p-3 backdrop-blur-sm shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-1 w-full text-center px-1">
+                        <div class="w-full sm:w-auto min-w-0">
+                            <span class="text-[10px] uppercase tracking-wider text-gray-500 font-bold block whitespace-nowrap">Bet Amount</span>
+                            <span id="meta-bet-amount" class="text-sm font-extrabold text-gray-200 mt-0.5 block whitespace-nowrap">₹0.00</span>
+                        </div>
+                        <div class="hidden sm:block h-5 w-[1px] bg-gray-800/60 shrink-0 mx-1"></div>
+                        <div class="w-full sm:w-auto min-w-0 border-t border-gray-800/40 pt-2 sm:pt-0 sm:border-t-0">
+                            <span class="text-[10px] uppercase tracking-wider text-gray-500 font-bold block whitespace-nowrap">Battle Days</span>
+                            <span id="meta-battle-days" class="text-sm font-extrabold text-amber-400 mt-0.5 block whitespace-nowrap">0 Days</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full border-t border-gray-800/60 pt-2.5 flex flex-col items-center justify-center">
+                        <span class="text-[9px] font-bold text-gray-500 uppercase tracking-widest block mb-1">Select Active Battle</span>
+                        <div class="w-full bg-gray-950/60 border border-gray-800/80 rounded-xl px-2 py-1.5 text-xs flex justify-center items-center">
+                            <select id="bet-selector" class="text-emerald-400 font-black focus:outline-none cursor-pointer text-center max-w-[180px]">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full mt-3">
+                    <a href="index.html" class="w-full py-2.5 px-4 rounded-xl border border-gray-800 hover:border-gray-700 bg-gray-900/30 hover:bg-gray-900/80 text-gray-400 hover:text-gray-200 text-xs font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg group">
+                        <i data-lucide="home" class="w-4 h-4 transition-transform group-hover:-translate-y-0.5"></i>
+                        Dashboard Home
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="new-card" class="lg:col-span-5 bg-gradient-to-b from-emerald-950/20 to-gray-950 border border-emerald-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl"></div>
+            
+            <div>
+                <div class="flex justify-between items-start mb-6">
+                    <span class="bg-emerald-950 text-emerald-400 border border-emerald-800/60 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase">
+                        Active Strategy
+                    </span>
+                    <div id="new-icon-container" class="p-2 rounded-full transition-all duration-500">
+                        <i id="new-icon" data-lucide="zap" class="text-emerald-400 w-8 h-8 transition-all duration-500"></i>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-black text-emerald-400 tracking-tight">" What I Have Now "</h2>
+                <p class="text-xs text-gray-400 mt-1">Real value of the redeployed capital.</p>
+                
+                <div class="mt-8 space-y-4">
+                    <div>
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Current Value</span>
+                        <div id="new-value" class="text-4xl font-extrabold text-gray-100 tracking-tight mt-1">₹0.00</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800/60">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Profit/Loss</span>
+                            <span id="new-profit-loss" class="font-bold text-sm">₹0.00</span>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-500 block">Returns</span>
+                            <span id="new-pct" class="font-bold text-sm">0.00%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-gray-800/40">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Deployed Reinvestments</h3>
+                        <div id="new-assets-list" class="space-y-2.5 max-h-[150px] overflow-y-auto pr-1 custom-scrollbar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-7xl w-full mx-auto mt-8 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
+        Capital Rotation Arena • Check your luck here
+    </footer>
+
+    <script>
+        let GLOBAL_DATA = null;
+        let LIVE_PRICES = {}; 
+
+        const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwAvnziG5IX852VGO2Oefqmbq6bGiEsZktYT673pJMRYiGes3U36_f6AywO5w3c2s3eeQ/exec";
+
+        const EMBEDDED_DATA = {
+          "h": ["ACTION","TICKER","QTY","AVG","CURR"],
+          "b": {
+            "1": ["010626", [
+              ["S","BLACKBUCK",137,614.48,547],
+              ["S","PFOCUS",140,359.8,239.27],
+              ["S","QPOWER",37,1355.51,1221.1],
+              ["B","HFCL",1231,150,171.86]
+            ]],
+            "2": ["150526", [
+              ["S","INDOTECH",50,2000,2600],
+              ["B","SOFTTECH",250,400,409.6]
+            ]],
+            "3": ["150226", [
+              ["S","INFY",100,1150,1118.5],
+              ["S","TCS",50,2000,2161.1],
+              ["B","STLTECH",400,500,587],
+              ["B","UFBL",30,500,599.5]
+            ]]
+          }
+        };
+
+        function parseDateStr(dateStr) {
+            const day = parseInt(dateStr.substring(0, 2), 10);
+            const month = parseInt(dateStr.substring(2, 4), 10) - 1; 
+            const year = 2000 + parseInt(dateStr.substring(4, 6), 10);
+            return new Date(year, month, day);
+        }
+
+        async function fetchLivePrices() {
+            try {
+                const response = await fetch(GOOGLE_WEB_APP_URL);
+                if (!response.ok) throw new Error("API stream connection error");
+                const data = await response.json();
+                
+                LIVE_PRICES = {};
+                data.forEach(item => {
+                    if (item.ticker) {
+                        LIVE_PRICES[item.ticker.toUpperCase().trim()] = item.currentPrice;
+                    }
+                });
+                console.log("Live sheet prices synced:", LIVE_PRICES);
+            } catch (err) {
+                console.error("Live fetch failed, defaulting to static json coordinates:", err);
+            }
+        }
+
+        function calculatePortfolio(portfolio) {
+            let totalInitialValue = 0;
+            let currentTotalValue = 0;
+
+            const updatedItems = portfolio.map(item => {
+                const allocatedCapital = item.qty * item.avgPrice;
+                const itemCurrentValue = item.qty * item.currentPrice;
+                
+                totalInitialValue += allocatedCapital;
+                currentTotalValue += itemCurrentValue;
+
+                const assetGainLossPct = ((item.currentPrice - item.avgPrice) / item.avgPrice) * 100;
+
+                return {
+                    ticker: item.ticker,
+                    qty: item.qty,
+                    avgPrice: item.avgPrice,
+                    currentPrice: item.currentPrice,
+                    allocatedCapital,
+                    currentValue: itemCurrentValue,
+                    gainLossPct: assetGainLossPct
+                };
+            });
+
+            updatedItems.forEach(item => {
+                item.weightPct = totalInitialValue > 0 ? ((item.allocatedCapital / totalInitialValue) * 100).toFixed(1) : 0;
+            });
+
+            const overallGainLossPct = totalInitialValue > 0 ? ((currentTotalValue - totalInitialValue) / totalInitialValue) * 100 : 0;
+
+            return {
+                items: updatedItems,
+                totalInitial: totalInitialValue,
+                totalValue: currentTotalValue,
+                overallGainLossPct: overallGainLossPct
+            };
+        }
+
+        function updateDashboardUI(betId) {
+            const sym = "₹";
+            const betData = GLOBAL_DATA.b[betId];
+            if (!betData) return;
+
+            const dateStr = betData[0];
+            const transactions = betData[1];
+
+            const oldPortfolio = [];
+            const newPortfolio = [];
+
+            transactions.forEach(tx => {
+                const [action, ticker, qty, avg, currFallback] = tx;
+                const normalizedTicker = ticker.toUpperCase().trim();
+                
+                const price = (LIVE_PRICES[normalizedTicker] !== undefined && LIVE_PRICES[normalizedTicker] !== "") 
+                    ? LIVE_PRICES[normalizedTicker] 
+                    : currFallback;
+
+                if (action === 'S') {
+                    oldPortfolio.push({ ticker, qty, avgPrice: avg, currentPrice: price });
+                } else if (action === 'B') {
+                    newPortfolio.push({ ticker, qty, avgPrice: avg, currentPrice: price });
+                }
+            });
+
+            const oldResults = calculatePortfolio(oldPortfolio);
+            const newResults = calculatePortfolio(newPortfolio);
+
+            const oldCap = oldResults.totalInitial;
+            const newCap = newResults.totalInitial;
+            const betAmount = oldCap; 
+
+            // Update Old Card UI
+            document.getElementById('old-value').innerText = `${sym} ${oldResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            const oldNetProfitLoss = oldResults.totalValue - oldCap;
+            const oldProfitLossEl = document.getElementById('old-profit-loss');
+            oldProfitLossEl.innerText = `${oldNetProfitLoss >= 0 ? '+' : '-'}${sym} ${Math.abs(oldNetProfitLoss).toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            oldProfitLossEl.className = `font-bold text-sm ${oldNetProfitLoss >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+            
+            const oldPctEl = document.getElementById('old-pct');
+            oldPctEl.innerText = `${oldResults.overallGainLossPct >= 0 ? '+' : ''}${oldResults.overallGainLossPct.toFixed(2)}%`;
+            oldPctEl.className = `font-bold text-sm ${oldResults.overallGainLossPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+
+            // Update New Card UI
+            document.getElementById('new-value').innerText = `${sym} ${newResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            const newNetProfitLoss = newResults.totalValue - newCap;
+            const newProfitLossEl = document.getElementById('new-profit-loss');
+            newProfitLossEl.innerText = `${newNetProfitLoss >= 0 ? '+' : '-'}${sym} ${Math.abs(newNetProfitLoss).toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            newProfitLossEl.className = `font-bold text-sm ${newNetProfitLoss >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+            
+            const newPctEl = document.getElementById('new-pct');
+            newPctEl.innerText = `${newResults.overallGainLossPct >= 0 ? '+' : ''}${newResults.overallGainLossPct.toFixed(2)}%`;
+            newPctEl.className = `font-bold text-sm ${newResults.overallGainLossPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+
+            // Render asset detail lines
+            renderAssetList(oldResults.items, 'old-assets-list', sym);
+            renderAssetList(newResults.items, 'new-assets-list', sym);
+
+            // Battle Center Calculations
+            const netAdvantage = newResults.totalValue - oldResults.totalValue;
+            const absoluteDifference = Math.abs(netAdvantage);
+            
+            const totalNetPct = betAmount > 0 ? (netAdvantage / betAmount) * 100 : 0;
+            const netTotalPctEl = document.getElementById('net-total-pct');
+            netTotalPctEl.innerText = `${totalNetPct >= 0 ? '+' : ''}${totalNetPct.toFixed(2)}%`;
+
+            const deltaValueEl = document.getElementById('delta-value');
+            const deltaLabelEl = document.getElementById('delta-label');
+            const statusBadgeEl = document.getElementById('battle-status-badge');
+            
+            const oldIconContainer = document.getElementById('old-icon-container');
+            const oldIcon = document.getElementById('old-icon');
+            const newIconContainer = document.getElementById('new-icon-container');
+            const newIcon = document.getElementById('new-icon');
+
+            deltaValueEl.innerText = `${netAdvantage >= 0 ? '+' : '-'}${sym} ${absoluteDifference.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            document.getElementById('meta-bet-amount').innerText = `${sym} ${betAmount.toLocaleString('en-IN', {maximumFractionDigits:0})}`;
+            
+            const createdDate = parseDateStr(dateStr);
+            const currentDate = new Date();
+            const timeDiff = Math.abs(currentDate - createdDate);
+            const rawDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('meta-battle-days').innerText = `${rawDays} Day${rawDays === 1 ? '' : 's'}`;
+
+            if (netAdvantage >= 0) {
+                netTotalPctEl.className = "text-lg font-black tracking-tight text-emerald-400";
+                deltaValueEl.className = "text-3xl font-black tracking-tight text-emerald-400";
+                deltaLabelEl.innerText = "Good Rotation Decision";
+                statusBadgeEl.innerText = "👍 ROTATION WINNING";
+                statusBadgeEl.className = "w-full px-4 py-2.5 rounded-xl font-bold text-center tracking-wide text-xs border bg-emerald-950/40 text-emerald-400 border-emerald-800 shadow-emerald-950/50";
+                
+                newIconContainer.className = "p-2 rounded-full bg-emerald-500/20 border border-emerald-400/40 shadow-lg shadow-emerald-500/40 animate-pulse transition-all duration-500";
+                newIcon.className = "text-emerald-300 w-8 h-8 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all duration-500";
+                
+                oldIconContainer.className = "p-2 rounded-full transition-all duration-500";
+                oldIcon.className = "stroke-red-500/50 fill-red-500/5 w-8 h-8 opacity-60 transition-all duration-500";
+            } else {
+                netTotalPctEl.className = "text-lg font-black tracking-tight text-red-400";
+                deltaValueEl.className = "text-3xl font-black tracking-tight text-red-400";
+                deltaLabelEl.innerText = "Lacked conviction to hold";
+                statusBadgeEl.innerText = "⚠ OLD HOLDINGS DEFENDING";
+                statusBadgeEl.className = "w-full px-4 py-2.5 rounded-xl font-bold text-center tracking-wide text-xs border bg-red-950/40 text-red-400 border-red-800 shadow-red-950/50";
+                
+                oldIconContainer.className = "p-2 rounded-full bg-red-500/20 border border-red-400/40 shadow-lg shadow-red-500/40 animate-bounce transition-all duration-500";
+                oldIcon.className = "text-red-300 w-8 h-8 drop-shadow-[0_0_8px_rgba(239,68,68,0.8)] transition-all duration-500";
+                
+                newIconContainer.className = "p-2 rounded-full opacity-20 border border-transparent transition-all duration-500";
+                newIcon.className = "text-gray-500 w-8 h-8 grayscale transition-all duration-500";
+            }
+
+            updateSwordsGlow();
+        }
+
+        function updateSwordsGlow() {
+            const now = new Date();
+            const day = now.getDay();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            
+            const currentMinutes = hours * 60 + minutes;
+            const marketOpenMinutes = 9 * 60 + 15;  
+            const marketCloseMinutes = 15 * 60 + 30; 
+
+            const isWeekday = day >= 1 && day <= 5;
+            const isMarketHours = currentMinutes >= marketOpenMinutes && currentMinutes <= marketCloseMinutes;
+            
+            const swordsIcon = document.getElementById('swords-icon');
+
+            if (swordsIcon) {
+                if (isWeekday && isMarketHours) {
+                    // Active trading hours: Glow Amber
+                    swordsIcon.className = "w-15 h-15 animate-pulse drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] transition-all duration-500";
+                    swordsIcon.style.stroke = "#f59e0b"; // True Tailwind amber-500
+                    swordsIcon.style.opacity = "1";
+                } else {
+                    // Closed hours: Force deep, dark muted gray outline 
+                    swordsIcon.className = "w-15 h-15 drop-shadow-none transition-all duration-500";
+                    swordsIcon.style.stroke = "#64748b"; // Balanced slate-gray
+                    swordsIcon.style.opacity = "0.75";   // Clean, highly readable visibility
+                }
+            }
+        }
+
+        function renderAssetList(items, containerId, sym) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            items.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-gray-900/40 border border-gray-800/80 rounded-xl p-3 text-sm";
+                
+                const isPositive = item.gainLossPct >= 0;
+                const badgingClass = isPositive ? 'text-emerald-400 bg-emerald-950/30' : 'text-red-400 bg-red-950/30';
+
+                const formattedValue = typeof item.currentValue === 'number' 
+                    ? `${sym} ${item.currentValue.toLocaleString('en-IN', {maximumFractionDigits:0})}` 
+                    : item.currentValue;
+
+                const formattedPct = typeof item.gainLossPct === 'number'
+                    ? `${isPositive ? '↑' : '↓'} ${Math.abs(item.gainLossPct).toFixed(1)}%`
+                    : '—';
+
+                const formattedCurrentPrice = typeof item.currentPrice === 'number'
+                    ? `${sym}${item.currentPrice.toLocaleString('en-IN', {maximumFractionDigits:2})}`
+                    : item.currentPrice;
+
+                row.innerHTML = `
+                    <div>
+                        <span class="font-bold tracking-tight block">${item.ticker}</span>
+                        <span class="text-[11px] text-gray-500 block mt-0.5">
+                            Qty: ${item.qty} • Alloc: ${item.weightPct}% • Current: <span class="text-gray-300 font-medium">${formattedCurrentPrice}</span>
+                        </span>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-medium block">${formattedValue}</span>
+                        <span class="text-[11px] px-1.5 py-0.5 rounded font-mono ${badgingClass}">
+                            ${formattedPct}
+                        </span>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function initDropdown() {
+            const selector = document.getElementById('bet-selector');
+            selector.innerHTML = '';
+            
+            Object.keys(GLOBAL_DATA.b).forEach(betId => {
+                const dateRaw = GLOBAL_DATA.b[betId][0];
+                const formattedDate = `${dateRaw.substring(0,2)}/${dateRaw.substring(2,4)}/20${dateRaw.substring(4,6)}`;
+                
+                const option = document.createElement('option');
+                option.value = betId;
+                option.text = `Bet ${betId} (${formattedDate})`;
+                option.className = "bg-gray-900 text-gray-100 font-sans";
+                selector.appendChild(option);
+            });
+
+            selector.addEventListener('change', (e) => {
+                updateDashboardUI(e.target.value);
+            });
+
+            if (Object.keys(GLOBAL_DATA.b).length > 0) {
+                updateDashboardUI(Object.keys(GLOBAL_DATA.b)[0]);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Render basic loader icons instantly 
+            lucide.createIcons();
+
+            try {
+                // 1. Run live price streams and configurations concurrently
+                const [_, jsonResponse] = await Promise.all([
+                    fetchLivePrices(),
+                    fetch('bets.json').then(res => {
+                        if (!res.ok) throw new Error("bets.json server missing");
+                        return res.json();
+                    }).catch(err => {
+                        console.warn("Falling back to local embedded records.", err);
+                        return EMBEDDED_DATA;
+                    })
+                ]);
+
+                GLOBAL_DATA = jsonResponse;
+                
+                // 2. Hydrate configuration selectors
+                initDropdown();
+                
+                // 3. Render dashboard icon fields
+                lucide.createIcons();
+                
+                // 4. Smooth transition reveal
+                const loader = document.getElementById('arena-loader');
+                const mainContent = document.getElementById('arena-main-content');
+                
+                if (loader && mainContent) {
+                    loader.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    setTimeout(() => {
+                        mainContent.classList.remove('opacity-0');
+                    }, 50);
+                }
+
+            } catch (globalErr) {
+                console.error("Critical Arena setup error:", globalErr);
+                GLOBAL_DATA = EMBEDDED_DATA;
+                initDropdown();
+                lucide.createIcons();
+                document.getElementById('arena-loader')?.classList.add('hidden');
+                document.getElementById('arena-main-content')?.classList.remove('hidden', 'opacity-0');
+            }
+
+            setInterval(updateSwordsGlow, 60000);
+        });
+    </script>
+</body>
+</html>
