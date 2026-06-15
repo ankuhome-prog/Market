@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -320,6 +320,32 @@
         }
         .home-btn:hover { background: #4f46e5; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4); }
         .home-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* --- Load More Layout Container Styles --- */
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0 25px 0;
+            width: 100%;
+        }
+        .load-more-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 650;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease, opacity 0.2s;
+        }
+        .load-more-btn:hover {
+            opacity: 0.9;
+        }
+        .load-more-btn:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
@@ -402,6 +428,9 @@
         let catSortMode = 0; 
         let currentSortField = null;
         let isAscending = true;
+        
+        // Pagination tracker configuration
+        let displayedHoldingsCount = 200;
 
         const cleanNum = (val) => parseFloat(String(val).replace(/,/g, '').replace(/[^\d.-]/g, '')) || 0;
 
@@ -586,9 +615,9 @@
             
             document.getElementById('modal-overlay').style.display = 'flex';
             // Force a layout paint refresh, then reset the scroll handle instantly
-        requestAnimationFrame(() => {
-            document.getElementById('modal-body').scrollTop = 0;
-        });
+            requestAnimationFrame(() => {
+                document.getElementById('modal-body').scrollTop = 0;
+            });
         }
 
         function openCategoryModal(catName, stockList) {
@@ -626,8 +655,9 @@
             
             document.getElementById('modal-overlay').style.display = 'flex';
             // Force a layout paint refresh, then reset the scroll handle instantly
-        requestAnimationFrame(() => {
-            document.getElementById('modal-body').scrollTop = 0;});
+            requestAnimationFrame(() => {
+                document.getElementById('modal-body').scrollTop = 0;
+            });
         }
 
         function closeModal() {
@@ -747,6 +777,9 @@
             if (currentSortField === field) isAscending = !isAscending;
             else { currentSortField = field; isAscending = true; }
             localStorage.setItem('lastSortField', field); localStorage.setItem('lastSortOrder', isAscending);
+            
+            // Reset visible pagination limit whenever order attributes change
+            displayedHoldingsCount = 200;
             updateSortButtons(field); renderGrid(sortData(allHoldings, field));
         }
 
@@ -770,6 +803,9 @@
         function resetSort() {
             currentSortField = null; isAscending = true;
             localStorage.removeItem('lastSortField'); localStorage.removeItem('lastSortOrder');
+            
+            // Reset visible pagination limit back to baseline layout parameter
+            displayedHoldingsCount = 200;
             updateSortButtons(null); renderGrid(allHoldings);
         }
 
@@ -786,10 +822,21 @@
             });
         }
 
+        // Handles loading next incremental chunk of items
+        function loadMoreHoldings() {
+            displayedHoldingsCount += 200;
+            const contextData = currentSortField ? sortData(allHoldings, currentSortField) : allHoldings;
+            renderGrid(contextData);
+        }
+
         function renderGrid(data) {
             const grid = document.getElementById('holdings-grid');
             grid.innerHTML = ''; 
-            data.forEach((stock, index) => {
+            
+            // Extract current paginated segment slice
+            const slicedData = data.slice(0, displayedHoldingsCount);
+            
+            slicedData.forEach((stock, index) => {
                 const card = document.createElement('div');
                 const bName = stock.broker.toLowerCase().replace(/\s+/g, '') + '3';
                 const redirectUrl = `demo.html?ticker=${encodeURIComponent(stock.ticker || stock.companyName)}`;
@@ -817,6 +864,18 @@
                 `;
                 grid.appendChild(card);
             });
+
+            // Dynamically inject structural "Load More" interface handle elements if unrendered nodes remain
+            if (data.length > displayedHoldingsCount) {
+                const btnContainer = document.createElement('div');
+                btnContainer.className = 'load-more-container';
+                btnContainer.innerHTML = `
+                    <button class="load-more-btn" onclick="loadMoreHoldings()">
+                        Load More (${data.length - displayedHoldingsCount} Remaining)
+                    </button>
+                `;
+                grid.appendChild(btnContainer);
+            }
         }
 
         async function loadData() {

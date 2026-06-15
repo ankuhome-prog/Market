@@ -61,7 +61,7 @@
 
     <div class="mt-4"></div>
 
-    <div id="arena-loader" class="flex-grow flex flex-col items-center justify-center gap-4 transition-all duration-500 my-auto">
+    <div id="arena-loader" class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-[#0b0f19] transition-all duration-500">
         <div class="relative flex items-center justify-center">
             <div class="w-16 h-16 border-4 border-emerald-500/10 border-t-emerald-400 rounded-full animate-spin"></div>
             <div class="absolute w-12 h-12 border-4 border-transparent border-b-amber-500/40 rounded-full animate-spin [animation-duration:1.5s] [animation-direction:reverse]"></div>
@@ -69,13 +69,12 @@
         </div>
         <div class="text-center">
             <span class="text-xs font-black tracking-widest text-emerald-400 uppercase block animate-pulse">Synchronizing Arena</span>
-            
         </div>
     </div>
 
-    <main id="arena-main-content" class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-grow mt-2 hidden opacity-0 transition-opacity duration-500">
+    <main id="arena-main-content" class="max-w-7xl w-full mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-8 items-stretch flex-grow mt-2 hidden opacity-0 transition-opacity duration-500">
         
-        <section id="old-card" class="lg:col-span-5 bg-gradient-to-b from-red-950/20 to-gray-950 border border-red-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
+        <section id="old-card" class="order-2 lg:order-none lg:col-span-5 bg-gradient-to-b from-red-950/20 to-gray-950 border border-red-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
             <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl"></div>
             
             <div>
@@ -114,7 +113,7 @@
             </div>
         </section>
 
-        <section class="lg:col-span-2 flex flex-col items-center justify-center py-6 lg:py-0 gap-5">
+        <section id="center-console" class="order-1 lg:order-none lg:col-span-2 flex flex-col items-center justify-center py-6 lg:py-0 gap-5">
             
             <div class="flex flex-col items-center gap-3 w-full">
                 <div class="flex items-center justify-center">
@@ -162,7 +161,7 @@
             </div>
         </section>
 
-        <section id="new-card" class="lg:col-span-5 bg-gradient-to-b from-emerald-950/20 to-gray-950 border border-emerald-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
+        <section id="new-card" class="order-3 lg:order-none lg:col-span-5 bg-gradient-to-b from-emerald-950/20 to-gray-950 border border-emerald-900/40 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden shadow-2xl transition-all duration-500">
             <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl"></div>
             
             <div>
@@ -203,7 +202,7 @@
 
     </main>
 
-    <footer class="max-w-7xl w-full mx-auto mt-8 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
+    <footer class="max-w-7xl w-full mx-auto mt-2 text-center text-xs text-gray-600 border-t border-gray-900 pt-4">
         Capital Rotation Arena • Check your luck here
     </footer>
 
@@ -332,7 +331,7 @@
             const betAmount = oldCap; 
 
             // Update Old Card UI
-            document.getElementById('old-value').innerText = `${sym} ${oldResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            document.getElementById('old-value').innerText = `${sym} ${oldResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:0})}`;
             const oldNetProfitLoss = oldResults.totalValue - oldCap;
             const oldProfitLossEl = document.getElementById('old-profit-loss');
             oldProfitLossEl.innerText = `${oldNetProfitLoss >= 0 ? '+' : '-'}${sym} ${Math.abs(oldNetProfitLoss).toLocaleString('en-IN', {maximumFractionDigits:2})}`;
@@ -343,7 +342,7 @@
             oldPctEl.className = `font-bold text-sm ${oldResults.overallGainLossPct >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
 
             // Update New Card UI
-            document.getElementById('new-value').innerText = `${sym} ${newResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            document.getElementById('new-value').innerText = `${sym} ${newResults.totalValue.toLocaleString('en-IN', {maximumFractionDigits:0})}`;
             const newNetProfitLoss = newResults.totalValue - newCap;
             const newProfitLossEl = document.getElementById('new-profit-loss');
             newProfitLossEl.innerText = `${newNetProfitLoss >= 0 ? '+' : '-'}${sym} ${Math.abs(newNetProfitLoss).toLocaleString('en-IN', {maximumFractionDigits:2})}`;
@@ -374,7 +373,10 @@
             const newIconContainer = document.getElementById('new-icon-container');
             const newIcon = document.getElementById('new-icon');
 
-            deltaValueEl.innerText = `${netAdvantage >= 0 ? '+' : '-'}${sym} ${absoluteDifference.toLocaleString('en-IN', {maximumFractionDigits:2})}`;
+            const oldCardEl = document.getElementById('old-card');
+            const newCardEl = document.getElementById('new-card');
+
+            deltaValueEl.innerText = `${netAdvantage >= 0 ? '+' : '-'}${sym} ${absoluteDifference.toLocaleString('en-IN', {maximumFractionDigits:0})}`;
             document.getElementById('meta-bet-amount').innerText = `${sym} ${betAmount.toLocaleString('en-IN', {maximumFractionDigits:0})}`;
             
             const createdDate = parseDateStr(dateStr);
@@ -395,6 +397,10 @@
                 
                 oldIconContainer.className = "p-2 rounded-full transition-all duration-500";
                 oldIcon.className = "stroke-red-500/50 fill-red-500/5 w-8 h-8 opacity-60 transition-all duration-500";
+
+                // Mobile order assignment: Central (1) -> New Card (2) -> Old Card (3)
+                newCardEl.className = newCardEl.className.replace(/order-\d/, 'order-2');
+                oldCardEl.className = oldCardEl.className.replace(/order-\d/, 'order-3');
             } else {
                 netTotalPctEl.className = "text-lg font-black tracking-tight text-red-400";
                 deltaValueEl.className = "text-3xl font-black tracking-tight text-red-400";
@@ -407,6 +413,10 @@
                 
                 newIconContainer.className = "p-2 rounded-full opacity-20 border border-transparent transition-all duration-500";
                 newIcon.className = "text-gray-500 w-8 h-8 grayscale transition-all duration-500";
+
+                // Mobile order assignment: Central (1) -> Old Card (2) -> New Card (3)
+                oldCardEl.className = oldCardEl.className.replace(/order-\d/, 'order-2');
+                newCardEl.className = newCardEl.className.replace(/order-\d/, 'order-3');
             }
 
             updateSwordsGlow();
@@ -429,15 +439,38 @@
 
             if (swordsIcon) {
                 if (isWeekday && isMarketHours) {
-                    // Active trading hours: Glow Amber
-                    swordsIcon.className = "w-15 h-15 animate-pulse drop-shadow-[0_0_12px_rgba(245,158,11,0.7)] transition-all duration-500";
-                    swordsIcon.style.stroke = "#f59e0b"; // True Tailwind amber-500
+                    // Active trading hours
+                    swordsIcon.className = "w-15 h-15 transition-all duration-500";
                     swordsIcon.style.opacity = "1";
+                    swordsIcon.style.filter = "none"; 
+                    
+                    // Activate the color-shifting loop
+                    swordsIcon.style.animation = "amberColorPulse 2s infinite ease-in-out";
+                    
+                    // Inject keyframes that shift the stroke color directly instead of brightness exposure
+                    let styleEl = document.getElementById('glow-keyframes');
+                    if (!styleEl) {
+                        styleEl = document.createElement('style');
+                        styleEl.id = 'glow-keyframes';
+                        document.head.appendChild(styleEl);
+                    }
+                    styleEl.innerHTML = `
+                        @keyframes amberColorPulse {
+                            0%, 100% { 
+                                stroke: #78350f; /* Deep, rich dark amber (Tailwind amber-900) */
+                            }
+                            50% { 
+                                stroke: #fbbf24; /* Radiant, pure vivid amber (Tailwind amber-400) */
+                            }
+                        }
+                    `;
                 } else {
-                    // Closed hours: Force deep, dark muted gray outline 
-                    swordsIcon.className = "w-15 h-15 drop-shadow-none transition-all duration-500";
+                    // Closed hours: Reset to static slate outline
+                    swordsIcon.className = "w-15 h-15 transition-all duration-500";
                     swordsIcon.style.stroke = "#64748b"; // Balanced slate-gray
-                    swordsIcon.style.opacity = "0.75";   // Clean, highly readable visibility
+                    swordsIcon.style.animation = "none";
+                    swordsIcon.style.filter = "none";
+                    swordsIcon.style.opacity = "0.75";
                 }
             }
         }
@@ -466,7 +499,7 @@
                     : item.currentPrice;
 
                 row.innerHTML = `
-                    <div>
+                    <div class="text-left">
                         <span class="font-bold tracking-tight block">${item.ticker}</span>
                         <span class="text-[11px] text-gray-500 block mt-0.5">
                             Qty: ${item.qty} • Alloc: ${item.weightPct}% • Current: <span class="text-gray-300 font-medium">${formattedCurrentPrice}</span>
