@@ -169,7 +169,7 @@
         
         /* Compact Returns Styling */
         .returns-scroll-container {
-            max-height: 150px; 
+            max-height: 200px; 
             overflow-y: auto;
             padding-right: 4px;
         }
@@ -408,12 +408,10 @@
                 width: 100%; 
                 max-width: 500px; 
                 position: relative; 
-                
             }
             #projection-card { 
                 order: 2; 
                 margin-top: 0px; 
-                
             }
             
             .card { order: 1; }
@@ -422,6 +420,68 @@
             #identity-card { order: 5; }
             .projection-card, .card, .identity-card, .graph-card { width: 100%; height: auto; max-width: 500px; position: relative; }
             .nav-sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); margin-left: 0; z-index: 1000; height: auto; }
+        }
+
+        /* Continuous Horizontal Row Layout - Static View Only */
+        .cagr-bubble-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 4px;
+            margin-top: 2px;
+            box-sizing: border-box;
+        }
+        
+        .cagr-bubble {
+            background: var(--bg-soft);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 6px 4px;
+            font-size: 12px;
+            
+            color: var(--text-main);
+            cursor: default; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            flex: 1;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        
+        .cagr-bubble .bubble-label {
+            color: var(--text-light);
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .cagr-bubble .bubble-val {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Combined Local card inline micro spinner layout template */
+        .cagr-card-spinner {
+            width: 10px;
+            height: 10px;
+            border: 1.5px solid var(--border-color);
+            border-top-color: var(--primary-gold);
+            border-radius: 50%;
+            animation: inner-spin 0.6s linear infinite;
+            display: inline-block;
+        }
+        @keyframes inner-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Functional safety element lock states */
+        .ui-disabled {
+            pointer-events: none !important;
+            opacity: 0.6 !important;
         }
     </style>
 </head>
@@ -436,51 +496,28 @@
         </div>
     </div>
 
-    <div id="global-screen-loader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(240, 242, 245, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-            <div style="width: 44px; height: 44px; border: 4px solid var(--border-color); border-top-color: var(--primary-gold); border-radius: 50%; animation: spin-loader 0.8s linear infinite;"></div>
-            <span style="color: var(--text-main); font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">Fetching Analytics...</span>
-        </div>
-    </div>
-
-    <style>
-        @keyframes spin-loader {
-            to { transform: rotate(360deg); }
-        }
-    </style>
-
     <div class="page-wrapper">
         <div class="cards-container">
             
             <div class="left-column">
                 <div id="cagr-selector-card" class="projection-card" style="display: none; padding: 20px; margin-bottom: -4px;">
-                    <label style="margin-bottom: 10px;">Select CAGR Period</label>
+                    <label style="margin-bottom: 10px;">CAGR OVER THE YEARS</label>
                     
                     <div id="cagr-fetch-prompt-container" style="display: flex; width: 100%; box-sizing: border-box;">
-                        <button onclick="triggerLiveCagrFetchManual()" style="width: 100%; height: 38px; border-radius: 12px; border: 1px dashed var(--primary-gold); background: var(--bg-soft); color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.2s, color 0.2s;">
+                        <button id="fetch-live-cagr-btn" onclick="triggerLiveCagrFetchManual()" style="width: 100%; height: 38px; border-radius: 12px; border: 1px dashed var(--primary-gold); background: var(--bg-soft); color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.2s, color 0.2s;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                             Fetch Live CAGR
                         </button>
                     </div>
 
-                    <div id="cagr-interactive-selector-container" style="display: none; align-items: center; gap: 12px; position: relative;">
-                        <div id="custom-cagr-dropdown" style="flex: 1; position: relative; font-family: inherit;">
-                            <div id="cagr-dropdown-trigger" style="padding: 0 12px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-soft) url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23636e72'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E&quot;) no-repeat right 12px center; background-size: 16px; color: var(--text-main); font-weight: 700; font-size: 13px; cursor: pointer; height: 38px; display: flex; align-items: center; box-sizing: border-box; padding-right: 32px; transition: border-color 0.2s, box-shadow 0.2s;">
-                                5 Years
-                            </div>
-                            
-                            <div id="cagr-dropdown-options" style="display: none; position: absolute; top: 44px; left: 0; right: 0; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); z-index: 2000; overflow: hidden; padding: 4px 0;">
-                                <div class="cagr-custom-option" data-value="5">5 Years</div>
-                                <div class="cagr-custom-option" data-value="10">10 Years</div>
-                                <div class="cagr-custom-option" data-value="15">15 Years</div>
-                                <div class="cagr-custom-option" data-value="20">20 Years</div>
-                                <div class="cagr-custom-option" data-value="25">25 Years</div>
-                                <div class="cagr-custom-option" data-value="30">30 Years</div>
-                            </div>
-                        </div>
-
-                        <div id="cagr-display-badge">
-                            --
+                    <div id="cagr-interactive-selector-container" style="display: none; position: relative; width: 100%;">
+                        <div class="cagr-bubble-row" id="cagr-bubble-container">
+                            <div class="cagr-bubble" data-value="5"><span class="bubble-label">5Y</span><span class="bubble-val" id="bval-5">--</span></div>
+                            <div class="cagr-bubble" data-value="10"><span class="bubble-label">10Y</span><span class="bubble-val" id="bval-10">--</span></div>
+                            <div class="cagr-bubble" data-value="15"><span class="bubble-label">15Y</span><span class="bubble-val" id="bval-15">--</span></div>
+                            <div class="cagr-bubble" data-value="20"><span class="bubble-label">20Y</span><span class="bubble-val" id="bval-20">--</span></div>
+                            <div class="cagr-bubble" data-value="25"><span class="bubble-label">25Y</span><span class="bubble-val" id="bval-25">--</span></div>
+                            <div class="cagr-bubble" data-value="30"><span class="bubble-label">30Y</span><span class="bubble-val" id="bval-30">--</span></div>
                         </div>
                     </div>
                 </div>
@@ -558,7 +595,7 @@
                 </div>
             </div>
 
-            <div class="nav-sidebar">
+            <div class="nav-sidebar" id="main-nav-sidebar">
                 <button class="nav-btn search-trigger-btn" id="searchTrigger" title="Search Holdings">
                     <svg viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -604,7 +641,7 @@
             if (flagPath) {
                 flagImg.src = flagPath;
                 flagImg.style.display = 'block';
-                flagImg.setAttribute('draggable', 'false'); // Lock down the dynamic flag
+                flagImg.setAttribute('draggable', 'false'); 
                 flagImg.onerror = function() { this.style.display = 'none'; }; 
             }
 
@@ -758,12 +795,28 @@
 
     function updateProjection() {
         if (!currentStockData) return;
+        
+        const years = parseInt(document.getElementById('year-slider').value);
+        document.getElementById('year-val').innerText = years;
+        
+        let mappedPeriodBucket = "5";
+        if (years > 25) mappedPeriodBucket = "30";
+        else if (years > 20) mappedPeriodBucket = "25";
+        else if (years > 15) mappedPeriodBucket = "20";
+        else if (years > 10) mappedPeriodBucket = "15";
+        else if (years > 5) mappedPeriodBucket = "10";
+
+        let cagrStr = currentStockData.cagr; 
+        if (liveCagrCache && liveCagrCache[mappedPeriodBucket] !== undefined) {
+            cagrStr = liveCagrCache[mappedPeriodBucket];
+        }
+
+        const sanitizedCagrStr = cagrStr.replace(/[^-0-9.]/g, '');
+        const cagr = parseFloat(sanitizedCagrStr) / 100;
         const contentDiv = document.getElementById('projection-content');
         const naDiv = document.getElementById('projection-na');
-        const cagrStr = currentStockData.cagr.replace(/[^-0-9.]/g, '');
-        const cagr = parseFloat(cagrStr) / 100;
 
-        if (cagr <= 0) {
+        if (isNaN(cagr) || cagr <= 0) {
             contentDiv.style.display = 'none';
             naDiv.style.display = 'block';
             return;
@@ -772,8 +825,6 @@
             naDiv.style.display = 'none';
         }
 
-        const years = document.getElementById('year-slider').value;
-        document.getElementById('year-val').innerText = years;
         const buyPrice = parseFloat(currentStockData.buyPrice.replace(/[^\d.]/g, ''));
         const quantity = parseInt(currentStockData.quantity.replace(/[^\d.]/g, ''));
         const presentValue = buyPrice * quantity;
@@ -914,19 +965,16 @@
     searchTrigger.addEventListener('click', (e) => {
         e.stopPropagation();
         searchModalOverlay.classList.add('active');
-        // Clear old artifacts and force input focus focus paths instantly
         searchInput.value = '';
         setTimeout(() => searchInput.focus(), 50);
     });
 
-    // Close on clicking the blurred backdrop workspace mask
     searchModalOverlay.addEventListener('click', (e) => {
         if (e.target === searchModalOverlay) {
             closeSearchModal();
         }
     });
 
-    // Close on hitting the escape escape sequence tracks
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && searchModalOverlay.classList.contains('active')) {
             closeSearchModal();
@@ -936,168 +984,79 @@
     function closeSearchModal() {
         searchModalOverlay.classList.remove('active');
         searchInput.blur();
-        // Dispatches global lookahead cleanups to your suggestion system
         const suggestionsMenu = document.querySelector('.search-suggestions');
         if (suggestionsMenu) suggestionsMenu.style.display = 'none';
     }
 </script>
 
-<style>
-    /* Prevent layout shifting by locking structural item width dimensions */
-    #cagr-display-badge {
-        width: 85px;
-        height: 38px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #e8f5e9;
-        color: #2e7d32;
-        border-radius: 12px;
-        font-size: 13px;
-        font-weight: 700;
-        white-space: nowrap;
-        border: 1px solid rgba(46,125,50,0.1);
-        box-sizing: border-box;
-    }
-
-    /* Style the custom floating list choices */
-    .cagr-custom-option {
-        padding: 10px 14px;
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-main);
-        transition: background 0.15s, color 0.15s;
-    }
-
-    .cagr-custom-option:hover {
-        background: var(--bg-soft);
-        color: var(--primary-gold) !important;
-    }
-</style>
-
 <script>
-    // Configured live Google Apps Script micro API endpoint URL
     const GOOGLE_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbxhI8i8Z2tDhU3irhtW_KGlc1fnXr2FvCAlA6quldRpnjt7xMN4BaX-2gWafmFXbu-O/exec";
     
     let liveCagrCache = null;
-    let selectedPeriodValue = "5";
-    
-    // Safety identifier tracking tokens to stop slow stale requests from overwriting values
     let currentActiveTokenId = 0;
 
-    // Establish event handlers without mutating the native configuration structures
-    document.addEventListener('DOMContentLoaded', () => {
-        const trigger = document.getElementById('cagr-dropdown-trigger');
-        const menu = document.getElementById('cagr-dropdown-options');
+    function displayAllCachedBubbleValues() {
+        const metrics = ["5", "10", "15", "20", "25", "30"];
+        metrics.forEach(year => {
+            const targetSpan = document.getElementById(`bval-${year}`);
+            if (!targetSpan) return;
 
-        if (trigger && menu) {
-            // Trigger overlay window visibility shifts
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isOpen = menu.style.display === 'block';
-                
-                if (isOpen) {
-                    menu.style.display = 'none';
-                    trigger.style.borderColor = 'var(--border-color)';
-                    trigger.style.boxShadow = 'none';
-                } else {
-                    menu.style.display = 'block';
-                    trigger.style.borderColor = 'var(--primary-gold)';
-                    trigger.style.boxShadow = '0 0 0 3px rgba(193, 163, 95, 0.15)';
-                }
+            if (!liveCagrCache || liveCagrCache[year] === undefined) {
+                targetSpan.textContent = "--";
+                targetSpan.style.color = "var(--text-light)";
+                return;
+            }
+
+            const rawVal = liveCagrCache[year];
+            
+            // Format to an integer string if the rate is numeric
+            let numericVal = parseFloat(rawVal.replace(/[^-0-9.]/g, ''));
+            if (!isNaN(numericVal)) {
+                let roundedVal = Math.round(numericVal);
+                let finalVal = (roundedVal >= 0 ? '+' : '') + roundedVal + '%';
+                targetSpan.textContent = finalVal;
+                targetSpan.style.color = roundedVal >= 0 ? '#2e7d32' : '#c62828';
+            } else {
+                targetSpan.textContent = rawVal === "N/A" ? "N/A" : "--";
+                targetSpan.style.color = 'var(--text-light)';
+            }
+        });
+        
+        updateProjection();
+    }
+
+    function toggleCardLoadingState(isLoading) {
+        const navSidebar = document.getElementById('main-nav-sidebar');
+        const fetchBtn = document.getElementById('fetch-live-cagr-btn');
+        const metrics = ["5", "10", "15", "20", "25", "30"];
+
+        if (isLoading) {
+            metrics.forEach(year => {
+                const targetSpan = document.getElementById(`bval-${year}`);
+                if (targetSpan) targetSpan.innerHTML = '<div class="cagr-card-spinner"></div>';
             });
-
-            // Handle custom item clicks
-            document.querySelectorAll('.cagr-custom-option').forEach(option => {
-                option.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const val = this.getAttribute('data-value');
-                    trigger.textContent = this.textContent;
-                    menu.style.display = 'none';
-                    trigger.style.borderColor = 'var(--border-color)';
-                    trigger.style.boxShadow = 'none';
-                    
-                    // Updates ONLY the CAGR calculations, leaving the slider untouched
-                    selectedPeriodValue = val;
-                    displayCachedBadgeValue(val);
-                });
-            });
-
-            // Clear visual open state anchors on clicking outside the element
-            document.addEventListener('click', () => {
-                menu.style.display = 'none';
-                trigger.style.borderColor = 'var(--border-color)';
-                trigger.style.boxShadow = 'none';
-            });
-        }
-    });
-
-    function displayCachedBadgeValue(year) {
-        const badge = document.getElementById('cagr-display-badge');
-        if (!badge) return;
-
-        if (!liveCagrCache || liveCagrCache[year] === undefined) {
-            badge.textContent = "--";
-            badge.style.background = "var(--bg-soft)";
-            badge.style.color = "var(--text-light)";
-            badge.style.borderColor = "var(--border-color)";
-            return;
-        }
-
-        const value = liveCagrCache[year];
-        badge.textContent = value;
-
-        if (value.includes('-')) {
-            badge.style.background = '#ffebee';
-            badge.style.color = '#c62828';
-            badge.style.borderColor = 'rgba(198,40,40,0.1)';
-        } else if (value === "N/A") {
-            badge.style.background = 'var(--bg-soft)';
-            badge.style.color = 'var(--text-light)';
-            badge.style.borderColor = 'var(--border-color)';
+            if (navSidebar) navSidebar.classList.add('ui-disabled');
+            if (fetchBtn) fetchBtn.classList.add('ui-disabled');
         } else {
-            badge.style.background = '#e8f5e9';
-            badge.style.color = '#2e7d32';
-            badge.style.borderColor = 'rgba(46,125,50,0.1)';
+            if (navSidebar) navSidebar.classList.remove('ui-disabled');
+            if (fetchBtn) fetchBtn.classList.remove('ui-disabled');
         }
     }
 
-    // Handles the full screen animation overlay layout toggles
-    function toggleGlobalAnimationOverlay(showLoader) {
-        const loader = document.getElementById('global-screen-loader');
-        if (!loader) return;
-        if (showLoader) {
-            loader.style.visibility = 'visible';
-            loader.style.opacity = '1';
-        } else {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                if (loader.style.opacity === '0') loader.style.visibility = 'hidden';
-            }, 400); // Wait for the transition to finish cleanly
-        }
-    }
-
-    // Manual layout interactive button click trigger sequence
     function triggerLiveCagrFetchManual() {
         if (!currentStockData) return;
         
-        // Render full frame animation layer panels instantly
-        toggleGlobalAnimationOverlay(true);
+        toggleCardLoadingState(true);
         
-        // Hide initial prompt button, reveal functional dropdown structures
         document.getElementById('cagr-fetch-prompt-container').style.display = 'none';
-        document.getElementById('cagr-interactive-selector-container').style.display = 'flex';
+        document.getElementById('cagr-interactive-selector-container').style.display = 'block';
         
         fetchLiveSheetCAGR(currentStockData.ticker);
     }
 
     async function fetchLiveSheetCAGR(ticker) {
-        const badge = document.getElementById('cagr-display-badge');
-        if (badge) badge.textContent = "Loading...";
         liveCagrCache = null; 
 
-        // Update token sequence to map execution states
         currentActiveTokenId++;
         const capturedInstanceToken = currentActiveTokenId;
 
@@ -1105,12 +1064,11 @@
             const response = await fetch(`${GOOGLE_SCRIPT_API_URL}?ticker=${encodeURIComponent(ticker)}`);
             const data = await response.json();
             
-            // Abort state mutations if a request sequence has changed since dispatching
             if (capturedInstanceToken !== currentActiveTokenId) return;
 
             if (data && !data.error) {
                 liveCagrCache = data;
-                displayCachedBadgeValue(selectedPeriodValue);
+                displayAllCachedBubbleValues();
             } else {
                 fallbackToDefaultBadge();
             }
@@ -1120,38 +1078,42 @@
                 fallbackToDefaultBadge();
             }
         } finally {
-            // Dismiss fullscreen animation backdrop container cleanly
             if (capturedInstanceToken === currentActiveTokenId) {
-                toggleGlobalAnimationOverlay(false);
+                toggleCardLoadingState(false);
             }
         }
     }
 
     function fallbackToDefaultBadge() {
-        const badge = document.getElementById('cagr-display-badge');
-        if (badge && currentStockData) {
-            liveCagrCache = { "5": currentStockData.cagr, "10": currentStockData.cagr, "15": currentStockData.cagr, "20": currentStockData.cagr, "25": currentStockData.cagr, "30": currentStockData.cagr };
-            displayCachedBadgeValue(selectedPeriodValue);
+        if (currentStockData) {
+            liveCagrCache = { 
+                "5": currentStockData.cagr, 
+                "10": currentStockData.cagr, 
+                "15": currentStockData.cagr, 
+                "20": currentStockData.cagr, 
+                "25": currentStockData.cagr, 
+                "30": currentStockData.cagr 
+            };
+            displayAllCachedBubbleValues();
         }
     }
 
-    // Initialize layout resets when user switches active stocks
     function resetCagrCardToPromptState() {
-        currentActiveTokenId++; // Invalidate any running background request thread
+        currentActiveTokenId++; 
         liveCagrCache = null;
         
-        // Turn layout views back into clickable action prompt fields
         document.getElementById('cagr-interactive-selector-container').style.display = 'none';
         document.getElementById('cagr-fetch-prompt-container').style.display = 'flex';
         
-        const trigger = document.getElementById('cagr-dropdown-trigger');
-        if (trigger) trigger.textContent = "5 Years";
-        selectedPeriodValue = "5";
+        const metrics = ["5", "10", "15", "20", "25", "30"];
+        metrics.forEach(year => {
+            const targetSpan = document.getElementById(`bval-${year}`);
+            if (targetSpan) targetSpan.textContent = "--";
+        });
         
-        toggleGlobalAnimationOverlay(false);
+        toggleCardLoadingState(false);
     }
 
-    // Wrap execution routines inside interception patterns to secure the original scope functions
     const baseDisplayStockByTicker = displayStockByTicker;
     displayStockByTicker = async function(tickerSymbol) {
         document.getElementById('cagr-selector-card').style.display = 'block';
@@ -1159,7 +1121,6 @@
         await baseDisplayStockByTicker(tickerSymbol);
     };
 
-    // Kept the default updateProjection completely separate to avoid dropdown interaction overlap
     const baseUpdateProjection = updateProjection;
     updateProjection = function() {
         baseUpdateProjection();
