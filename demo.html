@@ -51,18 +51,29 @@
             box-sizing: border-box;
         }
 
+        /* Changes layout container direction to column so the master ticker can stretch fully across the top */
         .cards-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;    /* Essential to lock the ticker and row to the same center axis */
+            justify-content: center;
+            width: max-content;
+            max-width: 100%;
+            position: relative;
+            gap: 20px;
+        }
+
+        /* Keeps the 3 distinct data columns structurally aligned horizontally side-by-side */
+        .columns-horizontal-wrapper {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            width: 100%;
-            max-width: 1600px;
-            position: relative;
             gap: 24px;
+            width: 100%;
         }
 
         /* Base Card Styles */
-        .projection-card, .identity-card, .graph-card, .card {
+        .projection-card, .identity-card, .graph-card, .card, .ticker-panel-card {
             background: var(--bg-card);
             border-radius: 24px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -75,7 +86,50 @@
         .graph-card { width: 350px; padding: 24px; }
         .card { width: 500px; padding: 32px; padding-bottom: 13px; }
 
-        .left-column, .right-column {
+        /* The Ticker block now takes 100% width of the main wrapper container */
+        /* Find this block and update it */
+        .ticker-panel-card {
+            width: 1218px;
+            padding: 6px 10px;
+            box-sizing: border-box;
+            margin: 0;
+            transform: translateX(-42px); /* Shifts the banner perfectly to the left to match the cards line */
+        }
+
+        .monthly-returns-ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: transparent;
+            border-radius: 16px;
+            padding: 4px 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .monthly-returns-ticker {
+            display: flex;
+            width: max-content;
+            will-change: transform; /* Optimizes browser rendering for smooth motion */
+        }
+              
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            font-family: 'Segoe UI', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            border-right: none;
+            white-space: nowrap;
+        }
+
+        .ticker-month {
+            color: #94a3b8;
+            margin-right: 6px;
+        }
+
+        .left-column, .right-column, .center-column {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -209,7 +263,7 @@
         .calendar-item.positive .cal-year { background: #e8f5e9; color: #2e7d32; }
         .calendar-item.negative .cal-year { background: #ffebee; color: #c62828; }
 
-        /* Sidebar Main Layout Setup */
+        /* Sidebar Layout Setup */
         .nav-sidebar { 
             display: flex; 
             flex-direction: column; 
@@ -399,10 +453,11 @@
         }
         
         @media (max-width: 1400px) {
-            .cards-container { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
-            .left-column, .right-column { order: 1; width: 100%; display: contents; }
+            .cards-container { width: 100%; }
+            .columns-horizontal-wrapper { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+            .left-column, .right-column, .center-column { width: 100%; display: contents; }
             
-            /* Responsive Structural Stack Hooks for Custom Cards */
+            /* Responsive Layout Stack Modifiers */
             #cagr-selector-card { 
                 order: 2; 
                 width: 100%; 
@@ -415,10 +470,18 @@
             }
             
             .card { order: 1; }
+            #ticker-panel-card, .ticker-panel-card { 
+                order: -1; 
+                width: 100%;             /* Allow it to match the width of the other stacked cards */
+                max-width: 500px;        /* Limits width to look uniform with your responsive stack */
+                transform: none;         /* Clears the desktop -42px shift causing the cutoff */
+                margin: 0 auto;          /* Centers it perfectly within the layout */
+                box-sizing: border-box;
+            }
             #graph-card { order: 3; }
             #returns-card { order: 4; }
             #identity-card { order: 5; }
-            .projection-card, .card, .identity-card, .graph-card { width: 100%; height: auto; max-width: 500px; position: relative; }
+            .projection-card, .card, .identity-card, .graph-card, .ticker-panel-card { width: 100%; height: auto; max-width: 500px; position: relative; }
             .nav-sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); margin-left: 0; z-index: 1000; height: auto; }
         }
 
@@ -439,7 +502,6 @@
             border-radius: 12px;
             padding: 6px 4px;
             font-size: 12px;
-            
             color: var(--text-main);
             cursor: default; 
             display: flex;
@@ -464,7 +526,6 @@
             white-space: nowrap;
         }
 
-        /* Combined Local card inline micro spinner layout template */
         .cagr-card-spinner {
             width: 10px;
             height: 10px;
@@ -478,7 +539,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Functional safety element lock states */
         .ui-disabled {
             pointer-events: none !important;
             opacity: 0.6 !important;
@@ -499,113 +559,125 @@
     <div class="page-wrapper">
         <div class="cards-container">
             
-            <div class="left-column">
-                <div id="cagr-selector-card" class="projection-card" style="display: none; padding: 20px; margin-bottom: -4px;">
-                    <label style="margin-bottom: 10px;">CAGR OVER THE YEARS</label>
-                    
-                    <div id="cagr-fetch-prompt-container" style="display: flex; width: 100%; box-sizing: border-box;">
-                        <button id="fetch-live-cagr-btn" onclick="triggerLiveCagrFetchManual()" style="width: 100%; height: 38px; border-radius: 12px; border: 1px dashed var(--primary-gold); background: var(--bg-soft); color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.2s, color 0.2s;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                            Fetch Live CAGR
-                        </button>
-                    </div>
-
-                    <div id="cagr-interactive-selector-container" style="display: none; position: relative; width: 100%;">
-                        <div class="cagr-bubble-row" id="cagr-bubble-container">
-                            <div class="cagr-bubble" data-value="5"><span class="bubble-label">5Y</span><span class="bubble-val" id="bval-5">--</span></div>
-                            <div class="cagr-bubble" data-value="10"><span class="bubble-label">10Y</span><span class="bubble-val" id="bval-10">--</span></div>
-                            <div class="cagr-bubble" data-value="15"><span class="bubble-label">15Y</span><span class="bubble-val" id="bval-15">--</span></div>
-                            <div class="cagr-bubble" data-value="20"><span class="bubble-label">20Y</span><span class="bubble-val" id="bval-20">--</span></div>
-                            <div class="cagr-bubble" data-value="25"><span class="bubble-label">25Y</span><span class="bubble-val" id="bval-25">--</span></div>
-                            <div class="cagr-bubble" data-value="30"><span class="bubble-label">30Y</span><span class="bubble-val" id="bval-30">--</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="projection-card" class="projection-card" style="display: none;">
-                    <label>Investment Projection</label>
-                    <div id="projection-content">
-                        <div class="projection-title">
-                            In <span id="year-val" class="year-highlight">5</span> years, you will have<br>
-                            <span class="highlight">₹ </span><span id="future-amt" class="highlight">0</span>
-                        </div>
-                        <input type="range" id="year-slider" min="1" max="30" value="5" oninput="updateProjection()">
-                        <div style="display:flex; justify-content: space-between; font-size: 10px; color: var(--text-light); margin-top: 8px;">
-                            <span>1 Year</span>
-                            <span>30 Years</span>
-                        </div>
-                    </div>
-                    <div id="projection-na" style="display:none; text-align: center; padding: 10px 0;">
-                        <h2 class="negative">N/A</h2>
-                        <p style="font-size: 12px; color: var(--text-light);">Projection unavailable.</p>
-                    </div>
-                </div>
-
-                <div id="identity-card" class="identity-card" style="display: none;">
-                    <div class="identity-header">
-                        <img id="nation-flag" src="" alt="" style="width: 28px; height: auto; border-radius: 3px; display: none;" draggable="false">
-                        <span id="nation-name"></span>
-                    </div>
-                    <div id="hq-location"></div>
-                    <hr class="divider">
-                    <div class="info-block">
-                        <label>About</label>
-                        <div id="stock-about" class="info-content"></div>
-                    </div>
-                    <div class="info-block">
-                        <label>Products & Services</label>
-                        <div id="stock-products" class="info-content"></div>
-                    </div>
+            <div id="ticker-panel-card" class="ticker-panel-card" style="display: none;">
+                <div class="monthly-returns-ticker-wrap">
+                    <div class="monthly-returns-ticker" id="monthlyReturnsTicker"></div>
                 </div>
             </div>
 
-            <div class="card">
-                <div id="main-container" class="card-content">
-                    <div class="card-header">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            </div>
+            <div class="columns-horizontal-wrapper">
+                
+                <div class="left-column">
+                    <div id="cagr-selector-card" class="projection-card" style="display: none; padding: 20px; margin-bottom: -4px;">
+                        <label style="margin-bottom: 10px;">CAGR OVER THE YEARS</label>
+                        
+                        <div id="cagr-fetch-prompt-container" style="display: flex; width: 100%; box-sizing: border-box;">
+                            <button id="fetch-live-cagr-btn" onclick="triggerLiveCagrFetchManual()" style="width: 100%; height: 38px; border-radius: 12px; border: 1px dashed var(--primary-gold); background: var(--bg-soft); color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.2s, color 0.2s;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                Fetch Live CAGR
+                            </button>
+                        </div>
 
-            <div class="right-column">
-                <div id="graph-card" class="graph-card" style="display: none;">
-                    <label>Rank History</label>
-                    <div class="chart-container">
-                        <canvas id="mcapChart"></canvas>
-                    </div>
-                    <div class="range-selector" style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
-                        <button class="range-btn" onclick="filterChart(6)">6M</button>
-                        <button class="range-btn" onclick="filterChart(12)">1Y</button>
-                        <button class="range-btn" onclick="filterChart(60)">5Y</button>
-                        <button class="range-btn" onclick="filterChart('all')">ALL</button>
-                    </div>
-                </div>
-
-                <div id="returns-card" class="graph-card" style="display: none;">
-                    <div class="label-container">
-                        <label>Yearly Returns (%)</label>
-                        <div class="tooltip-container">
-                            <i class="info-icon">ⓘ</i>
-                            <span class="tooltip-text">Yearly returns are available till MCAP Rank: 1000.</span>
+                        <div id="cagr-interactive-selector-container" style="display: none; position: relative; width: 100%;">
+                            <div class="cagr-bubble-row" id="cagr-bubble-container">
+                                <div class="cagr-bubble" data-value="5"><span class="bubble-label">5Y</span><span class="bubble-val" id="bval-5">--</span></div>
+                                <div class="cagr-bubble" data-value="10"><span class="bubble-label">10Y</span><span class="bubble-val" id="bval-10">--</span></div>
+                                <div class="cagr-bubble" data-value="15"><span class="bubble-label">15Y</span><span class="bubble-val" id="bval-15">--</span></div>
+                                <div class="cagr-bubble" data-value="20"><span class="bubble-label">20Y</span><span class="bubble-val" id="bval-20">--</span></div>
+                                <div class="cagr-bubble" data-value="25"><span class="bubble-label">25Y</span><span class="bubble-val" id="bval-25">--</span></div>
+                                <div class="cagr-bubble" data-value="30"><span class="bubble-label">30Y</span><span class="bubble-val" id="bval-30">--</span></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="returns-scroll-container">
-                        <div id="returns-grid" class="calendar-grid"></div>
+
+                    <div id="projection-card" class="projection-card" style="display: none;">
+                        <label>Investment Projection</label>
+                        <div id="projection-content">
+                            <div class="projection-title">
+                                In <span id="year-val" class="year-highlight">5</span> years, you will have<br>
+                                <span class="highlight">₹ </span><span id="future-amt" class="highlight">0</span>
+                            </div>
+                            <input type="range" id="year-slider" min="1" max="30" value="5" oninput="updateProjection()">
+                            <div style="display:flex; justify-content: space-between; font-size: 10px; color: var(--text-light); margin-top: 8px;">
+                                <span>1 Year</span>
+                                <span>30 Years</span>
+                            </div>
+                        </div>
+                        <div id="projection-na" style="display:none; text-align: center; padding: 10px 0;">
+                            <h2 class="negative">N/A</h2>
+                            <p style="font-size: 12px; color: var(--text-light);">Projection unavailable.</p>
+                        </div>
+                    </div>
+
+                    <div id="identity-card" class="identity-card" style="display: none;">
+                        <div class="identity-header">
+                            <img id="nation-flag" src="" alt="" style="width: 28px; height: auto; border-radius: 3px; display: none;" draggable="false">
+                            <span id="nation-name"></span>
+                        </div>
+                        <div id="hq-location"></div>
+                        <hr class="divider">
+                        <div class="info-block">
+                            <label>About</label>
+                            <div id="stock-about" class="info-content"></div>
+                        </div>
+                        <div class="info-block">
+                            <label>Products & Services</label>
+                            <div id="stock-products" class="info-content"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="nav-sidebar" id="main-nav-sidebar">
-                <button class="nav-btn search-trigger-btn" id="searchTrigger" title="Search Holdings">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
+                <div class="center-column">
+                    <div class="card">
+                        <div id="main-container" class="card-content">
+                            <div class="card-header">
+                                <h1>Loading...</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <button class="nav-btn" onclick="navigate('next')"><img src="logos/icons/next.png" alt="Next" draggable="false"></button>
-                <button class="nav-btn" onclick="navigate('prev')"><img src="logos/icons/prev.png" alt="Previous" draggable="false"></button>
-                <a href="all-holdings.html" class="nav-btn"><img src="logos/icons/list.jpg" alt="All Holdings" draggable="false"></a>
-                <a href="index.html" class="nav-btn"><img src="logos/icons/home.png" alt="Home" draggable="false"></a>
+                <div class="right-column">
+                    <div id="graph-card" class="graph-card" style="display: none;">
+                        <label>Rank History</label>
+                        <div class="chart-container">
+                            <canvas id="mcapChart"></canvas>
+                        </div>
+                        <div class="range-selector" style="display: flex; gap: 8px; justify-content: center; margin-top: 15px;">
+                            <button class="range-btn" onclick="filterChart(6)">6M</button>
+                            <button class="range-btn" onclick="filterChart(12)">1Y</button>
+                            <button class="range-btn" onclick="filterChart(60)">5Y</button>
+                            <button class="range-btn" onclick="filterChart('all')">ALL</button>
+                        </div>
+                    </div>
+
+                    <div id="returns-card" class="graph-card" style="display: none;">
+                        <div class="label-container">
+                            <label>Yearly Returns (%)</label>
+                            <div class="tooltip-container">
+                                <i class="info-icon">ⓘ</i>
+                                <span class="tooltip-text">Yearly returns are available till MCAP Rank: 1000.</span>
+                            </div>
+                        </div>
+                        <div class="returns-scroll-container">
+                            <div id="returns-grid" class="calendar-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-sidebar" id="main-nav-sidebar">
+                    <button class="nav-btn search-trigger-btn" id="searchTrigger" title="Search Holdings">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+
+                    <button class="nav-btn" onclick="navigate('next')"><img src="logos/icons/next.png" alt="Next" draggable="false"></button>
+                    <button class="nav-btn" onclick="navigate('prev')"><img src="logos/icons/prev.png" alt="Previous" draggable="false"></button>
+                    <a href="all-holdings.html" class="nav-btn"><img src="logos/icons/list.jpg" alt="All Holdings" draggable="false"></a>
+                    <a href="index.html" class="nav-btn"><img src="logos/icons/home.png" alt="Home" draggable="false"></a>
+                </div>
+
             </div>
         </div>
     </div>
@@ -655,8 +727,144 @@
             loadChartData(tickerSymbol);
             updateSectorTag(tickerSymbol);
             loadReturnsData(tickerSymbol);
+            loadTickerData(tickerSymbol); 
             
         } catch (error) { console.error(error); }
+    }
+
+    // Adjusted Monthly Returns Calculation Engine tracking absolute capitalization shifts
+    async function loadTickerData(ticker) {
+        try {
+            const response = await fetch('scroll-data.json');
+            const scrollData = await response.json();
+            const tickerUpper = ticker.toUpperCase();
+            const monthlyRecords = [];
+
+            const parseMonthKey = (key) => {
+                const m = parseInt(key.substring(0, 2), 10);
+                const y = parseInt(key.substring(2), 10);
+                return { year: y, month: m, date: new Date(y, m - 1, 1) };
+            };
+
+            Object.keys(scrollData).forEach(monthKey => {
+                const monthInfo = parseMonthKey(monthKey);
+                const block = scrollData[monthKey];
+                if (block && block.rows) {
+                    const row = block.rows.find(r => r[0].toUpperCase() === tickerUpper);
+                    if (row) {
+                        const issueSize = parseFloat(row[1]);
+                        const closePrice = parseFloat(row[2]);
+                        if (!isNaN(issueSize) && !isNaN(closePrice) && closePrice > 0 && issueSize > 0) {
+                            monthlyRecords.push({
+                                label: monthKey,
+                                year: monthInfo.year,
+                                month: monthInfo.month,
+                                date: monthInfo.date,
+                                marketCap: issueSize * closePrice
+                            });
+                        }
+                    }
+                }
+            });
+
+            monthlyRecords.sort((a, b) => a.date - b.date);
+
+            if (monthlyRecords.length < 2) {
+                document.getElementById('ticker-panel-card').style.display = 'none';
+                return;
+            }
+
+            const returnsData = [];
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            for (let i = 1; i < monthlyRecords.length; i++) {
+                const prev = monthlyRecords[i - 1];
+                const curr = monthlyRecords[i];
+                const percentageChange = ((curr.marketCap - prev.marketCap) / prev.marketCap) * 100;
+
+                returnsData.push({
+                    monthText: `${monthNames[curr.month - 1]} ${curr.year}`,
+                    change: percentageChange
+                });
+            }
+
+            // Slice out past 12 available return blocks
+            const finalReturns = returnsData.slice(-12).reverse();
+
+            if (finalReturns.length === 0) {
+                document.getElementById('ticker-panel-card').style.display = 'none';
+                return;
+            }
+
+            // Reference container ONCE
+            const tickerContainer = document.getElementById('monthlyReturnsTicker');
+            
+            // Reset layout state and layout animation clearing
+            tickerContainer.style.animation = 'none';
+            tickerContainer.offsetHeight; // Force reflow
+            tickerContainer.style.animation = '';
+            
+            // Build the string block for items
+            let trackHTML = '';
+            finalReturns.forEach(item => {
+                const isPos = item.change >= 0;
+                trackHTML += `
+                    <div class="ticker-item">
+                        <span class="ticker-month">${item.monthText}:</span>
+                        <span class="${isPos ? 'positive' : 'negative'}">
+                            ${isPos ? '▲ +' : '▼ '}${item.change.toFixed(2)}%
+                        </span>
+                    </div>
+                `;
+            });
+
+            const separator = `<div class="ticker-item">📈</div>`;
+            const fullContentSet = trackHTML + separator;
+
+            // Populate twice for our mirror animation
+            tickerContainer.innerHTML = fullContentSet + fullContentSet;
+            document.getElementById('ticker-panel-card').style.display = 'block';
+
+            // --- JAVASCRIPT ANIMATION ENGINE ---
+            const wrapper = document.querySelector('.monthly-returns-ticker-wrap');
+            // Start the scroll right at the edge of the visible panel wrapper
+            let currentX = wrapper ? wrapper.offsetWidth : 0; 
+            let speed = 2; 
+            let isPaused = false;
+            let animationFrameId = null;
+
+            function scrollTicker() {
+                if (!isPaused) {
+                    currentX -= speed;
+                    const halfWidth = tickerContainer.scrollWidth / 2;
+                    
+                    // Once the first loop set passes completely to the left, 
+                    // seamlessly snap back to 0 to keep the closed loop going
+                    if (currentX <= -halfWidth) {
+                        currentX = 0;
+                    }
+                    
+                    tickerContainer.style.transform = `translate3d(${currentX}px, 0, 0)`;
+                }
+                animationFrameId = requestAnimationFrame(scrollTicker);
+            }
+
+            // Clean up old runners
+            if (window.activeTickerId) {
+                cancelAnimationFrame(window.activeTickerId);
+            }
+
+            // Start loop
+            scrollTicker();
+            window.activeTickerId = animationFrameId;
+
+            // Pause on Hover controls
+            tickerContainer.onmouseenter = () => { isPaused = true; };
+            tickerContainer.onmouseleave = () => { isPaused = false; };
+
+        } catch (e) {
+            console.error("Monthly returns ticker panel engine error.", e);
+        }
     }
 
     async function loadReturnsData(ticker) {
@@ -743,7 +951,7 @@
                     };
                 });
                 filterChart('12');
-            } else if (mcapChart) { mcapChart.destroy(); }
+            } else if (mcapChart) mcapChart.destroy();
         } catch (error) { console.log(error); }
     }
 
@@ -957,7 +1165,6 @@
         displayStockByTicker(ticker);
     };
 
-    // Glassmorphic Modal Interaction Controls
     const searchModalOverlay = document.getElementById('searchModalOverlay');
     const searchTrigger = document.getElementById('searchTrigger');
     const searchInput = document.getElementById('searchInput');
@@ -1008,8 +1215,6 @@
             }
 
             const rawVal = liveCagrCache[year];
-            
-            // Format to an integer string if the rate is numeric
             let numericVal = parseFloat(rawVal.replace(/[^-0-9.]/g, ''));
             if (!isNaN(numericVal)) {
                 let roundedVal = Math.round(numericVal);
@@ -1047,16 +1252,13 @@
         if (!currentStockData) return;
         
         toggleCardLoadingState(true);
-        
         document.getElementById('cagr-fetch-prompt-container').style.display = 'none';
         document.getElementById('cagr-interactive-selector-container').style.display = 'block';
-        
         fetchLiveSheetCAGR(currentStockData.ticker);
     }
 
     async function fetchLiveSheetCAGR(ticker) {
         liveCagrCache = null; 
-
         currentActiveTokenId++;
         const capturedInstanceToken = currentActiveTokenId;
 
