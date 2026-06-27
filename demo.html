@@ -165,7 +165,21 @@
             letter-spacing: 1px;
         }
 
-        .info-content { font-size: 13px; font-weight: 500; line-height: 1.2; color: gray; }
+        .info-content { 
+        font-size: 13px; 
+        font-weight: 500; 
+        line-height: 1.3; 
+        color: gray; 
+        
+        /* Limit height and enable vertical scrolling */
+        max-height: 50px; 
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    /* Optional: Make the internal scrollbars look compact like your returns grid */
+    .info-content::-webkit-scrollbar { width: 4px; }
+    .info-content::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
         .projection-card label, .graph-card label {
             display: block;
@@ -194,6 +208,15 @@
             font-size: 14px; 
             font-weight: 600; 
             margin-top: 8px; 
+        }
+
+        .listing-years-label {
+            display: inline-block;
+            color: var(--text-light);
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            margin-right: 0px;
         }
 
         .sector-badge {
@@ -1069,17 +1092,52 @@
                 </div>`;
         }
 
+        // Calculate listing years dynamically and check for day/month match
+        let listingHTML = "";
+        let showBirthGif = false;
+        
+        if (stock.listing && stock.listing.trim() !== "") {
+            const parts = stock.listing.split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1; // JS months are 0-11
+                const year = parseInt(parts[2], 10);
+                
+                const listingDate = new Date(year, month, day);
+                const today = new Date();
+                
+                // Check if current date and month match the listing date and month
+                if (today.getDate() === day && today.getMonth() === month) {
+                    showBirthGif = true;
+                }
+
+                let completedYears = today.getFullYear() - listingDate.getFullYear();
+                const monthDiff = today.getMonth() - listingDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < listingDate.getDate())) {
+                    completedYears--;
+                }
+                if (completedYears >= 0) {
+                    listingHTML = `<span class="listing-years-label">${completedYears}Y</span> <span style="color: var(--text-light); font-weight: 600; margin-right: 4px;">&bull;</span>`;
+                }
+            }
+        }
+
         container.innerHTML = `
             <div class="card-header">
-                <div class="logo-box">
-                    <a href="https://www.google.com/finance/beta/quote/${stock.ticker}:NSE" target="_blank">
-                        <img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')" draggable="false">
-                    </a>
-                </div>
-                <h1>${stock.companyName}</h1>
-                <p class="ticker-badge">${stock.ticker}</p>
-                <span id="sector-tag" class="sector-badge">Loading Sector...</span>
-            </div>
+        <div class="logo-box">
+            <a href="https://www.google.com/finance/beta/quote/${stock.ticker}:NSE" target="_blank">
+                <img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')" draggable="false">
+            </a>
+        </div>
+        <div style="display: block; margin-bottom: 2px;">
+            <h1 style="font-size: clamp(20px, 4vw, 26px); margin: 0; letter-spacing: -0.5px; display: inline-block; vertical-align: middle;">
+                <span style="vertical-align: bottom;">${stock.companyName}</span>
+                ${showBirthGif ? `<img src="logos/icons/birth.gif" alt="" style="height: 40px; width: auto; vertical-align: bottom; margin-left: 6px; display: inline-block;" draggable="false">` : ''}
+            </h1>
+        </div>
+        ${listingHTML}<p class="ticker-badge">${stock.ticker}</p>
+        <span id="sector-tag" class="sector-badge">Loading Sector...</span>
+    </div>
             <div class="info-table">
                 <div class="table-caption">Holding Details</div>
                 <div class="grid-row">
