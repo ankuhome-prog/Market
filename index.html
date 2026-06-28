@@ -78,6 +78,20 @@
       text-decoration: underline;
       opacity: 0.8;
     }
+
+    /* Modern View Counter Styling */
+    .counter-display {
+      margin-top: 40px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    #view-counter {
+      color: #0056b3;
+      font-weight: 800;
+    }
 </style>
 </head>
 <body>
@@ -95,6 +109,33 @@
     <a href="bets.html" class="market-link">Bets</a>
   </div>
 
+  <!-- Added Counter Visual Container -->
+  <div class="counter-display">
+    Total Visits: <span id="view-counter">...</span>
+  </div>
+
   <script src="search.js"></script>
+  <script>
+    window.onload = function() {
+      const namespace = "my_investment_dashboard_2026";
+      const key = "index_page_views";
+
+      // Replaced old dead API link with active modern API mirror
+      fetch(`https://countapi.mileshilliard.com/api/v1/hit/${namespace}_${key}`)
+          .then(res => res.json())
+          .then(data => {
+              const counterEl = document.getElementById('view-counter');
+              if (counterEl && data.value) {
+                  counterEl.innerText = data.value;
+              }
+              console.log(`Universal views across all devices: ${data.value}`);
+          })
+          .catch(err => {
+              console.error("Cloud counter error:", err);
+              const counterEl = document.getElementById('view-counter');
+              if (counterEl) counterEl.innerText = "Offline";
+          });
+    };
+  </script>
 </body>
 </html>

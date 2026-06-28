@@ -117,7 +117,7 @@
             display: flex;
             align-items: center;
             padding: 0 32px;
-            font-family: 'Segoe UI', monospace;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;;
             font-size: 14px;
             font-weight: 700;
             border-right: none;
@@ -195,9 +195,23 @@
         .year-highlight { color: var(--primary-gold); font-weight: 800; }
         .projection-card input[type="range"] { width: 100%; accent-color: var(--primary-gold); cursor: pointer; }
 
-        .card-header { text-align: center; margin-bottom: 20px; }
+        .card-header { text-align: center; margin-bottom: 5px; }
         .logo-box img { max-height: 120px; max-width: 100%; margin-bottom: 12px; object-fit: contain; }
         h1 { color: var(--text-main); font-size: clamp(20px, 4vw, 26px); margin: 0; letter-spacing: -0.5px; }
+
+        /* Current Price Display Styling */
+/* Closed Price Static Look */
+.current-price-display {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Segoe UI', monospace;
+    color: #475569; 
+    
+    margin-bottom: 4px;
+    
+    letter-spacing: -0.5px;
+}
         
         .ticker-badge { 
             display: inline-block; 
@@ -594,9 +608,7 @@
                     <div id="cagr-selector-card" class="projection-card" style="display: none; padding: 20px; margin-bottom: -4px;">
                         <label style="margin-bottom: 10px;">CAGR OVER THE YEARS</label>
                         
-                        <div id="cagr-fetch-prompt-container" style="display: flex; width: 100%; box-sizing: border-box;">
-                            <button id="fetch-live-cagr-btn" onclick="triggerLiveCagrFetchManual()" style="width: 100%; height: 38px; border-radius: 12px; border: 1px dashed var(--primary-gold); background: var(--bg-soft); color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; transition: background 0.2s, color 0.2s;">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <div id="cagr-fetch-prompt-container" style="display: flex; justify-content: center; width: 100%; box-sizing: border-box; padding: 2px 0;"> <button id="fetch-live-cagr-btn" onclick="triggerLiveCagrFetchManual()" style="width: auto; padding: 9px 20px; border-radius: 50px; border: 1px solid rgba(193, 163, 95, 0.3); background: #ffffff; color: var(--primary-gold); font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; box-shadow: 0 4px 12px rgba(193, 163, 95, 0.08); transition: all 0.2s ease-in-out;"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                                 Fetch Live CAGR
                             </button>
                         </div>
@@ -1122,22 +1134,30 @@
             }
         }
 
+        // Modified layout section adding the current price below the logo box and above company name
         container.innerHTML = `
             <div class="card-header">
-        <div class="logo-box">
-            <a href="https://www.google.com/finance/beta/quote/${stock.ticker}:NSE" target="_blank">
-                <img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')" draggable="false">
-            </a>
-        </div>
-        <div style="display: block; margin-bottom: 2px;">
-            <h1 style="font-size: clamp(20px, 4vw, 26px); margin: 0; letter-spacing: -0.5px; display: inline-block; vertical-align: middle;">
-                <span style="vertical-align: bottom;">${stock.companyName}</span>
-                ${showBirthGif ? `<img src="logos/icons/birth.gif" alt="" style="height: 40px; width: auto; vertical-align: bottom; margin-left: 6px; display: inline-block;" draggable="false">` : ''}
-            </h1>
-        </div>
-        ${listingHTML}<p class="ticker-badge">${stock.ticker}</p>
-        <span id="sector-tag" class="sector-badge">Loading Sector...</span>
-    </div>
+                <div class="logo-box">
+                    <a href="https://www.google.com/finance/beta/quote/${stock.ticker}:NSE" target="_blank">
+                        <img src="${stock.logoUrl}" onerror="handleImageError(this, '${stock.logoUrl}')" draggable="false">
+                    </a>
+                </div>
+                
+                
+                    <span class="current-price-display">
+                        ${stock.current || 'N/A'}
+                    </span>
+                
+
+                <div style="display: block; margin-bottom: 2px;">
+                    <h1 style="font-size: clamp(20px, 4vw, 26px); margin: 0; letter-spacing: -0.5px; display: inline-block; vertical-align: middle;">
+                        <span style="vertical-align: bottom;">${stock.companyName}</span>
+                        ${showBirthGif ? `<img src="logos/icons/birth.gif" alt="" style="height: 40px; width: auto; vertical-align: bottom; margin-left: 6px; display: inline-block;" draggable="false">` : ''}
+                    </h1>
+                </div>
+                ${listingHTML}<p class="ticker-badge">${stock.ticker}</p>
+                <span id="sector-tag" class="sector-badge">Loading Sector...</span>
+            </div>
             <div class="info-table">
                 <div class="table-caption">Holding Details</div>
                 <div class="grid-row">
