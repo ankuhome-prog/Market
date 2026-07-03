@@ -194,10 +194,14 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // FIXED ROUTING LOGIC: Checks if we are on the main landing page or the details workspace view
         if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
-          // If on main screen, send query straight over to your details document asset file
+          // If on index landing screen, explicitly log selection before switching files
+          if (typeof window.logPageStat === 'function') {
+            window.logPageStat("Dropdown Selection (Index)", ticker);
+          }
           window.location.href = `demo.html?ticker=${encodeURIComponent(ticker)}`;
         } else {
-          // If already inside the detail dashboard page views, update parameter searches natively
+          // If already inside the detail workspace, changing window.search will trigger a page refresh, 
+          // which naturally hits our main top display loader engine anyway!
           window.location.search = `?ticker=${encodeURIComponent(ticker)}`;
         }
         

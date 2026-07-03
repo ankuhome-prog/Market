@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holding</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="analytics.js"></script>
     <style>
         :root {
             --primary-gold: #c1a35f;
@@ -252,7 +253,7 @@
         
         .outlook-container { margin-top: 10px; text-align: center; font-size: 13px; font-weight: 500; color: var(--text-light); }
 
-        .item { flex: 1; padding: 16px 8px; min-width: 0; }
+        .item { flex: 1; padding: 10px 8px; min-width: 0; }
         .item label { display: block; font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
         .item .value { font-size: 14px; font-weight: 600; color: var(--text-main); }
 
@@ -488,6 +489,126 @@
         .search-container-box input[type="text"]::placeholder {
             color: #a0aec0;
         }
+
+        /* View Statistics Row Styling */
+        .view-stats-row {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 2px;
+            margin-bottom: 4px;
+            width: 100%;
+        }
+
+        .view-stats-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .view-stats-icon {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* A completely clean blink animation */
+        @keyframes eyeBlink {
+            0% { transform: scaleY(1); opacity: 1; }
+            45% { transform: scaleY(0.1); opacity: 0.2; }
+            55% { transform: scaleY(0.1); opacity: 0.2; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+
+        .animate-eye-blink {
+            animation: eyeBlink 0.6s ease-in-out 1;
+            animation-delay: 2s; /* Delays the blink smoothly for 2 seconds */
+            transform-origin: center;
+        }
+
+        /* --- New Moving Eyes Animation & Tooltip Styles --- */
+/* --- Clean Moving Eyes Animation & Tooltip Styles (No Background) --- */
+.moving-eyes-container {
+    display: none;
+    position: relative;
+    
+    align-items: center;
+    cursor: pointer;
+    margin-right: -9px;
+    align-self: flex-end;      /* Aligns the bottom edge to match text baseline */
+    transform: translateY(0px);
+}
+.moving-eyes {
+    display: flex;
+    gap: 0px;
+    padding: 0px;
+    background: transparent; /* Removed background wrapper */
+}
+.moving-eyes .eye {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #27ae60; /* Added round green border */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-sizing: border-box; /* Ensures border doesn't inflate the size */
+}
+.moving-eyes .pupil {
+    width: 4px;
+    height: 4px;
+    background: #0f172a;
+    border-radius: 50%;
+    position: absolute;
+    animation: movePupils 4s ease-in-out infinite;
+}
+
+@keyframes movePupils {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(-1.5px, 0); }   /* Adjusted movement boundaries */
+    40% { transform: translate(1.5px, 0); }
+    60% { transform: translate(0, -1.5px); }
+    80% { transform: translate(0, 1.5px); }
+}
+.eyes-tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 145%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff7675;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(255, 118, 117, 0.25);
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 100;
+    font-weight: 500;
+    text-transform: none;
+}
+.eyes-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ff7675 transparent transparent transparent;
+}
+.moving-eyes-container.show-tip .eyes-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
         
         @media (max-width: 1400px) {
             .cards-container { width: 100%; }
@@ -728,6 +849,15 @@
 
     async function displayStockByTicker(tickerSymbol) {
         try {
+            // --- SMART DEDUPLICATED TRACKING LINK ---
+            if (typeof window.logPageStat === 'function') {
+                const cameFromIndex = document.referrer.includes('index.html') || document.referrer.endsWith('/');
+                if (!cameFromIndex) {
+                    window.logPageStat("Ticker Workspace Visit", tickerSymbol);
+                } else {
+                    console.log("Skipping duplicate log: Ticker was already tracked via Index Search Dropdown.");
+                }
+            }
             const response = await fetch('stock-data.json');
             const stocks = await response.json();
             const stock = stocks.find(s => s.ticker.toUpperCase() === tickerSymbol.toUpperCase());
@@ -757,7 +887,106 @@
             document.getElementById('stock-about').innerText = stock.about || "Description not available.";
             document.getElementById('stock-products').innerText = stock.products || "N/A";
 
+            // 1. First, render the core HTML card layout structures completely
             renderMainCard(stock);
+            
+            // 2. Next, dynamically parse the view statistics from stats.json safely
+            // 2. Next, dynamically parse the view statistics from stats.json safely
+            try {
+                const statsResponse = await fetch('stats.json');
+                const statsData = await statsResponse.json();
+                const tickerUpper = tickerSymbol.toUpperCase();
+                
+                // Clear out heart container explicitly on fresh navigation transitions
+                const heartContainer = document.getElementById('heart-emoji-container');
+                if (heartContainer) heartContainer.innerText = '';
+
+                if (statsData) {
+                    // --- NEW: Compute Highest Views Across All Tickers ---
+                    let maxViews = 0;
+                    Object.keys(statsData).forEach(key => {
+                        if (statsData[key] && statsData[key].totalVisits) {
+                            const visits = parseInt(statsData[key].totalVisits, 10);
+                            if (visits > maxViews) {
+                                maxViews = visits;
+                            }
+                        }
+                    });
+
+                    if (statsData[tickerUpper]) {
+                        const record = statsData[tickerUpper];
+                        const dateRaw = record.latestVisit.date; 
+                        const timeRaw = record.latestVisit.time; 
+                        const viewsCount = parseInt(record.totalVisits, 10);
+                        
+                        // Format Time to 12-Hour AM/PM
+                        let [hours, minutes] = timeRaw.split(':').map(Number);
+                        const ampm = hours >= 12 ? 'PM' : 'AM';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12; 
+                        const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+                        
+                        // Calculate Relative Date
+                        const [day, month, year] = dateRaw.split('/').map(Number);
+                        const visitDate = new Date(year, month - 1, day);
+                        const todayDate = new Date();
+                        
+                        const d1 = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+                        const d2 = new Date(visitDate.getFullYear(), visitDate.getMonth(), visitDate.getDate());
+                        const diffTime = d1 - d2;
+                        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        let dateDisplayString = dateRaw;
+                        if (diffDays === 0) {
+                            dateDisplayString = "Today";
+                        } else if (diffDays === 1) {
+                            dateDisplayString = "Yesterday";
+                        }
+                        
+                        const lastSeenEl = document.getElementById('last-seen-field');
+                        const totalViewsEl = document.getElementById('total-views-field');
+                        const eyesContainer = document.querySelector('.moving-eyes-container');
+                        if (eyesContainer) {
+                            if (viewsCount > 0 && diffDays >= 90) {
+                                eyesContainer.style.display = 'inline-flex';
+                            } else {
+                                eyesContainer.style.display = 'none';
+                            }
+                        }
+                        
+                        
+                        if (lastSeenEl) lastSeenEl.innerText = `Last Seen: ${dateDisplayString} at ${formattedTime}`;
+                        if (totalViewsEl) totalViewsEl.innerText = viewsCount;
+
+                        // --- NEW: Add Heart Emoji if it matches the peak view count ---
+                        if (viewsCount === maxViews && maxViews > 0 && heartContainer) {
+                            heartContainer.innerText = '❤️';
+                        }
+                    } else {
+                        // Ticker has never been visited tracking fallback
+                        const lastSeenEl = document.getElementById('last-seen-field');
+                        const totalViewsEl = document.getElementById('total-views-field');
+                        
+                        if (lastSeenEl) lastSeenEl.innerText = `Last Seen: Never`;
+                        if (totalViewsEl) totalViewsEl.innerText = '0';
+                    }
+                }
+            } catch (statsErr) {
+                console.warn("Could not load view statistics from stats.json:", statsErr);
+                const targetRow = document.getElementById('analytics-stats-row');
+                if (targetRow) targetRow.style.display = 'none';
+            }
+
+            // 3. Trigger the eye blink animation precisely after elements exist in DOM
+            // 3. Trigger the eye blink animation safely
+            const eyeSvg = document.getElementById('eye-icon-svg');
+            if (eyeSvg) {
+                eyeSvg.classList.remove('animate-eye-blink');
+                void eyeSvg.offsetWidth; // Force layout recalculation
+                eyeSvg.classList.add('animate-eye-blink');
+            }
+
+            // 4. Continue loading remaining layout dependencies
             updateProjection();
             loadChartData(tickerSymbol);
             updateSectorTag(tickerSymbol);
@@ -1135,6 +1364,7 @@
         }
 
         // Modified layout section adding the current price below the logo box and above company name
+        // Modified layout section adding the current price below the logo box and above company name
         container.innerHTML = `
             <div class="card-header">
                 <div class="logo-box">
@@ -1143,11 +1373,9 @@
                     </a>
                 </div>
                 
-                
-                    <span class="current-price-display">
-                        ${stock.current || 'N/A'}
-                    </span>
-                
+                <span class="current-price-display">
+                    ${stock.current || 'N/A'}
+                </span>
 
                 <div style="display: block; margin-bottom: 2px;">
                     <h1 style="font-size: clamp(20px, 4vw, 26px); margin: 0; letter-spacing: -0.5px; display: inline-block; vertical-align: middle;">
@@ -1155,6 +1383,31 @@
                         ${showBirthGif ? `<img src="logos/icons/birth.gif" alt="" style="height: 40px; width: auto; vertical-align: bottom; margin-left: 6px; display: inline-block;" draggable="false">` : ''}
                     </h1>
                 </div>
+
+                <div class="view-stats-row" id="analytics-stats-row" style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 4px; margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--text-light); line-height: 1;">
+                    <div class="moving-eyes-container" onclick="toggleEyesTooltip(event, this)">
+                    <div class="moving-eyes">
+                        <div class="eye"><div class="pupil"></div></div>
+                        <div class="eye"><div class="pupil"></div></div>
+                    </div>
+                    <div class="eyes-tooltip">Long time no see..</div>
+                    </div>
+                <span id="last-seen-field" style="display: inline-flex; align-items: center;">Last Seen: --/--/---- at --:-- --</span>
+                
+                <span class="view-stats-item" style="display: inline-flex; align-items: center; gap: 4.5px;">
+                    <span style="display: inline-flex; align-items: center; transform: translateY(1px);">
+                        <svg id="eye-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block; flex-shrink: 0;">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </span>
+                    <span style="display: inline-block; line-height: 1;">
+                        <span id="total-views-field">0</span><span id="heart-emoji-container" style="padding-left: 4px;"></span>
+                    </span>
+                </span>
+                        
+                </div>
+
                 ${listingHTML}<p class="ticker-badge">${stock.ticker}</p>
                 <span id="sector-tag" class="sector-badge">Loading Sector...</span>
             </div>
@@ -1405,7 +1658,21 @@
     updateProjection = function() {
         baseUpdateProjection();
     };
+
+    function toggleEyesTooltip(event, element) {
+        event.stopPropagation();
+        element.classList.toggle('show-tip');
+        
+        // Automatically hide it after 2.5 seconds
+        if (element.classList.contains('show-tip')) {
+            clearTimeout(element.tooltipTimeout);
+            element.tooltipTimeout = setTimeout(() => {
+                element.classList.remove('show-tip');
+            }, 2500);
+        }
+    }
 </script>
 <script src="search.js"></script>
+
 </body>
 </html>
