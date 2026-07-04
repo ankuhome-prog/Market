@@ -1,9 +1,114 @@
 {
   "RELIANCE": {
+    "totalVisits": 4,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "11:26"
+    }
+  },
+  "PSB": {
     "totalVisits": 1,
     "latestVisit": {
       "date": "03/07/2026",
-      "time": "13:17"
+      "time": "13:27"
+    }
+  },
+  "SUMICHEM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "16:03"
+    }
+  },
+  "INOXWIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "16:16"
+    }
+  },
+  "SETL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "17:34"
+    }
+  },
+  "CUPID": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "17:36"
+    }
+  },
+  "PTCIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "17:37"
+    }
+  },
+  "SANGINITA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:02"
+    }
+  },
+  "SCPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:06"
+    }
+  },
+  "BAJAJHFL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:47"
+    }
+  },
+  "BHARTIARTL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:48"
+    }
+  },
+  "ICICIBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:48"
+    }
+  },
+  "SBIN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:48"
+    }
+  },
+  "TCS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:48"
+    }
+  },
+  "BAJFINANCE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/07/2026",
+      "time": "22:48"
+    }
+  },
+  "HDFCBANK": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "11:25"
     }
   }
 }
