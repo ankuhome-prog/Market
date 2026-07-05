@@ -1,9 +1,9 @@
 {
   "RELIANCE": {
-    "totalVisits": 4,
+    "totalVisits": 5,
     "latestVisit": {
       "date": "04/07/2026",
-      "time": "11:26"
+      "time": "14:47"
     }
   },
   "PSB": {
@@ -70,45 +70,73 @@
     }
   },
   "BHARTIARTL": {
-    "totalVisits": 1,
-    "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:48"
-    }
-  },
-  "ICICIBANK": {
-    "totalVisits": 1,
-    "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:48"
-    }
-  },
-  "SBIN": {
-    "totalVisits": 1,
-    "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:48"
-    }
-  },
-  "TCS": {
-    "totalVisits": 1,
-    "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:48"
-    }
-  },
-  "BAJFINANCE": {
-    "totalVisits": 1,
-    "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:48"
-    }
-  },
-  "HDFCBANK": {
     "totalVisits": 2,
     "latestVisit": {
       "date": "04/07/2026",
-      "time": "11:25"
+      "time": "14:47"
+    }
+  },
+  "ICICIBANK": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "SBIN": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "TCS": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "BAJFINANCE": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "HDFCBANK": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "MAXHEALTH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:46"
+    }
+  },
+  "ULTRACEMCO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:46"
+    }
+  },
+  "INDHOTEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:47"
+    }
+  },
+  "LT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "04/07/2026",
+      "time": "14:48"
     }
   }
 }
