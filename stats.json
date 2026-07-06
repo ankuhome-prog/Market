@@ -105,10 +105,10 @@
     }
   },
   "HDFCBANK": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "06/07/2026",
+      "time": "9:30"
     }
   },
   "MAXHEALTH": {
@@ -137,6 +137,41 @@
     "latestVisit": {
       "date": "04/07/2026",
       "time": "14:48"
+    }
+  },
+  "ATHERENERG": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "05/07/2026",
+      "time": "17:32"
+    }
+  },
+  "M&MFIN": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "05/07/2026",
+      "time": "17:32"
+    }
+  },
+  "AIIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "05/07/2026",
+      "time": "17:32"
+    }
+  },
+  "BDL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "06/07/2026",
+      "time": "9:27"
+    }
+  },
+  "DIACABS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "06/07/2026",
+      "time": "9:32"
     }
   }
 }
