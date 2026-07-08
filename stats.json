@@ -187,5 +187,40 @@
       "date": "06/07/2026",
       "time": "20:49"
     }
+  },
+  "KOTAKBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "9:13"
+    }
+  },
+  "INFY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "9:14"
+    }
+  },
+  "BANKINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "9:43"
+    }
+  },
+  "IXIGO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "9:50"
+    }
+  },
+  "GRAVITA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "10:05"
+    }
   }
 }
