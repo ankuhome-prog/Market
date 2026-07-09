@@ -222,5 +222,26 @@
       "date": "08/07/2026",
       "time": "10:05"
     }
+  },
+  "GMDCLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/07/2026",
+      "time": "11:53"
+    }
+  },
+  "AVANTIFEED": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "9:37"
+    }
+  },
+  "AZAD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "9:42"
+    }
   }
 }
