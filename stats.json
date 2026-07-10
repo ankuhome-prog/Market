@@ -1,9 +1,9 @@
 {
   "RELIANCE": {
-    "totalVisits": 5,
+    "totalVisits": 6,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "PSB": {
@@ -70,31 +70,31 @@
     }
   },
   "BHARTIARTL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "ICICIBANK": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "SBIN": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "TCS": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:47"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "BAJFINANCE": {
@@ -105,10 +105,10 @@
     }
   },
   "HDFCBANK": {
-    "totalVisits": 4,
+    "totalVisits": 5,
     "latestVisit": {
-      "date": "06/07/2026",
-      "time": "9:30"
+      "date": "09/07/2026",
+      "time": "21:26"
     }
   },
   "MAXHEALTH": {
@@ -242,6 +242,90 @@
     "latestVisit": {
       "date": "09/07/2026",
       "time": "9:42"
+    }
+  },
+  "PARAS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "12:00"
+    }
+  },
+  "SPARC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "12:01"
+    }
+  },
+  "YASHO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "12:02"
+    }
+  },
+  "RPEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "12:14"
+    }
+  },
+  "PAISALO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "13:01"
+    }
+  },
+  "STLTECH": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "21:25"
+    }
+  },
+  "DSSL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "18:04"
+    }
+  },
+  "GODIGIT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "21:26"
+    }
+  },
+  "INDOTECH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "09/07/2026",
+      "time": "21:39"
+    }
+  },
+  "DIXON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "9:48"
+    }
+  },
+  "J&KBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "10:00"
+    }
+  },
+  "BBOX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "10:01"
     }
   }
 }
