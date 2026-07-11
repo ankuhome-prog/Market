@@ -21,10 +21,10 @@
     }
   },
   "INOXWIND": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "03/07/2026",
-      "time": "16:16"
+      "date": "10/07/2026",
+      "time": "18:35"
     }
   },
   "SETL": {
@@ -326,6 +326,41 @@
     "latestVisit": {
       "date": "10/07/2026",
       "time": "10:01"
+    }
+  },
+  "COALINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "18:28"
+    }
+  },
+  "POWERGRID": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "18:29"
+    }
+  },
+  "ETERNAL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "18:29"
+    }
+  },
+  "ASIANPAINT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "18:29"
+    }
+  },
+  "ADANIGREEN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "10/07/2026",
+      "time": "18:29"
     }
   }
 }
