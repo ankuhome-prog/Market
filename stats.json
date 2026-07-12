@@ -70,10 +70,10 @@
     }
   },
   "BHARTIARTL": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "21:26"
+      "date": "12/07/2026",
+      "time": "9:45"
     }
   },
   "ICICIBANK": {
@@ -105,10 +105,10 @@
     }
   },
   "HDFCBANK": {
-    "totalVisits": 5,
+    "totalVisits": 6,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "21:26"
+      "date": "11/07/2026",
+      "time": "16:17"
     }
   },
   "MAXHEALTH": {
@@ -361,6 +361,69 @@
     "latestVisit": {
       "date": "10/07/2026",
       "time": "18:29"
+    }
+  },
+  "GODREJIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:21"
+    }
+  },
+  "NAVINFLUOR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:22"
+    }
+  },
+  "POONAWALLA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:22"
+    }
+  },
+  "PIIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:22"
+    }
+  },
+  "SONACOMS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:22"
+    }
+  },
+  "ENDURANCE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:23"
+    }
+  },
+  "ITCHOTELS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:23"
+    }
+  },
+  "3MINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/07/2026",
+      "time": "16:23"
+    }
+  },
+  "BWNMYTIFPE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "12/07/2026",
+      "time": "9:45"
     }
   }
 }
