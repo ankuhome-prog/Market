@@ -425,5 +425,75 @@
       "date": "12/07/2026",
       "time": "9:45"
     }
+  },
+  "COFORGE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "8:51"
+    }
+  },
+  "BWNMYTI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "8:51"
+    }
+  },
+  "CARYSIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:25"
+    }
+  },
+  "SUNFLAG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:32"
+    }
+  },
+  "KALPATARU": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:46"
+    }
+  },
+  "BWNMYTIFP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:46"
+    }
+  },
+  "AARTIPHARM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:46"
+    }
+  },
+  "JAIBALAJI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:47"
+    }
+  },
+  "VMART": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:47"
+    }
+  },
+  "AJAXENGG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "9:47"
+    }
   }
 }
