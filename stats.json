@@ -329,10 +329,10 @@
     }
   },
   "COALINDIA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "10/07/2026",
-      "time": "18:28"
+      "date": "14/07/2026",
+      "time": "9:23"
     }
   },
   "POWERGRID": {
@@ -493,6 +493,111 @@
     "totalVisits": 1,
     "latestVisit": {
       "date": "13/07/2026",
+      "time": "9:47"
+    }
+  },
+  "SUZLON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "13:17"
+    }
+  },
+  "BWNMYT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "13:17"
+    }
+  },
+  "NTPCGREEN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "13:18"
+    }
+  },
+  "KERNEX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:12"
+    }
+  },
+  "SSWL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:12"
+    }
+  },
+  "SEAMECLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:13"
+    }
+  },
+  "INDIQUBE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:13"
+    }
+  },
+  "VENUSPIPES": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:13"
+    }
+  },
+  "CRISIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:15"
+    }
+  },
+  "SUBROS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/07/2026",
+      "time": "18:15"
+    }
+  },
+  "AUBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/07/2026",
+      "time": "9:16"
+    }
+  },
+  "BIOCON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/07/2026",
+      "time": "9:18"
+    }
+  },
+  "CONCOR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/07/2026",
+      "time": "9:24"
+    }
+  },
+  "GESHIP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/07/2026",
+      "time": "9:26"
+    }
+  },
+  "TIINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/07/2026",
       "time": "9:47"
     }
   }
