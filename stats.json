@@ -343,10 +343,10 @@
     }
   },
   "ETERNAL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "10/07/2026",
-      "time": "18:29"
+      "date": "15/07/2026",
+      "time": "15:42"
     }
   },
   "ASIANPAINT": {
@@ -420,10 +420,10 @@
     }
   },
   "BWNMYTIFPE": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "12/07/2026",
-      "time": "9:45"
+      "date": "16/07/2026",
+      "time": "9:29"
     }
   },
   "COFORGE": {
@@ -774,6 +774,104 @@
     "latestVisit": {
       "date": "15/07/2026",
       "time": "10:16"
+    }
+  },
+  "OLAELEC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "15/07/2026",
+      "time": "15:43"
+    }
+  },
+  "MRPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:13"
+    }
+  },
+  "BWNM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:13"
+    }
+  },
+  "AMBER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:23"
+    }
+  },
+  "ICICIGI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:27"
+    }
+  },
+  "WAAREEENER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:29"
+    }
+  },
+  "HINDPETRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:29"
+    }
+  },
+  "LAURUSLABS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:29"
+    }
+  },
+  "ABB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:30"
+    }
+  },
+  "BHEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:30"
+    }
+  },
+  "BANKBARODA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:30"
+    }
+  },
+  "PFC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:30"
+    }
+  },
+  "TECHM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:31"
+    }
+  },
+  "PLASTIBLEN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "16/07/2026",
+      "time": "9:31"
     }
   }
 }
