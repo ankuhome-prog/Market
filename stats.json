@@ -873,5 +873,26 @@
       "date": "16/07/2026",
       "time": "9:31"
     }
+  },
+  "PRIVISCL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "10:01"
+    }
+  },
+  "BATAINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "10:09"
+    }
+  },
+  "ALKYLAMINE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "10:10"
+    }
   }
 }
