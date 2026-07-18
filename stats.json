@@ -364,17 +364,17 @@
     }
   },
   "GODREJIND": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "11/07/2026",
-      "time": "16:21"
+      "date": "17/07/2026",
+      "time": "16:40"
     }
   },
   "NAVINFLUOR": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "11/07/2026",
-      "time": "16:22"
+      "date": "17/07/2026",
+      "time": "16:41"
     }
   },
   "POONAWALLA": {
@@ -504,10 +504,10 @@
     }
   },
   "BWNMYT": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "13:17"
+      "date": "17/07/2026",
+      "time": "16:27"
     }
   },
   "NTPCGREEN": {
@@ -893,6 +893,181 @@
     "latestVisit": {
       "date": "17/07/2026",
       "time": "10:10"
+    }
+  },
+  "APOLLO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:26"
+    }
+  },
+  "MTARTECH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:29"
+    }
+  },
+  "CPPLUS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:32"
+    }
+  },
+  "AJANTPHARM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:36"
+    }
+  },
+  "VOLTAS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:37"
+    }
+  },
+  "BALKRISIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:37"
+    }
+  },
+  "PETRONET": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:37"
+    }
+  },
+  "JKCEMENT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:37"
+    }
+  },
+  "GLAXO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:38"
+    }
+  },
+  "MPHASIS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:38"
+    }
+  },
+  "AEGISLOG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:38"
+    }
+  },
+  "GLAND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:38"
+    }
+  },
+  "HUDCO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "ASTERDM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "NH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "KPRMILL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "IRCTC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "WELCORP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:39"
+    }
+  },
+  "SUPREMEIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:40"
+    }
+  },
+  "KALYANKJIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:40"
+    }
+  },
+  "COCHINSHIP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "16:40"
+    }
+  },
+  "HFCL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "22:04"
+    }
+  },
+  "SHREEJISPG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "22:04"
+    }
+  },
+  "BALAMINES": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "22:05"
+    }
+  },
+  "RUBYMILLS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/07/2026",
+      "time": "22:06"
     }
   }
 }
