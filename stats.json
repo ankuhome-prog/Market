@@ -1069,5 +1069,26 @@
       "date": "17/07/2026",
       "time": "22:06"
     }
+  },
+  "HINDCOPPER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "19/07/2026",
+      "time": "11:35"
+    }
+  },
+  "UPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "19/07/2026",
+      "time": "11:36"
+    }
+  },
+  "PREMIERENE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "19/07/2026",
+      "time": "11:36"
+    }
   }
 }
