@@ -133,10 +133,10 @@
     }
   },
   "LT": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "04/07/2026",
-      "time": "14:48"
+      "date": "02/08/2026",
+      "time": "11:30"
     }
   },
   "ATHERENERG": {
@@ -679,17 +679,17 @@
     }
   },
   "TATACAP": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/07/2026",
-      "time": "18:11"
+      "date": "30/07/2026",
+      "time": "16:25"
     }
   },
   "POWERINDIA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/07/2026",
-      "time": "18:12"
+      "date": "30/07/2026",
+      "time": "16:24"
     }
   },
   "TMCV": {
@@ -1103,6 +1103,13 @@
     "latestVisit": {
       "date": "22/07/2026",
       "time": "21:50"
+    }
+  },
+  "BEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/08/2026",
+      "time": "11:32"
     }
   }
 }
