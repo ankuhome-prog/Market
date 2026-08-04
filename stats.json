@@ -252,10 +252,10 @@
     }
   },
   "SPARC": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "12:01"
+      "date": "03/08/2026",
+      "time": "13:30"
     }
   },
   "YASHO": {
@@ -455,10 +455,10 @@
     }
   },
   "KALPATARU": {
-    "totalVisits": 1,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "9:46"
+      "date": "03/08/2026",
+      "time": "16:54"
     }
   },
   "BWNMYTIFP": {
@@ -483,10 +483,10 @@
     }
   },
   "VMART": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "9:47"
+      "date": "03/08/2026",
+      "time": "16:54"
     }
   },
   "AJAXENGG": {
@@ -840,10 +840,10 @@
     }
   },
   "BHEL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:30"
+      "date": "03/08/2026",
+      "time": "12:58"
     }
   },
   "BANKBARODA": {
@@ -1110,6 +1110,97 @@
     "latestVisit": {
       "date": "02/08/2026",
       "time": "11:32"
+    }
+  },
+  "POWERICA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "12:58"
+    }
+  },
+  "LTF": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "12:59"
+    }
+  },
+  "NGLFINE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "13:03"
+    }
+  },
+  "KRN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "13:04"
+    }
+  },
+  "FCL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "13:23"
+    }
+  },
+  "CYIENTDLM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "13:26"
+    }
+  },
+  "KUSUMGAR": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "16:58"
+    }
+  },
+  "SIS": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "16:54"
+    }
+  },
+  "DCBBANK": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "16:54"
+    }
+  },
+  "TVSSCS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "16:54"
+    }
+  },
+  "INDOMIM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "16:58"
+    }
+  },
+  "KAPSTON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "18:43"
+    }
+  },
+  "ASTRAMICRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/08/2026",
+      "time": "18:45"
     }
   }
 }
