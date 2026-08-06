@@ -903,10 +903,10 @@
     }
   },
   "MTARTECH": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "16:29"
+      "date": "05/08/2026",
+      "time": "22:09"
     }
   },
   "CPPLUS": {
@@ -1183,10 +1183,10 @@
     }
   },
   "INDOMIM": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "03/08/2026",
-      "time": "16:58"
+      "date": "05/08/2026",
+      "time": "16:49"
     }
   },
   "KAPSTON": {
@@ -1201,6 +1201,13 @@
     "latestVisit": {
       "date": "03/08/2026",
       "time": "18:45"
+    }
+  },
+  "OMNI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "05/08/2026",
+      "time": "16:48"
     }
   }
 }
