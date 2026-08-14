@@ -805,10 +805,10 @@
     }
   },
   "ICICIGI": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:27"
+      "date": "14/08/2026",
+      "time": "10:25"
     }
   },
   "WAAREEENER": {
@@ -819,10 +819,10 @@
     }
   },
   "HINDPETRO": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:29"
+      "date": "14/08/2026",
+      "time": "10:25"
     }
   },
   "LAURUSLABS": {
@@ -1523,6 +1523,34 @@
     "latestVisit": {
       "date": "11/08/2026",
       "time": "10:54"
+    }
+  },
+  "PAYTM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "10:25"
+    }
+  },
+  "MEESHO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "10:25"
+    }
+  },
+  "BHARTIHEXA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "10:25"
+    }
+  },
+  "SWIGGY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "10:26"
     }
   }
 }
