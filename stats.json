@@ -1246,10 +1246,10 @@
     }
   },
   "XTRANET": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "10/08/2026",
-      "time": "17:56"
+      "date": "14/08/2026",
+      "time": "17:19"
     }
   },
   "SOUTHWEST": {
@@ -1551,6 +1551,27 @@
     "latestVisit": {
       "date": "14/08/2026",
       "time": "10:26"
+    }
+  },
+  "SBIFUNDS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "17:18"
+    }
+  },
+  "LASERPOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "14/08/2026",
+      "time": "17:18"
+    }
+  },
+  "DAICHI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "15/08/2026",
+      "time": "9:37"
     }
   }
 }
