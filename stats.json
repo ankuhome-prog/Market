@@ -1573,5 +1573,19 @@
       "date": "15/08/2026",
       "time": "9:37"
     }
+  },
+  "DIVGIITTS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/08/2026",
+      "time": "14:24"
+    }
+  },
+  "IMPEXFERRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/08/2026",
+      "time": "14:24"
+    }
   }
 }
