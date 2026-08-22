@@ -1587,5 +1587,103 @@
       "date": "17/08/2026",
       "time": "14:24"
     }
+  },
+  "CORDELIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:57"
+    }
+  },
+  "STYLAMIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "PRAJIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "CSBBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "AEROFLEX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "KSHINTL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "NIRLON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "STYL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "CCAVENUE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/08/2026",
+      "time": "16:58"
+    }
+  },
+  "TATACONSUM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "22/08/2026",
+      "time": "9:21"
+    }
+  },
+  "DOLPHIN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "22/08/2026",
+      "time": "9:22"
+    }
+  },
+  "ONEPOINT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "22/08/2026",
+      "time": "9:23"
+    }
+  },
+  "IZMO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "22/08/2026",
+      "time": "9:23"
+    }
+  },
+  "CNL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "22/08/2026",
+      "time": "9:23"
+    }
   }
 }
