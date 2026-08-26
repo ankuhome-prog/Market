@@ -1225,10 +1225,10 @@
     }
   },
   "SHAILY": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "08/08/2026",
-      "time": "19:38"
+      "date": "26/08/2026",
+      "time": "10:57"
     }
   },
   "SBCL": {
@@ -1705,6 +1705,90 @@
     "latestVisit": {
       "date": "25/08/2026",
       "time": "10:57"
+    }
+  },
+  "GENESYS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:34"
+    }
+  },
+  "CALSOFT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:36"
+    }
+  },
+  "VALIANTLAB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:41"
+    }
+  },
+  "SAKUMA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:43"
+    }
+  },
+  "HINDCON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:44"
+    }
+  },
+  "KANCHI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:45"
+    }
+  },
+  "S&SPOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:47"
+    }
+  },
+  "KRONOX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "14:49"
+    }
+  },
+  "VIJIFIN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "22:19"
+    }
+  },
+  "TFCILTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "22:20"
+    }
+  },
+  "WEBELSOLAR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/08/2026",
+      "time": "22:24"
+    }
+  },
+  "DIVISLAB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "10:58"
     }
   }
 }
