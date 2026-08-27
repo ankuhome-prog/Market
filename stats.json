@@ -1790,5 +1790,54 @@
       "date": "26/08/2026",
       "time": "10:58"
     }
+  },
+  "ALPINETEX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "11:54"
+    }
+  },
+  "DENORA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "21:32"
+    }
+  },
+  "WSI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "21:33"
+    }
+  },
+  "DCI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "21:33"
+    }
+  },
+  "GRSE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "21:34"
+    }
+  },
+  "KRISHANA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/08/2026",
+      "time": "21:35"
+    }
+  },
+  "KENNAMET": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/08/2026",
+      "time": "9:15"
+    }
   }
 }
