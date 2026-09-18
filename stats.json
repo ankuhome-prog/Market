@@ -1183,10 +1183,10 @@
     }
   },
   "INDOMIM": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "05/08/2026",
-      "time": "16:49"
+      "date": "17/09/2026",
+      "time": "17:27"
     }
   },
   "KAPSTON": {
@@ -1246,10 +1246,10 @@
     }
   },
   "XTRANET": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "14/08/2026",
-      "time": "17:19"
+      "date": "17/09/2026",
+      "time": "17:04"
     }
   },
   "SOUTHWEST": {
@@ -1838,6 +1838,34 @@
     "latestVisit": {
       "date": "27/08/2026",
       "time": "9:15"
+    }
+  },
+  "AMAGI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/09/2026",
+      "time": "13:26"
+    }
+  },
+  "BHARATCOAL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/09/2026",
+      "time": "13:26"
+    }
+  },
+  "KPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/09/2026",
+      "time": "17:05"
+    }
+  },
+  "SINGERIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/09/2026",
+      "time": "17:25"
     }
   }
 }
