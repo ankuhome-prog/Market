@@ -1,9 +1,9 @@
 {
   "RELIANCE": {
-    "totalVisits": 7,
+    "totalVisits": 8,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:20"
+      "date": "21/09/2026",
+      "time": "13:37"
     }
   },
   "PSB": {
@@ -287,10 +287,10 @@
     }
   },
   "DSSL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "18:04"
+      "date": "21/09/2026",
+      "time": "13:39"
     }
   },
   "GODIGIT": {
@@ -2090,6 +2090,48 @@
     "latestVisit": {
       "date": "19/09/2026",
       "time": "10:31"
+    }
+  },
+  "BAFNAPH": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "15:01"
+    }
+  },
+  "PFOCUS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "15:02"
+    }
+  },
+  "JINDWORLD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "15:07"
+    }
+  },
+  "DEEPINDS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "17:01"
+    }
+  },
+  "FRACTAL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "17:23"
+    }
+  },
+  "TVSHLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "21/09/2026",
+      "time": "17:24"
     }
   }
 }
