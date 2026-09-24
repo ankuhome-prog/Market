@@ -1183,10 +1183,10 @@
     }
   },
   "INDOMIM": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "17/09/2026",
-      "time": "17:27"
+      "date": "24/09/2026",
+      "time": "10:09"
     }
   },
   "KAPSTON": {
@@ -2244,6 +2244,13 @@
     "latestVisit": {
       "date": "23/09/2026",
       "time": "8:45"
+    }
+  },
+  "TDPOWERSYS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "23/09/2026",
+      "time": "20:33"
     }
   }
 }
