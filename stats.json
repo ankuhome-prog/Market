@@ -49,10 +49,10 @@
     }
   },
   "SANGINITA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:02"
+      "date": "24/09/2026",
+      "time": "17:15"
     }
   },
   "SCPL": {
@@ -140,10 +140,10 @@
     }
   },
   "ATHERENERG": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "05/07/2026",
-      "time": "17:32"
+      "date": "24/09/2026",
+      "time": "16:49"
     }
   },
   "M&MFIN": {
@@ -308,10 +308,10 @@
     }
   },
   "DIXON": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "10/07/2026",
-      "time": "9:48"
+      "date": "24/09/2026",
+      "time": "11:56"
     }
   },
   "J&KBANK": {
@@ -777,10 +777,10 @@
     }
   },
   "OLAELEC": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "15/07/2026",
-      "time": "15:43"
+      "date": "24/09/2026",
+      "time": "12:10"
     }
   },
   "MRPL": {
@@ -798,10 +798,10 @@
     }
   },
   "AMBER": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:23"
+      "date": "24/09/2026",
+      "time": "12:13"
     }
   },
   "ICICIGI": {
@@ -1694,10 +1694,10 @@
     }
   },
   "ACUTAAS": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/08/2026",
-      "time": "10:56"
+      "date": "24/09/2026",
+      "time": "11:55"
     }
   },
   "SUDEEPPHRM": {
@@ -2128,10 +2128,10 @@
     }
   },
   "TVSHLTD": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "21/09/2026",
-      "time": "17:24"
+      "date": "24/09/2026",
+      "time": "12:11"
     }
   },
   "LYKALABS": {
@@ -2251,6 +2251,223 @@
     "latestVisit": {
       "date": "23/09/2026",
       "time": "20:33"
+    }
+  },
+  "TRIDENT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "11:59"
+    }
+  },
+  "IMAGICAA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:10"
+    }
+  },
+  "METROBRAND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:13"
+    }
+  },
+  "SUNDRMFAST": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:13"
+    }
+  },
+  "JYOTICNC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:13"
+    }
+  },
+  "DATAPATTNS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:13"
+    }
+  },
+  "HATSUN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:13"
+    }
+  },
+  "NATIONSTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "12:15"
+    }
+  },
+  "URJA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:49"
+    }
+  },
+  "JUBLCPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:51"
+    }
+  },
+  "BEPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:51"
+    }
+  },
+  "BHAGCHEM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:51"
+    }
+  },
+  "AGRITECH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:51"
+    }
+  },
+  "MIDWESTLTD": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:53"
+    }
+  },
+  "SANDHAR": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:53"
+    }
+  },
+  "SAMHI": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:53"
+    }
+  },
+  "TRUALT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:53"
+    }
+  },
+  "EIEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "16:53"
+    }
+  },
+  "SHILGRAVQ": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "LOYALTEX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "NAVKARURB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "PACIFICI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "JETFREIGHT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "ARTNIRMAN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "ALKALI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:43"
+    }
+  },
+  "AMARJOTHI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:44"
+    }
+  },
+  "SIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:44"
+    }
+  },
+  "GLOBE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:44"
+    }
+  },
+  "DBSTOCKBRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:44"
+    }
+  },
+  "NARMADA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "17:44"
+    }
+  },
+  "GYFTR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "24/09/2026",
+      "time": "23:17"
     }
   }
 }
