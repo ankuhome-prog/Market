@@ -217,10 +217,10 @@
     }
   },
   "GRAVITA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "08/07/2026",
-      "time": "10:05"
+      "date": "25/09/2026",
+      "time": "18:31"
     }
   },
   "GMDCLTD": {
@@ -1050,10 +1050,10 @@
     }
   },
   "SHREEJISPG": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "22:04"
+      "date": "25/09/2026",
+      "time": "18:31"
     }
   },
   "BALAMINES": {
@@ -1218,10 +1218,10 @@
     }
   },
   "UFBL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "08/08/2026",
-      "time": "12:22"
+      "date": "25/09/2026",
+      "time": "18:27"
     }
   },
   "SHAILY": {
@@ -2468,6 +2468,139 @@
     "latestVisit": {
       "date": "24/09/2026",
       "time": "23:17"
+    }
+  },
+  "UPHOT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "17:19"
+    }
+  },
+  "SAMBANDAM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:29"
+    }
+  },
+  "ELANTAS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:31"
+    }
+  },
+  "SKYGOLD": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "METROPOLIS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "LLOYDSENGG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "PCJEWELLER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "JSWHL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "NSLNISP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "EIDPARRY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "UJJIVANSFB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:34"
+    }
+  },
+  "DOMS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:35"
+    }
+  },
+  "VINATIORGA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:35"
+    }
+  },
+  "GODREJAGRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "18:35"
+    }
+  },
+  "POLICYBZR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "21:21"
+    }
+  },
+  "FEDERALBNK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "21:22"
+    }
+  },
+  "MCX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "21:22"
+    }
+  },
+  "QPOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "25/09/2026",
+      "time": "21:22"
+    }
+  },
+  "BODALCHEM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "10:45"
     }
   }
 }
