@@ -280,10 +280,10 @@
     }
   },
   "STLTECH": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "21:25"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "DSSL": {
@@ -378,10 +378,10 @@
     }
   },
   "POONAWALLA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "11/07/2026",
-      "time": "16:22"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "PIIND": {
@@ -413,10 +413,10 @@
     }
   },
   "3MINDIA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "11/07/2026",
-      "time": "16:23"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "BWNMYTIFPE": {
@@ -910,10 +910,10 @@
     }
   },
   "CPPLUS": {
-    "totalVisits": 1,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "16:32"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "AJANTPHARM": {
@@ -945,10 +945,10 @@
     }
   },
   "JKCEMENT": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "16:37"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "GLAXO": {
@@ -1085,10 +1085,10 @@
     }
   },
   "PREMIERENE": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "19/07/2026",
-      "time": "11:36"
+      "date": "26/09/2026",
+      "time": "17:04"
     }
   },
   "BLISSGVS": {
@@ -2601,6 +2601,55 @@
     "latestVisit": {
       "date": "26/09/2026",
       "time": "10:45"
+    }
+  },
+  "VTMLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:02"
+    }
+  },
+  "MODINATUR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:02"
+    }
+  },
+  "OSWALAGRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:03"
+    }
+  },
+  "BRAHMINFRA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:03"
+    }
+  },
+  "MEDANTA": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:04"
+    }
+  },
+  "PAGEIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "17:04"
+    }
+  },
+  "NYKAA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "26/09/2026",
+      "time": "19:07"
     }
   }
 }
