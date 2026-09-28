@@ -826,10 +826,10 @@
     }
   },
   "LAURUSLABS": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:29"
+      "date": "27/09/2026",
+      "time": "21:31"
     }
   },
   "ABB": {
@@ -2650,6 +2650,83 @@
     "latestVisit": {
       "date": "26/09/2026",
       "time": "19:07"
+    }
+  },
+  "FIRSTCRY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:32"
+    }
+  },
+  "TIMETECHNO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "JAYNECOIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "CLEAN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "PNGJL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "WESTLIFE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "RPOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "GNFC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "PRECWIRE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "ICIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
+    }
+  },
+  "UNIMECH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "27/09/2026",
+      "time": "21:33"
     }
   }
 }
