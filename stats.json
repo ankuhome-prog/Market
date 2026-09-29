@@ -602,10 +602,10 @@
     }
   },
   "RAMBHAJO": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/07/2026",
-      "time": "13:08"
+      "date": "28/09/2026",
+      "time": "17:34"
     }
   },
   "BWNMYTIF": {
@@ -882,10 +882,10 @@
     }
   },
   "BATAINDIA": {
-    "totalVisits": 1,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "10:09"
+      "date": "29/09/2026",
+      "time": "0:11"
     }
   },
   "ALKYLAMINE": {
@@ -1638,10 +1638,10 @@
     }
   },
   "STYL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "21/08/2026",
-      "time": "16:58"
+      "date": "29/09/2026",
+      "time": "0:12"
     }
   },
   "CCAVENUE": {
@@ -1673,10 +1673,10 @@
     }
   },
   "IZMO": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "22/08/2026",
-      "time": "9:23"
+      "date": "28/09/2026",
+      "time": "17:34"
     }
   },
   "CNL": {
@@ -1771,10 +1771,10 @@
     }
   },
   "TFCILTD": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/08/2026",
-      "time": "22:20"
+      "date": "29/09/2026",
+      "time": "0:09"
     }
   },
   "WEBELSOLAR": {
@@ -1827,10 +1827,10 @@
     }
   },
   "KRISHANA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "26/08/2026",
-      "time": "21:35"
+      "date": "29/09/2026",
+      "time": "0:12"
     }
   },
   "KENNAMET": {
@@ -2727,6 +2727,132 @@
     "latestVisit": {
       "date": "27/09/2026",
       "time": "21:33"
+    }
+  },
+  "AHCL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "28/09/2026",
+      "time": "17:33"
+    }
+  },
+  "FRONTSP": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "28/09/2026",
+      "time": "17:34"
+    }
+  },
+  "BHAGYANGR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "28/09/2026",
+      "time": "17:34"
+    }
+  },
+  "BPLPHARMA": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "GREENPOWER": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "BOROSCI": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "WAAREEINDO": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "SUNSHIEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "GRPLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "VHL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:05"
+    }
+  },
+  "AZADIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:06"
+    }
+  },
+  "PRIORITY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:06"
+    }
+  },
+  "SIEL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:07"
+    }
+  },
+  "SUNSHINE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:07"
+    }
+  },
+  "JAYKAY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:09"
+    }
+  },
+  "NURECA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:09"
+    }
+  },
+  "KINGFA": {
+    "totalVisits": 3,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:11"
+    }
+  },
+  "EMBDL": {
+    "totalVisits": 4,
+    "latestVisit": {
+      "date": "29/09/2026",
+      "time": "0:11"
     }
   }
 }
