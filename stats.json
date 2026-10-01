@@ -84,17 +84,17 @@
     }
   },
   "SBIN": {
-    "totalVisits": 4,
+    "totalVisits": 5,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:21"
+      "date": "30/09/2026",
+      "time": "11:56"
     }
   },
   "TCS": {
-    "totalVisits": 4,
+    "totalVisits": 5,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:21"
+      "date": "30/09/2026",
+      "time": "11:56"
     }
   },
   "BAJFINANCE": {
@@ -343,10 +343,10 @@
     }
   },
   "ETERNAL": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:23"
+      "date": "30/09/2026",
+      "time": "17:58"
     }
   },
   "ASIANPAINT": {
@@ -427,10 +427,10 @@
     }
   },
   "COFORGE": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "8:51"
+      "date": "30/09/2026",
+      "time": "17:59"
     }
   },
   "BWNMYTI": {
@@ -1526,10 +1526,10 @@
     }
   },
   "PAYTM": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/08/2026",
-      "time": "10:25"
+      "date": "30/09/2026",
+      "time": "17:58"
     }
   },
   "MEESHO": {
@@ -2569,10 +2569,10 @@
     }
   },
   "POLICYBZR": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "21:21"
+      "date": "30/09/2026",
+      "time": "17:58"
     }
   },
   "FEDERALBNK": {
@@ -2895,6 +2895,90 @@
     "latestVisit": {
       "date": "29/09/2026",
       "time": "20:50"
+    }
+  },
+  "HEXT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "17:59"
+    }
+  },
+  "ZENSARTECH": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "17:59"
+    }
+  },
+  "FSL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "17:59"
+    }
+  },
+  "ECLERX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "18:00"
+    }
+  },
+  "SONATSOFTW": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "18:00"
+    }
+  },
+  "INTELLECT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "18:00"
+    }
+  },
+  "BSOFT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "18:00"
+    }
+  },
+  "INDSWFTLAB": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "19:15"
+    }
+  },
+  "ADVENZYMES": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "19:16"
+    }
+  },
+  "AMJLAND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "23:13"
+    }
+  },
+  "VASWANI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/09/2026",
+      "time": "23:13"
+    }
+  },
+  "NEULANDLAB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "9:26"
     }
   }
 }
