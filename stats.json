@@ -301,10 +301,10 @@
     }
   },
   "INDOTECH": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "09/07/2026",
-      "time": "21:39"
+      "date": "01/10/2026",
+      "time": "16:59"
     }
   },
   "DIXON": {
@@ -665,10 +665,10 @@
     }
   },
   "CHOLAFIN": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/07/2026",
-      "time": "18:10"
+      "date": "01/10/2026",
+      "time": "16:32"
     }
   },
   "HYUNDAI": {
@@ -833,17 +833,17 @@
     }
   },
   "ABB": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:30"
+      "date": "01/10/2026",
+      "time": "16:31"
     }
   },
   "BHEL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "03/08/2026",
-      "time": "12:58"
+      "date": "01/10/2026",
+      "time": "16:31"
     }
   },
   "BANKBARODA": {
@@ -861,10 +861,10 @@
     }
   },
   "TECHM": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:31"
+      "date": "01/10/2026",
+      "time": "16:31"
     }
   },
   "PLASTIBLEN": {
@@ -1841,10 +1841,10 @@
     }
   },
   "AMAGI": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/09/2026",
-      "time": "13:26"
+      "date": "01/10/2026",
+      "time": "21:35"
     }
   },
   "BHARATCOAL": {
@@ -2492,17 +2492,17 @@
     }
   },
   "SKYGOLD": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "18:34"
+      "date": "01/10/2026",
+      "time": "21:35"
     }
   },
   "METROPOLIS": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "18:34"
+      "date": "01/10/2026",
+      "time": "21:35"
     }
   },
   "LLOYDSENGG": {
@@ -2979,6 +2979,125 @@
     "latestVisit": {
       "date": "01/10/2026",
       "time": "9:26"
+    }
+  },
+  "WIPRO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:29"
+    }
+  },
+  "VAML": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:31"
+    }
+  },
+  "PIDILITIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:31"
+    }
+  },
+  "ICICIAMC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:31"
+    }
+  },
+  "JIOFIN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:31"
+    }
+  },
+  "TRENT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:32"
+    }
+  },
+  "AUGMONT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "16:59"
+    }
+  },
+  "VELJAN": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "20:31"
+    }
+  },
+  "RUBICON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:34"
+    }
+  },
+  "PPLPHARMA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:34"
+    }
+  },
+  "CENTRALBK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:34"
+    }
+  },
+  "CDSL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:34"
+    }
+  },
+  "PARKHOSPS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:35"
+    }
+  },
+  "E2E": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:35"
+    }
+  },
+  "MANORAMA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:35"
+    }
+  },
+  "JMFINANCIL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:35"
+    }
+  },
+  "BHARATRAS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "01/10/2026",
+      "time": "21:37"
     }
   }
 }
