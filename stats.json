@@ -63,10 +63,10 @@
     }
   },
   "BAJAJHFL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "03/07/2026",
-      "time": "22:47"
+      "date": "02/10/2026",
+      "time": "21:09"
     }
   },
   "BHARTIARTL": {
@@ -140,10 +140,10 @@
     }
   },
   "ATHERENERG": {
-    "totalVisits": 3,
+    "totalVisits": 5,
     "latestVisit": {
-      "date": "24/09/2026",
-      "time": "16:49"
+      "date": "02/10/2026",
+      "time": "21:08"
     }
   },
   "M&MFIN": {
@@ -203,10 +203,10 @@
     }
   },
   "BANKINDIA": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "08/07/2026",
-      "time": "9:43"
+      "date": "02/10/2026",
+      "time": "21:08"
     }
   },
   "IXIGO": {
@@ -497,10 +497,10 @@
     }
   },
   "SUZLON": {
-    "totalVisits": 1,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "13:17"
+      "date": "02/10/2026",
+      "time": "21:07"
     }
   },
   "BWNMYT": {
@@ -574,10 +574,10 @@
     }
   },
   "BIOCON": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/07/2026",
-      "time": "9:18"
+      "date": "02/10/2026",
+      "time": "21:08"
     }
   },
   "CONCOR": {
@@ -812,10 +812,10 @@
     }
   },
   "WAAREEENER": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "16/07/2026",
-      "time": "9:29"
+      "date": "02/10/2026",
+      "time": "21:10"
     }
   },
   "HINDPETRO": {
@@ -987,10 +987,10 @@
     }
   },
   "ASTERDM": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "16:39"
+      "date": "02/10/2026",
+      "time": "21:09"
     }
   },
   "NH": {
@@ -1029,10 +1029,10 @@
     }
   },
   "KALYANKJIL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "17/07/2026",
-      "time": "16:40"
+      "date": "02/10/2026",
+      "time": "21:07"
     }
   },
   "COCHINSHIP": {
@@ -1183,10 +1183,10 @@
     }
   },
   "INDOMIM": {
-    "totalVisits": 4,
+    "totalVisits": 6,
     "latestVisit": {
-      "date": "24/09/2026",
-      "time": "10:09"
+      "date": "02/10/2026",
+      "time": "21:07"
     }
   },
   "KAPSTON": {
@@ -2590,10 +2590,10 @@
     }
   },
   "QPOWER": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "21:22"
+      "date": "02/10/2026",
+      "time": "17:40"
     }
   },
   "BODALCHEM": {
@@ -3098,6 +3098,181 @@
     "latestVisit": {
       "date": "01/10/2026",
       "time": "21:37"
+    }
+  },
+  "ABBOTINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:07"
+    }
+  },
+  "MOTILALOFS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:07"
+    }
+  },
+  "RADICO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:07"
+    }
+  },
+  "APLAPOLLO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "SBICARD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "GICRE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "IOB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "JSL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "RBLBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "MAHABANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "PRESTIGE": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "8:38"
+    }
+  },
+  "TORNTPOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "ALKEM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "SCHAEFFLER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:08"
+    }
+  },
+  "NATIONALUM": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "OBEROIRLTY": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "FORTIS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "DABUR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "PHOENIXLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "GLENMARK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "HAVELLS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:09"
+    }
+  },
+  "NMDC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:10"
+    }
+  },
+  "ATGL": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:10"
+    }
+  },
+  "UNOMINDA": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:10"
+    }
+  },
+  "ICICIPRULI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "02/10/2026",
+      "time": "21:10"
     }
   }
 }
