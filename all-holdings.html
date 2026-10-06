@@ -885,7 +885,11 @@
                     fetch('nse-indices.json'),
                     fetch('sector-data.json')
                 ]);
-                allHoldings = await hRes.json(); 
+                const rawHoldings = await hRes.json();
+                allHoldings = rawHoldings.filter(stock => {
+                    const rank = cleanNum(stock.mcapRank);
+                    return rank > 0 && rank <= 1200;
+                }); 
                 indicesData = await iRes.json(); 
                 sectorsData = await sRes.json();
                 
