@@ -422,6 +422,7 @@
 
     <script>
         let allHoldings = [];
+        let displayHoldings = [];
         let indicesData = [];
         let sectorsData = [];
         let activeCategoryTab = 'indices';
@@ -776,11 +777,12 @@
         function applySort(field) {
             if (currentSortField === field) isAscending = !isAscending;
             else { currentSortField = field; isAscending = true; }
-            localStorage.setItem('lastSortField', field); localStorage.setItem('lastSortOrder', isAscending);
+            localStorage.setItem('lastSortField', field); 
+            localStorage.setItem('lastSortOrder', isAscending);
             
-            // Reset visible pagination limit whenever order attributes change
             displayedHoldingsCount = 200;
-            updateSortButtons(field); renderGrid(sortData(allHoldings, field));
+            updateSortButtons(field); 
+            renderGrid(sortData(displayHoldings, field));
         }
 
         function sortData(data, field) {
@@ -801,12 +803,14 @@
         }
 
         function resetSort() {
-            currentSortField = null; isAscending = true;
-            localStorage.removeItem('lastSortField'); localStorage.removeItem('lastSortOrder');
+            currentSortField = null; 
+            isAscending = true;
+            localStorage.removeItem('lastSortField'); 
+            localStorage.removeItem('lastSortOrder');
             
-            // Reset visible pagination limit back to baseline layout parameter
             displayedHoldingsCount = 200;
-            updateSortButtons(null); renderGrid(allHoldings);
+            updateSortButtons(null); 
+            renderGrid(displayHoldings);
         }
 
         function updateSortButtons(activeField) {
@@ -825,7 +829,7 @@
         // Handles loading next incremental chunk of items
         function loadMoreHoldings() {
             displayedHoldingsCount += 200;
-            const contextData = currentSortField ? sortData(allHoldings, currentSortField) : allHoldings;
+            const contextData = currentSortField ? sortData(displayHoldings, currentSortField) : displayHoldings;
             renderGrid(contextData);
         }
 
@@ -885,26 +889,33 @@
                     fetch('nse-indices.json'),
                     fetch('sector-data.json')
                 ]);
-                const rawHoldings = await hRes.json();
-                allHoldings = rawHoldings.filter(stock => {
+                // Full list used for Stats Card & Categories (Indices / Sectors / Brokers)
+                allHoldings = await hRes.json();
+                
+                // Filtered list used only for the Company Cards list
+                displayHoldings = allHoldings.filter(stock => {
                     const rank = cleanNum(stock.mcapRank);
                     return rank > 0 && rank <= 1200;
-                }); 
+                });
                 indicesData = await iRes.json(); 
                 sectorsData = await sRes.json();
                 
                 calculateStats(allHoldings); 
                 renderCategories();
                 
-                const sF = localStorage.getItem('lastSortField'); 
-                const sO = localStorage.getItem('lastSortOrder');
-                if (sF) { 
-                    isAscending = sO === 'true'; 
-                    currentSortField = sF; 
-                    updateSortButtons(sF); 
-                    renderGrid(sortData(allHoldings, sF)); 
-                } else renderGrid(allHoldings);
-            } catch (e) { console.error("Error loading files.", e); }
+                // Render cards grid using displayHoldings
+        const sF = localStorage.getItem('lastSortField'); 
+        const sO = localStorage.getItem('lastSortOrder');
+        if (sF) { 
+            isAscending = sO === 'true'; 
+            currentSortField = sF; 
+            updateSortButtons(sF); 
+            renderGrid(sortData(displayHoldings, sF)); 
+        } else {
+            renderGrid(displayHoldings);
+        }
+    } catch (e) { 
+        console.error("Error loading files.", e); }
         }
 
         window.onload = loadData;
