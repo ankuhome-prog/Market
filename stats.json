@@ -56,10 +56,10 @@
     }
   },
   "SCPL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "06/07/2026",
-      "time": "18:31"
+      "date": "05/10/2026",
+      "time": "22:27"
     }
   },
   "BAJAJHFL": {
@@ -280,10 +280,10 @@
     }
   },
   "STLTECH": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "26/09/2026",
-      "time": "17:04"
+      "date": "05/10/2026",
+      "time": "20:38"
     }
   },
   "DSSL": {
@@ -1092,10 +1092,10 @@
     }
   },
   "BLISSGVS": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "22/09/2026",
-      "time": "13:18"
+      "date": "05/10/2026",
+      "time": "22:26"
     }
   },
   "NOVARTIND": {
@@ -3273,6 +3273,27 @@
     "latestVisit": {
       "date": "02/10/2026",
       "time": "21:10"
+    }
+  },
+  "STALLION": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "05/10/2026",
+      "time": "22:27"
+    }
+  },
+  "MODISONLTD": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "05/10/2026",
+      "time": "22:27"
+    }
+  },
+  "SILVERTUC": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "06/10/2026",
+      "time": "9:54"
     }
   }
 }
