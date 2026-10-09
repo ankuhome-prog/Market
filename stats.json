@@ -3295,5 +3295,26 @@
       "date": "06/10/2026",
       "time": "9:54"
     }
+  },
+  "HGINFRA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/10/2026",
+      "time": "21:25"
+    }
+  },
+  "MAHLIFE": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/10/2026",
+      "time": "21:25"
+    }
+  },
+  "MGL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "08/10/2026",
+      "time": "21:26"
+    }
   }
 }
