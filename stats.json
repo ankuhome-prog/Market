@@ -175,10 +175,10 @@
     }
   },
   "GILLETTE": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "06/07/2026",
-      "time": "20:49"
+      "date": "13/10/2026",
+      "time": "9:53"
     }
   },
   "ACC": {
@@ -2247,10 +2247,10 @@
     }
   },
   "TDPOWERSYS": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "23/09/2026",
-      "time": "20:33"
+      "date": "13/10/2026",
+      "time": "9:52"
     }
   },
   "TRIDENT": {
@@ -3315,6 +3315,13 @@
     "latestVisit": {
       "date": "08/10/2026",
       "time": "21:26"
+    }
+  },
+  "CUB": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "13/10/2026",
+      "time": "9:53"
     }
   }
 }
