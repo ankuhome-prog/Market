@@ -1519,10 +1519,10 @@
     }
   },
   "BSE": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "11/08/2026",
-      "time": "10:54"
+      "date": "17/10/2026",
+      "time": "21:16"
     }
   },
   "PAYTM": {
@@ -1918,10 +1918,10 @@
     }
   },
   "ADANIPOWER": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:22"
+      "date": "17/10/2026",
+      "time": "21:15"
     }
   },
   "ADANIENT": {
@@ -3434,6 +3434,13 @@
     "latestVisit": {
       "date": "17/10/2026",
       "time": "9:42"
+    }
+  },
+  "FIEMIND": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "17/10/2026",
+      "time": "17:04"
     }
   }
 }
