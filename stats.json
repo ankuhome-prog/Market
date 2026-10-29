@@ -63,10 +63,10 @@
     }
   },
   "BAJAJHFL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:09"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "BHARTIARTL": {
@@ -672,10 +672,10 @@
     }
   },
   "HYUNDAI": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "15/07/2026",
-      "time": "9:21"
+      "date": "29/10/2026",
+      "time": "11:36"
     }
   },
   "TATACAP": {
@@ -812,10 +812,10 @@
     }
   },
   "WAAREEENER": {
-    "totalVisits": 2,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:10"
+      "date": "28/10/2026",
+      "time": "17:26"
     }
   },
   "HINDPETRO": {
@@ -1897,10 +1897,10 @@
     }
   },
   "MARUTI": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "29/09/2026",
-      "time": "12:55"
+      "date": "29/10/2026",
+      "time": "11:37"
     }
   },
   "TITAN": {
@@ -3234,45 +3234,45 @@
     }
   },
   "GLENMARK": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:09"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "HAVELLS": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:09"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "NMDC": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:10"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "ATGL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:10"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "UNOMINDA": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:10"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "ICICIPRULI": {
-    "totalVisits": 1,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:10"
+      "date": "28/10/2026",
+      "time": "17:27"
     }
   },
   "STALLION": {
@@ -3462,6 +3462,20 @@
     "latestVisit": {
       "date": "20/10/2026",
       "time": "20:51"
+    }
+  },
+  "YESBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "28/10/2026",
+      "time": "17:24"
+    }
+  },
+  "MOTHERSON": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/10/2026",
+      "time": "11:37"
     }
   }
 }
