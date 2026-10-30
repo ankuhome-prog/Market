@@ -497,10 +497,10 @@
     }
   },
   "SUZLON": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:07"
+      "date": "29/10/2026",
+      "time": "13:05"
     }
   },
   "BWNMYT": {
@@ -1029,10 +1029,10 @@
     }
   },
   "KALYANKJIL": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "02/10/2026",
-      "time": "21:07"
+      "date": "29/10/2026",
+      "time": "22:21"
     }
   },
   "COCHINSHIP": {
@@ -1785,10 +1785,10 @@
     }
   },
   "DIVISLAB": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "18/09/2026",
-      "time": "17:24"
+      "date": "29/10/2026",
+      "time": "22:19"
     }
   },
   "ALPINETEX": {
@@ -2513,10 +2513,10 @@
     }
   },
   "PCJEWELLER": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "18:34"
+      "date": "29/10/2026",
+      "time": "22:16"
     }
   },
   "JSWHL": {
@@ -3476,6 +3476,41 @@
     "latestVisit": {
       "date": "29/10/2026",
       "time": "11:37"
+    }
+  },
+  "LTFOODS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/10/2026",
+      "time": "18:06"
+    }
+  },
+  "SETCO": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/10/2026",
+      "time": "18:58"
+    }
+  },
+  "INDUSTOWER": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "29/10/2026",
+      "time": "22:08"
+    }
+  },
+  "OFSS": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/10/2026",
+      "time": "9:44"
+    }
+  },
+  "JSWDULUX": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/10/2026",
+      "time": "9:47"
     }
   }
 }
