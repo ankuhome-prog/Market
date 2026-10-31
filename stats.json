@@ -525,10 +525,10 @@
     }
   },
   "SSWL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "13/07/2026",
-      "time": "18:12"
+      "date": "30/10/2026",
+      "time": "17:12"
     }
   },
   "SEAMECLTD": {
@@ -1197,10 +1197,10 @@
     }
   },
   "ASTRAMICRO": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "03/08/2026",
-      "time": "18:45"
+      "date": "30/10/2026",
+      "time": "17:09"
     }
   },
   "OMNI": {
@@ -2576,10 +2576,10 @@
     }
   },
   "FEDERALBNK": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "25/09/2026",
-      "time": "21:22"
+      "date": "30/10/2026",
+      "time": "17:10"
     }
   },
   "MCX": {
@@ -3511,6 +3511,20 @@
     "latestVisit": {
       "date": "30/10/2026",
       "time": "9:47"
+    }
+  },
+  "KMEW": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/10/2026",
+      "time": "17:08"
+    }
+  },
+  "SOUTHBANK": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "30/10/2026",
+      "time": "17:10"
     }
   }
 }
