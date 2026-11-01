@@ -308,10 +308,10 @@
     }
   },
   "DIXON": {
-    "totalVisits": 2,
+    "totalVisits": 3,
     "latestVisit": {
-      "date": "24/09/2026",
-      "time": "11:56"
+      "date": "31/10/2026",
+      "time": "13:22"
     }
   },
   "J&KBANK": {
@@ -1533,10 +1533,10 @@
     }
   },
   "MEESHO": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "14/08/2026",
-      "time": "10:25"
+      "date": "31/10/2026",
+      "time": "12:25"
     }
   },
   "BHARTIHEXA": {
@@ -1645,10 +1645,10 @@
     }
   },
   "CCAVENUE": {
-    "totalVisits": 3,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "22/10/2026",
-      "time": "11:15"
+      "date": "31/10/2026",
+      "time": "17:41"
     }
   },
   "TATACONSUM": {
@@ -3525,6 +3525,48 @@
     "latestVisit": {
       "date": "30/10/2026",
       "time": "17:10"
+    }
+  },
+  "LGEINDIA": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "12:04"
+    }
+  },
+  "CONTROLPR": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "13:22"
+    }
+  },
+  "DJML": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "13:23"
+    }
+  },
+  "QUINT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "14:12"
+    }
+  },
+  "BONFIG": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "17:39"
+    }
+  },
+  "JPL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "31/10/2026",
+      "time": "17:40"
     }
   }
 }
