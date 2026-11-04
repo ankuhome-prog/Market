@@ -1652,10 +1652,10 @@
     }
   },
   "TATACONSUM": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "22/08/2026",
-      "time": "9:21"
+      "date": "03/11/2026",
+      "time": "13:11"
     }
   },
   "DOLPHIN": {
@@ -3563,10 +3563,10 @@
     }
   },
   "JPL": {
-    "totalVisits": 1,
+    "totalVisits": 2,
     "latestVisit": {
-      "date": "31/10/2026",
-      "time": "17:40"
+      "date": "03/11/2026",
+      "time": "12:04"
     }
   },
   "ICICILIFE": {
@@ -3574,6 +3574,27 @@
     "latestVisit": {
       "date": "01/11/2026",
       "time": "22:39"
+    }
+  },
+  "LENSKART": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/11/2026",
+      "time": "15:58"
+    }
+  },
+  "PASHUPATI": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "03/11/2026",
+      "time": "16:04"
+    }
+  },
+  "SUPRAJIT": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "04/11/2026",
+      "time": "9:40"
     }
   }
 }
