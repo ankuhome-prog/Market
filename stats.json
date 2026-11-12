@@ -3624,5 +3624,19 @@
       "date": "10/11/2026",
       "time": "17:19"
     }
+  },
+  "ABFRL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/11/2026",
+      "time": "22:34"
+    }
+  },
+  "VEDL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "11/11/2026",
+      "time": "22:35"
+    }
   }
 }
