@@ -280,10 +280,10 @@
     }
   },
   "STLTECH": {
-    "totalVisits": 5,
+    "totalVisits": 6,
     "latestVisit": {
-      "date": "09/10/2026",
-      "time": "21:13"
+      "date": "13/11/2026",
+      "time": "9:40"
     }
   },
   "DSSL": {
@@ -2744,10 +2744,10 @@
     }
   },
   "BHAGYANGR": {
-    "totalVisits": 2,
+    "totalVisits": 4,
     "latestVisit": {
-      "date": "09/10/2026",
-      "time": "13:32"
+      "date": "12/11/2026",
+      "time": "18:28"
     }
   },
   "BPLPHARMA": {
@@ -3637,6 +3637,20 @@
     "latestVisit": {
       "date": "11/11/2026",
       "time": "22:35"
+    }
+  },
+  "RUBFILA": {
+    "totalVisits": 2,
+    "latestVisit": {
+      "date": "12/11/2026",
+      "time": "18:28"
+    }
+  },
+  "RHL": {
+    "totalVisits": 1,
+    "latestVisit": {
+      "date": "12/11/2026",
+      "time": "18:28"
     }
   }
 }
